@@ -20,18 +20,21 @@
         "@mantine/next": "^4.2.9",
         "@mantine/notifications": "^4.2.9",
         "clsx": "^1.2.1",
-        "flowbite": "^1.4.7",
-        "flowbite-react": "^0.0.27",
-        "next": "^12.1.6",
+        "dotenv": "^16.0.1",
+        "firebase": "^8.6.2",
+        "firebase-functions": "^3.14.1",
+        "next": "10.2.3",
         "next-seo": "^5.4.0",
-        "react": "^18.1.0",
-        "react-dom": "^18.1.0",
+        "react": "17.0.2",
+        "react-dom": "17.0.2",
+        "react-firebase-hooks": "^3.0.4",
+        "react-firebaseui": "^5.0.2",
         "tabler-icons-react": "^1.49.0"
     },
     "devDependencies": {
         "@next/bundle-analyzer": "^12.1.6",
-        "@types/node": "^17.0.38",
-        "@types/react": "^18.0.10",
+        "@types/node": "17.0.38",
+        "@types/react": "^17.0.8",
         "@typescript-eslint/eslint-plugin": "^5.27.0",
         "@typescript-eslint/parser": "^5.27.0",
         "autoprefixer": "^10.4.7",
@@ -57,7 +60,7 @@
         "prettier": "^2.6.2",
         "rimraf": "^3.0.2",
         "tailwindcss": "^3.0.24",
-        "typescript": "^4.7.2"
+        "typescript": "^4.3.2"
     },
     "author": "Duncan Van Keulen (TheDunco)[https://github.com/TheDunco]"
 }

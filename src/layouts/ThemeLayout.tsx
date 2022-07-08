@@ -1,8 +1,7 @@
 import { useLocalStorage, useToggle } from "@mantine/hooks";
 import clsx from "clsx";
-import { Tooltip } from "flowbite-react";
+// import { Tooltip } from "flowbite-react";
 import { useState } from "react";
-import { Palette } from "tabler-icons-react";
 
 import { ThemeButton } from "@/components/Buttons/ThemeSelectButton";
 import { ThemesEnum } from "@/templates/Main";
@@ -47,19 +46,19 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                             }}
                         >
                             <span className="pt-1 pr-1 opacity-70">
-                                <Tooltip content="Coolers color generator">
-                                    <a
-                                        href="https://coolors.co/"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                    >
-                                        <Palette
-                                            size={20}
-                                            strokeWidth={2}
-                                            color={"white"}
-                                        />
-                                    </a>
-                                </Tooltip>
+                                {/* <Tooltip content="Coolers color generator"> */}
+                                {/* <a
+                                    href="https://coolors.co/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    <Palette
+                                        size={20}
+                                        strokeWidth={2}
+                                        color={"white"}
+                                    />
+                                </a> */}
+                                {/* </Tooltip> */}
                             </span>
                             <span className="text-color-bg">Site Theme</span>
                             <ExpansionCarret down={themeExpandedToggle} />
