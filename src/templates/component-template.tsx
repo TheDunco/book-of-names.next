@@ -1,11 +1,8 @@
-import cn from 'classnames';
-
-export interface TemplateProps {
-  className?: string;
+import clsx from "clsx";
+interface Props {
+    className?: string;
 }
 
-export const templateStyles = '';
-
-export const Template: React.FC<TemplateProps> = ({ className }) => {
-  return <div className={cn(className, templateStyles, '')}></div>;
+export const Template: React.FC<Props> = ({ className }) => {
+    return <div className={clsx(className, "")}></div>;
 };

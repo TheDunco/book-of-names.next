@@ -1,32 +1,26 @@
-import type { ReactNode } from 'react';
+import type { ReactNode } from "react";
 
 type IMainProps = {
-  meta: ReactNode;
-  children: ReactNode;
-};
-
-export type Themes = {
-  classy: string;
-  cherry: string;
-  pulse: string;
+    meta: ReactNode;
+    children: ReactNode;
 };
 
 export enum ThemesEnum {
-  CLASSY = 'classy',
-  CHERRY = 'cherry',
-  PULSE = 'pulse',
-  PACIFIC = 'pacific',
-  PASTEL = 'pastel',
-  DOLCH = 'dolch',
+    CLASSY = "classy",
+    CHERRY = "cherry",
+    PULSE = "pulse",
+    PACIFIC = "pacific",
+    PASTEL = "pastel",
+    DOLCH = "dolch",
 }
 
 const Main = (props: IMainProps) => (
-  <div className="w-full antialiased">
-    {props.meta}
-    <div className="content flex w-full overflow-x-hidden font-inter text-xl font-thin">
-      {props.children}
+    <div className="w-full antialiased">
+        {props.meta}
+        <div className="content flex w-full overflow-x-hidden font-inter text-xl font-thin">
+            {props.children}
+        </div>
     </div>
-  </div>
 );
 
 export { Main };
