@@ -1,0 +1,89 @@
+@tailwind base;
+
+a {
+  @apply text-blue-700;
+}
+
+a:hover {
+  @apply border-b-2 border-blue-700;
+}
+
+@tailwind components;
+
+@tailwind utilities;
+
+.content p {
+  @apply my-6;
+}
+
+.content ul {
+  @apply my-6;
+}
+
+@layer base {
+    [data-theme="classy"] {
+        --color-bg: #F1EDEE;
+        --color-text: #3D5467;
+        --color-primary: #DB5461;
+        --color-secondary: #686963;
+        --color-special: #8AA29E;
+        --theme-font: 'Roboto Slab, serif'
+    }
+    
+    [data-theme="cherry"] {
+        --color-bg: #1B2021;
+        --color-text: #FFD9DA;
+        --color-primary: #EA638C;
+        --color-secondary: #EA638C;
+        --color-special: #30343F;
+        --theme-font: 'Monsterrat, sans-serif';
+    }
+    
+    [data-theme="pacific"] {
+        --color-bg: #C6C5B9;
+        --color-text: #475657;
+        --color-primary: #62929E;
+        --color-secondary: #393A10;
+        --color-special: #4A6D7C;
+        --theme-font: 'Open Sans, sans-serif';
+    }
+
+    [data-theme="pastel"] {
+        --color-bg: #0D1B1E;
+        --color-text: #E8DCB9;
+        --color-primary: #F2CEE6;
+        --color-secondary: #7798AB;
+        --color-special: #C3DBC5;
+        --theme-font: 'Fira Sans, sans-serif';
+    }
+    
+    [data-theme="pulse"] {
+        --color-bg: #000000;
+        --color-text: #00FFFF;
+        --color-primary: #00FFFF;
+        --color-secondary: #00FFFF;
+        --color-special: #FFFFFF;
+        --theme-font: 'Inter, sans-serif';
+    }
+
+    [data-theme="dolch"] {
+        --color-bg: #DCDCDD;
+        --color-text: #46494C;
+        --color-primary: #1985A1;
+        --color-secondary: #4C5C68;
+        --color-special: #C5C3C6;
+        --theme-font: 'Open Sans, sans-serif';
+    }
+
+    [data-theme=""] {
+        --color-bg: ;
+        --color-text: ;
+        --color-primary: ;
+        --color-secondary: ;
+        --color-special: ;
+        --theme-font: ;
+    }
+
+
+
+}
