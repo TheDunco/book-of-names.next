@@ -1,13 +1,7 @@
-import dynamic from "next/dynamic";
-
 import { Meta } from "@/layouts/Meta";
 import { Main } from "@/templates/Main";
 import { AppConfig } from "@/utils/AppConfig";
-
-// dynamic required for theme switching
-const DynamicThemeLayout = dynamic(() => import("@/layouts/ThemeLayout"), {
-    ssr: false,
-});
+import ThemeLayout from "@/layouts/ThemeLayout";
 
 export const Index = () => {
     return (
@@ -19,7 +13,7 @@ export const Index = () => {
                 />
             }
         >
-            <DynamicThemeLayout>I work!</DynamicThemeLayout>
+            <ThemeLayout>I work!</ThemeLayout>
         </Main>
     );
 };
