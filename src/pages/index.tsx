@@ -4,7 +4,7 @@ import { Meta } from "@/layouts/Meta";
 import { Main } from "@/templates/Main";
 
 // dynamic required for theme switching
-const DynamicPortfolio = dynamic(() => import("@/page-components/portfolio"), {
+const DynamicThemeLayout = dynamic(() => import("@/layouts/ThemeLayout"), {
     ssr: false,
 });
 
@@ -13,12 +13,12 @@ export const Index = () => {
         <Main
             meta={
                 <Meta
-                    title="Duncan Van Keulen"
-                    description="A personal project portfolio site."
+                    title="Book of Names v2"
+                    description="A D&D 5e character sheet"
                 />
             }
         >
-            <DynamicPortfolio></DynamicPortfolio>
+            <DynamicThemeLayout></DynamicThemeLayout>
         </Main>
     );
 };
