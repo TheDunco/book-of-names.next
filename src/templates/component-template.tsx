@@ -1,8 +1,9 @@
-import clsx from "clsx";
+import clsx from 'clsx';
+
 interface Props {
-    className?: string;
+  className?: string;
 }
 
 export const Template: React.FC<Props> = ({ className }) => {
-    return <div className={clsx(className, "")}></div>;
+  return <div className={clsx(className, '')}></div>;
 };

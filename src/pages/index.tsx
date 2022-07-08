@@ -2,6 +2,7 @@ import dynamic from "next/dynamic";
 
 import { Meta } from "@/layouts/Meta";
 import { Main } from "@/templates/Main";
+import { AppConfig } from "@/utils/AppConfig";
 
 // dynamic required for theme switching
 const DynamicThemeLayout = dynamic(() => import("@/layouts/ThemeLayout"), {
@@ -13,12 +14,12 @@ export const Index = () => {
         <Main
             meta={
                 <Meta
-                    title="Book of Names v2"
-                    description="A D&D 5e character sheet"
+                    title={AppConfig.title}
+                    description={AppConfig.description}
                 />
             }
         >
-            <DynamicThemeLayout></DynamicThemeLayout>
+            <DynamicThemeLayout>I work!</DynamicThemeLayout>
         </Main>
     );
 };
