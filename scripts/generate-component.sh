@@ -1,0 +1,1 @@
+cp src/templates/component-template.tsx $1.tsx

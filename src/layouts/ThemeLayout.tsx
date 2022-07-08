@@ -8,6 +8,7 @@ import { ThemeButton } from "@/components/Buttons/ThemeSelectButton";
 import { ThemesEnum } from "@/templates/Main";
 import { AppConfig } from "@/utils/AppConfig";
 import { ExpansionCarret } from "@/components/ExpansionCarret";
+import { Bullet } from "@/components/Bullet";
 
 const flexSyles = "flex flex-1 grow flex-col justify-start";
 const textStyles = "text-color-text";
@@ -112,10 +113,10 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                         </div>
                     </div>
                 </header>
-                {children}
+                <div className="m-5">{children}</div>
                 <div className="py-8 text-center text-sm text-color-text lg:text-base">
                     © Copyright {new Date().getFullYear()} {AppConfig.title}.
-                    Powered with{" "}
+                    Initial template powered with{" "}
                     <span role="img" aria-label="Love">
                         ♥
                     </span>{" "}
@@ -123,7 +124,8 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                     <a href="https://creativedesignsguru.com">
                         CreativeDesignsGuru{" "}
                     </a>
-                    using NextJS, React, and TailwindCSS.
+                    Modified by {AppConfig.author}
+                    <Bullet />v{AppConfig.version}
                 </div>
             </div>
         </>

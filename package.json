@@ -5,6 +5,7 @@
         "dev": "next dev",
         "build": "next lint --fix && next build",
         "start": "next lint --fix && next start",
+        "generate-component": "./scripts/generate-component.sh",
         "build-stats": "cross-env ANALYZE=true npm run build",
         "export": "next export",
         "build-prod": "run-s clean build export",
