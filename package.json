@@ -3,14 +3,14 @@
     "version": "1.1.0",
     "scripts": {
         "dev": "next dev",
-        "build": "next lint --fix && next build",
-        "start": "next lint --fix && next start",
+        "build": "next build",
+        "start": "next start",
         "generate-component": "./scripts/generate-component.sh",
         "build-stats": "cross-env ANALYZE=true npm run build",
         "export": "next export",
         "build-prod": "run-s clean build export",
         "clean": "rimraf .next out",
-        "lint": "next lint --fix",
+        "lint": "next lint",
         "type-check": "next lint --fix && tsc --noEmit --pretty",
         "check-types": "next lint --fix && tsc --noEmit --pretty"
     },
