@@ -8,14 +8,16 @@ interface Props {
 
 export const Dashboard: React.FC<Props> = ({ className }) => {
     return (
-        <div className={clsx(className, "")}>
-            <PrimaryButton
-                onClick={() => {
-                    firebase.auth().signOut();
-                }}
-            >
-                Logout
-            </PrimaryButton>
-        </div>
+        <>
+            <div className={clsx(className, "")}>
+                <PrimaryButton
+                    onClick={() => {
+                        firebase.auth().signOut();
+                    }}
+                >
+                    Logout
+                </PrimaryButton>
+            </div>
+        </>
     );
 };

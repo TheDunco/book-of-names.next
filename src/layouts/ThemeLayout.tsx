@@ -45,21 +45,6 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                                 toggleTheme();
                             }}
                         >
-                            <span className="pt-1 pr-1 opacity-70">
-                                {/* <Tooltip content="Coolers color generator"> */}
-                                {/* <a
-                                    href="https://coolors.co/"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    <Palette
-                                        size={20}
-                                        strokeWidth={2}
-                                        color={"white"}
-                                    />
-                                </a> */}
-                                {/* </Tooltip> */}
-                            </span>
                             <span className="text-color-bg">Site Theme</span>
                             <ExpansionCarret down={themeExpandedToggle} />
                         </button>

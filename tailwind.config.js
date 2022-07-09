@@ -1,9 +1,9 @@
 module.exports = {
     content: [
         './src/**/*.{js,ts,jsx,tsx}',
-        // 'node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}'
+        './node_modules/flowbite/**/*.{js,jsx,ts,tsx}',
     ],
-  theme: {
+    theme: {
     fontSize: {
       xs: '0.75rem',
       sm: '0.875rem',
@@ -96,6 +96,6 @@ module.exports = {
     },
   },
   // eslint-disable-next-line global-require
-//   plugins: [require("flowbite/plugin")],
-  plugins: [],
+  plugins: [require("flowbite/plugin")],
+//   plugins: [],
 };
