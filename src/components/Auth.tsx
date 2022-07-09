@@ -1,6 +1,11 @@
+import clsx from "clsx";
 import React from "react";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import firebase from "../../firebase/clientApp";
+
+interface Props {
+    className?: string;
+}
 
 // Configure FirebaseUI.
 const uiConfig = {
@@ -13,14 +18,19 @@ const uiConfig = {
     ],
 };
 
-const SignInScreen: React.FC = () => {
+const SignInScreen: React.FC<Props> = ({ className }) => {
     return (
-        <div className="flex flex-col text-center align-middle justify-center">
+        <div
+            className={clsx(
+                "flex flex-col text-center align-middle justify-center",
+                className
+            )}
+        >
             <h1 className="font-inter text-xl font-bold mt-10 ">
-                Welcome to the Book of Names!
+                Book of Names Login
             </h1>
-            <p className="font-inter text-lg mt-2">
-                To continue, please sign in:
+            <p className="font-inter text-lg font-semibold mt-2">
+                Please sign in:
             </p>
             <StyledFirebaseAuth
                 uiConfig={uiConfig}

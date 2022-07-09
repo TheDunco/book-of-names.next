@@ -1,5 +1,5 @@
 export const AppConfig = {
-    site_name: "Template Site",
+    site_name: "Book of Names v2",
     author: "Duncan Van Keulen",
     title: "A Template",
     description: "A 5e D&D character sheet",

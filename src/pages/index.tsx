@@ -4,19 +4,10 @@ import { AppConfig } from "@/utils/AppConfig";
 import { ThemeLayout } from "@/layouts/ThemeLayout";
 import { useAuthState } from "react-firebase-hooks/auth";
 import firebase from "../../firebase/clientApp";
+import Auth from "@/components/Auth";
 
 export const Index = () => {
     const [user, loading, error] = useAuthState(firebase.auth());
-    console.log(
-        "Loading:",
-        loading,
-        "|",
-        "Current user:",
-        user,
-        "|",
-        "Error:",
-        error
-    );
     return (
         <Main
             meta={
@@ -26,7 +17,28 @@ export const Index = () => {
                 />
             }
         >
-            <ThemeLayout>I work!</ThemeLayout>
+            {loading && <h4>Loading...</h4>}
+            {!user && (
+                <ThemeLayout>
+                    <Auth />
+                </ThemeLayout>
+            )}
+            {error && (
+                <>
+                    {error.code}: {error.message}
+                </>
+            )}
+            {user && (
+                <ThemeLayout>
+                    <button
+                        onClick={() => {
+                            firebase.auth().signOut();
+                        }}
+                    >
+                        Logout
+                    </button>
+                </ThemeLayout>
+            )}
         </Main>
     );
 };
