@@ -18,7 +18,7 @@ const uiConfig = {
     ],
 };
 
-const SignInScreen: React.FC<Props> = ({ className }) => {
+export const SignInScreen: React.FC<Props> = ({ className }) => {
     return (
         <div
             className={clsx(
@@ -26,12 +26,10 @@ const SignInScreen: React.FC<Props> = ({ className }) => {
                 className
             )}
         >
-            <h1 className="font-inter text-xl font-bold mt-10 ">
-                Book of Names Login
+            <h1 className="text-xl lg:text-2xl font-bold mt-10 ">
+                Welcome to the Book of Names v2!
             </h1>
-            <p className="font-inter text-lg font-semibold mt-2">
-                Please sign in:
-            </p>
+            <p className="text-lg lg:text-xl">To continue, please sign in:</p>
             <StyledFirebaseAuth
                 uiConfig={uiConfig}
                 firebaseAuth={firebase.auth()}
@@ -39,5 +37,3 @@ const SignInScreen: React.FC<Props> = ({ className }) => {
         </div>
     );
 };
-
-export default SignInScreen;

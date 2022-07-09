@@ -130,5 +130,3 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
         </>
     );
 };
-
-export default ThemeLayout;
