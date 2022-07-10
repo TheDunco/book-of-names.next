@@ -6,7 +6,7 @@ interface Props {
     children?: React.ReactNode;
 }
 
-export const SecondaryButton: React.FC<Props> = ({
+export const TextButton: React.FC<Props> = ({
     className,
     onClick,
     children,
@@ -15,7 +15,7 @@ export const SecondaryButton: React.FC<Props> = ({
         <button
             className={clsx(
                 className,
-                "bg-color-secondary px-3 py-2 hover:brightness-[.85] hover:text-opacity-0 rounded-md text-color-special"
+                "bg-color-secondary px-3 py-2 rounded-md text-color-text"
             )}
             onClick={onClick}
         >

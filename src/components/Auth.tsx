@@ -20,20 +20,24 @@ const uiConfig = {
 
 export const SignInScreen: React.FC<Props> = ({ className }) => {
     return (
-        <div
-            className={clsx(
-                "flex flex-col text-center align-middle justify-center",
-                className
-            )}
-        >
-            <h1 className="text-xl lg:text-2xl font-bold mt-10 ">
-                Welcome to the Book of Names v2!
-            </h1>
-            <p className="text-lg lg:text-xl">To continue, please sign in:</p>
-            <StyledFirebaseAuth
-                uiConfig={uiConfig}
-                firebaseAuth={firebase.auth()}
-            />
+        <div className="flex w-full justify-center">
+            <div
+                className={clsx(
+                    "flex flex-col text-center justify-start",
+                    className
+                )}
+            >
+                <h1 className="text-xl lg:text-2xl font-bold mt-10 ">
+                    Welcome to the Book of Names v2!
+                </h1>
+                <p className="text-lg lg:text-xl">
+                    To continue, please sign in:
+                </p>
+                <StyledFirebaseAuth
+                    uiConfig={uiConfig}
+                    firebaseAuth={firebase.auth()}
+                />
+            </div>
         </div>
     );
 };
