@@ -22,7 +22,7 @@ import ReactTooltip from "react-tooltip";
 const flexSyles = "flex flex-1 grow flex-col justify-start";
 const textStyles = "text-color-text";
 const localStorageThemeEntry = "color-scheme";
-const defaultTheme = ThemesEnum.CLASSY;
+const defaultTheme = ThemesEnum.CLASSIC;
 
 interface Props {
     children: React.ReactNode;
@@ -82,7 +82,11 @@ export const ThemeLayout: React.FC<Props> = ({ children, authState }) => {
                                 authState ? "visible" : "hidden"
                             )}
                         >
-                            <ReactTooltip id="logoutTip" delayShow={400}>
+                            <ReactTooltip
+                                id="logoutTip"
+                                delayShow={400}
+                                type="light"
+                            >
                                 <span>Logout</span>
                             </ReactTooltip>
                             <img
@@ -105,10 +109,10 @@ export const ThemeLayout: React.FC<Props> = ({ children, authState }) => {
                 <aside
                     className={clsx(
                         showSidebar ? "w-72 h-full" : "w-0 h-full -ml-48",
-                        "fixed transition-all duration-300 ease-in-out bg-color-secondary z-20 shadow-xl"
+                        "fixed transition-all duration-300 ease-in-out bg-color-secondary z-20 shadow-xl overflow-y-auto"
                     )}
                 >
-                    <ReactTooltip id="themeTip">
+                    <ReactTooltip id="themeTip" type="light" delayShow={400}>
                         <span>Change Theme</span>
                     </ReactTooltip>
                     <TextButton
@@ -129,9 +133,23 @@ export const ThemeLayout: React.FC<Props> = ({ children, authState }) => {
                     >
                         <ThemeButton
                             themeSet={setTheme}
-                            theme={ThemesEnum.CLASSY}
+                            theme={ThemesEnum.CLASSIC}
                             fontSet={setFontStyles}
                             font="font-roboto-slab"
+                            className="mb-3"
+                        />
+                        <ThemeButton
+                            themeSet={setTheme}
+                            theme={ThemesEnum.DESERT}
+                            fontSet={setFontStyles}
+                            font="font-roboto-slab"
+                            className="mb-3"
+                        />
+                        <ThemeButton
+                            themeSet={setTheme}
+                            theme={ThemesEnum.FOREST}
+                            fontSet={setFontStyles}
+                            font="font-monsterrat"
                             className="mb-3"
                         />
                         <ThemeButton
@@ -164,10 +182,13 @@ export const ThemeLayout: React.FC<Props> = ({ children, authState }) => {
                                 ♥
                             </span>{" "}
                             by{" "}
-                            <a href="https://creativedesignsguru.com">
-                                CreativeDesignsGuru{" "}
+                            <a
+                                href="https://creativedesignsguru.com"
+                                className="text-color-text"
+                            >
+                                CreativeDesignsGuru
                             </a>
-                            Modified by {AppConfig.author}
+                            . Modified by {AppConfig.author}
                             <Bullet />v{AppConfig.version}
                             <span className="flex flex-row justify-center no-underline">
                                 <a
