@@ -6,6 +6,7 @@ import firebase from "../../firebase/clientApp";
 import { SignInScreen } from "../components/Auth";
 import { ThemeLayout } from "@/layouts/ThemeLayout";
 import { Dashboard } from "../components/Dashboard";
+import { Loader } from "@/components/Loader";
 
 export const Index = () => {
     const [user, loading, error] = useAuthState(firebase.auth());
@@ -18,15 +19,19 @@ export const Index = () => {
                 />
             }
         >
-            <ThemeLayout>
-                {loading && <div className="m-10 text-center">Loading...</div>}
-                {!user && <SignInScreen />}
+            <ThemeLayout authState={user}>
+                {!user && loading && (
+                    <div className="w-full flex justify-center align-center">
+                        <Loader />
+                    </div>
+                )}
+                {user && <Dashboard />}
+                {!user && !loading && <SignInScreen />}
                 {error && (
                     <>
                         {error.code}: {error.message}
                     </>
                 )}
-                {user && <Dashboard />}
             </ThemeLayout>
         </Main>
     );
