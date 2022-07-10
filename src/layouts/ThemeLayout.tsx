@@ -159,7 +159,7 @@ export const ThemeLayout: React.FC<Props> = ({ children, authState }) => {
                     <div>
                         <div className="py-8 px-3 text-center text-sm text-color-text lg:text-base opacity-60">
                             © Copyright {new Date().getFullYear()}{" "}
-                            {AppConfig.title}. Initial template powered with{" "}
+                            {AppConfig.author}. Initial template powered with{" "}
                             <span role="img" aria-label="Love">
                                 ♥
                             </span>{" "}
