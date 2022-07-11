@@ -12,6 +12,11 @@ export enum ThemesEnum {
     DOLCH = "dolch",
     DESERT = "desert",
     FOREST = "forest",
+    ARCHFEY = "archfey",
+    ABYSS = "abyss",
+    ICEBURG = "iceburg",
+    OTHERWORLD = "otherworld",
+    FIRE = "fire",
 }
 
 const Main = (props: IMainProps) => (

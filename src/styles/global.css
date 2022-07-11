@@ -85,6 +85,46 @@ a:hover {
         --color-special: #515b3a;
     }
 
+    [data-theme="archfey"] {
+        --color-bg: #d7fcd4;
+        --color-text: #b68f40;
+        --color-primary: #30011e;
+        --color-secondary: #b6cca1;
+        --color-special: #545454;
+    }
+
+    [data-theme="abyss"] {
+        --color-bg: #191716;
+        --color-text: #84596b;
+        --color-primary: #440d0f;
+        --color-secondary: #603a40;
+        --color-special: #af9bb6;
+    }
+
+    [data-theme="iceburg"] {
+        --color-bg: #dbe4ee;
+        --color-text: #81a4cd;
+        --color-primary: #054a91;
+        --color-secondary: #3e7cb1;
+        --color-special: #ffffff;
+    }
+
+    [data-theme="otherworld"] {
+        --color-bg: #292e1e;
+        --color-text: #d3fff3;
+        --color-primary: #7f0799;
+        --color-secondary: #9649cb;
+        --color-special: #afbbf2;
+    }
+
+    [data-theme="fire"] {
+        --color-bg: #690500;
+        --color-text: #bb6b00;
+        --color-primary: #210f04;
+        --color-secondary: #452103;
+        --color-special: #934b00;
+    }
+
     [data-theme=""] {
         --color-bg: #;
         --color-text: #;

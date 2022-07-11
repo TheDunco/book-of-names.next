@@ -15,7 +15,7 @@ export const TextButton: React.FC<Props> = ({
         <div
             className={clsx(
                 className,
-                "px-3 py-2 rounded-md text-color-text cursor-pointer"
+                "px-3 py-2 text-color-text cursor-pointer"
             )}
             onClick={onClick}
         >

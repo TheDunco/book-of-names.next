@@ -4,5 +4,5 @@ export const AppConfig = {
     title: "Book of Names v2",
     description: "A 5e D&D character sheet",
     locale: "en",
-    version: "0.0.5",
+    version: "0.0.9",
 };
