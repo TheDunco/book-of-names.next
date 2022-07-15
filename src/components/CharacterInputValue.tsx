@@ -1,16 +1,17 @@
 import clsx from "clsx";
-import { useState } from "react";
+import { ChangeEvent } from "react";
 
 interface Props {
     className?: string;
-    characterName: string;
+    value: string | number | readonly string[] | undefined;
+    onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const CharacterInputValue: React.FC<Props> = ({
     className,
-    characterName,
+    value,
+    onChange,
 }) => {
-    const [value, setValue] = useState(characterName);
     return (
         <form>
             <input
@@ -20,9 +21,7 @@ export const CharacterInputValue: React.FC<Props> = ({
                 )}
                 type="text"
                 value={value}
-                onChange={(e) => {
-                    setValue(e.target.value);
-                }}
+                onChange={onChange}
             ></input>
         </form>
     );

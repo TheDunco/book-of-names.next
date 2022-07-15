@@ -1,3 +1,4 @@
+import firebase from "../../../firebase/clientApp";
 import { useUser, useUserDocument } from "../UserService";
 import { useCharactersCollection } from "./UseCharacterCollection";
 
@@ -24,11 +25,18 @@ export const useCharacters = () => {
             usersCharacters.push(characterDoc.data() as Character);
     });
 
+    const characterDocs: firebase.firestore.QueryDocumentSnapshot<firebase.firestore.DocumentData>[] =
+        [];
+    allCharacters.map((character) => {
+        characterDocs.push(character);
+    });
+
     return {
         usersCharacters,
         usersCharactersLoading,
         charactersError,
         userError,
         userDocumentError,
+        characterDocs,
     };
 };
