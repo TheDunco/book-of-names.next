@@ -7,4 +7,17 @@ export const createUserDocument = functions.auth.user().onCreate((user) => {
     db.collection("users")
         .doc(user.uid)
         .set(JSON.parse(JSON.stringify(user)));
+    db.collection("users")
+        .doc(user.uid)
+        .collection("characters")
+        .set(
+            {
+                settings: {
+                    currentTheme: "CLASSIC",
+                    currentCharacter: "",
+                    currentLayout: "horizontal",
+                },
+            },
+            { merge: true }
+        );
 });

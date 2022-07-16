@@ -22,7 +22,7 @@ export enum ThemesEnum {
 const Main = (props: IMainProps) => (
     <div className="w-full antialiased">
         {props.meta}
-        <div className="content flex w-full overflow-clip font-inter text-xl font-thin">
+        <div className="content flex w-full overflow-hidden font-inter text-xl font-thin">
             {props.children}
         </div>
     </div>

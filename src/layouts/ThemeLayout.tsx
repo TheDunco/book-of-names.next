@@ -51,7 +51,7 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                     flexSyles,
                     textStyles,
                     fontStyles,
-                    showSidebar ? "grid grid-cols-[0fr_1fr]" : "",
+                    showSidebar ? "grid grid-cols-[0fr_1fr] touch-none" : "",
                     "scroll-smooth bg-color-bg transition-all duration-300 ease-in-out text-lg md:text-2xl z-0"
                 )}
             >
@@ -111,12 +111,15 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                     className={clsx(
                         showSidebar
                             ? "w-72 h-full overflow-y-auto"
-                            : "w-0 h-full -ml-48",
-                        "fixed transition-all duration-300 ease-in-out bg-color-secondary z-20 shadow-xl "
+                            : "w-72 h-full -ml-80",
+                        "fixed transition-all duration-300 ease-in-out bg-color-secondary z-20 shadow-xl"
                     )}
                 >
                     <TextButton
-                        className="flex text-color-bg border-b border-color-special mt-12 text-center justify-center w-[calc(100%-1.5rem)] mx-3 hover:brightness-100 py-0"
+                        className={clsx(
+                            "flex text-color-bg border-color-special mt-12 text-center justify-center w-[calc(100%-1.5rem)] mx-3 hover:brightness-100 py-0",
+                            showThemes ? "border-b" : ""
+                        )}
                         onClick={() => toggleThemes()}
                     >
                         <div>Change Theme</div>
@@ -201,7 +204,7 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                         />
                     </div>
                     <div>
-                        <div className="py-8 px-3 text-center text-sm text-color-text lg:text-base opacity-60">
+                        <div className="py-8 px-3 text-center text-sm text-color-text lg:text-base">
                             © Copyright {new Date().getFullYear()}{" "}
                             {AppConfig.author}. Initial template powered with{" "}
                             <span role="img" aria-label="Love">
@@ -214,24 +217,24 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                             >
                                 CreativeDesignsGuru
                             </a>
-                            . Modified by {AppConfig.author}
+                            .
                             <Bullet />v{AppConfig.version}
                             <span className="flex flex-row justify-center no-underline">
                                 <a
                                     href="https://github.com/TheDunco/book-of-names.next"
-                                    className="text-color-text no-underline"
+                                    className="text-color-text no-underline mr-2"
                                 >
                                     <BrandGithub />
                                 </a>
                                 <a
                                     href="https://nextjs.org/"
-                                    className="text-color-text no-underline"
+                                    className="text-color-text no-underline mr-2"
                                 >
                                     <BrandNextjs />
                                 </a>
                                 <a
                                     href="https://reactjs.org/"
-                                    className="text-color-text no-underline"
+                                    className="text-color-text no-underline mr-2"
                                 >
                                     <BrandReactNative />
                                 </a>

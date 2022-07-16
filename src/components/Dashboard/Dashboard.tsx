@@ -17,9 +17,9 @@ interface Props {
     className?: string;
 }
 
-const layoutHorizontal = "";
-const layoutVertical = "flex-col m-auto";
-const layoutGrid = "flex-wrap";
+const layoutHorizontal = "flex flex-1";
+const layoutVertical = "flex flex-1 flex-col m-auto";
+const layoutGrid = "grid";
 const layoutKey = "dasboard-layout";
 
 export const Dashboard: React.FC<Props> = ({ className }) => {
@@ -92,7 +92,12 @@ export const Dashboard: React.FC<Props> = ({ className }) => {
                         </PrimaryButton>
                     </span>
                 </span>
-                <div className={clsx("flex overflow-auto flex-1", layoutMode)}>
+                <div
+                    className={clsx(
+                        "overflow-auto grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2",
+                        layoutMode
+                    )}
+                >
                     {characterDocs.map((character) => (
                         <CharacterCard
                             key={character.id}
