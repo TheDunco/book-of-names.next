@@ -244,7 +244,6 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                             </span>
                         </div>
                     </div>
-                    u
                 </aside>
                 <div className="flex h-[calc(100vh-4rem)] mt-16 max-h-full justify-start align-start overflow-auto">
                     {children}
