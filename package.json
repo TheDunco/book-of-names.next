@@ -32,7 +32,8 @@
         "react-firebase-hooks": "^3.0.4",
         "react-firebaseui": "^5.0.2",
         "react-tooltip": "^4.2.21",
-        "tabler-icons-react": "^1.49.0"
+        "tabler-icons-react": "^1.49.0",
+        "uuidv4": "^6.2.13"
     },
     "devDependencies": {
         "@next/bundle-analyzer": "^12.1.6",

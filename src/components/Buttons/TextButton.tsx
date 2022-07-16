@@ -12,14 +12,14 @@ export const TextButton: React.FC<Props> = ({
     children,
 }) => {
     return (
-        <button
+        <div
             className={clsx(
                 className,
-                "bg-color-secondary px-3 py-2 rounded-md text-color-text"
+                "px-3 py-2 text-color-text cursor-pointer"
             )}
             onClick={onClick}
         >
             {children}
-        </button>
+        </div>
     );
 };

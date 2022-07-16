@@ -18,18 +18,19 @@ import { useDocument } from "react-firebase-hooks/firestore";
 import { loaderURL } from "@/components/Loader";
 import { TextButton } from "@/components/Buttons/TextButton";
 import ReactTooltip from "react-tooltip";
+import { useUser } from "@/services/UserService";
 
 const flexSyles = "flex flex-1 grow flex-col justify-start";
 const textStyles = "text-color-text";
 const localStorageThemeEntry = "color-scheme";
-const defaultTheme = ThemesEnum.CLASSY;
+const defaultTheme = ThemesEnum.CLASSIC;
 
 interface Props {
     children: React.ReactNode;
-    authState: firebase.User | null | undefined;
 }
 
-export const ThemeLayout: React.FC<Props> = ({ children, authState }) => {
+export const ThemeLayout: React.FC<Props> = ({ children }) => {
+    const { user } = useUser();
     const [theme, setTheme] = useLocalStorage({
         key: localStorageThemeEntry,
         defaultValue: defaultTheme,
@@ -39,7 +40,7 @@ export const ThemeLayout: React.FC<Props> = ({ children, authState }) => {
     const [showThemes, toggleThemes] = useToggle(false, [true, false]);
 
     const [value, loading] = useDocument(
-        firebase.firestore().doc(`users/${authState?.uid}`)
+        firebase.firestore().doc(`users/${user?.uid}`)
     );
     const photoURL: string = value?.data()?.photoURL;
     return (
@@ -73,16 +74,20 @@ export const ThemeLayout: React.FC<Props> = ({ children, authState }) => {
                 </button>
                 <header>
                     <div className="fixed w-full bg-color-primary h-16 shadow-lg">
-                        <div className="absolute left-[calc(50%-6rem)] transition-all duration-300 whitespace-nowrap text-2xl top-4 sm:top-2 sm:text-3xl z-0 select-none">
+                        <div className="absolute left-[calc(50%-7rem)] transition-all duration-300 whitespace-nowrap text-2xl top-4 sm:top-2 sm:text-3xl z-0 select-none">
                             {AppConfig.title}
                         </div>
                         <div
                             className={clsx(
                                 "relative left-[calc(100%-4rem)] top-2",
-                                authState ? "visible" : "hidden"
+                                user ? "visible" : "hidden"
                             )}
                         >
-                            <ReactTooltip id="logoutTip" delayShow={400}>
+                            <ReactTooltip
+                                id="logoutTip"
+                                delayShow={400}
+                                type="light"
+                            >
                                 <span>Logout</span>
                             </ReactTooltip>
                             <img
@@ -104,20 +109,17 @@ export const ThemeLayout: React.FC<Props> = ({ children, authState }) => {
                 </header>
                 <aside
                     className={clsx(
-                        showSidebar ? "w-72 h-full" : "w-0 h-full -ml-48",
-                        "fixed transition-all duration-300 ease-in-out bg-color-secondary z-20 shadow-xl"
+                        showSidebar
+                            ? "w-72 h-full overflow-y-auto"
+                            : "w-0 h-full -ml-48",
+                        "fixed transition-all duration-300 ease-in-out bg-color-secondary z-20 shadow-xl "
                     )}
                 >
-                    <ReactTooltip id="themeTip">
-                        <span>Change Theme</span>
-                    </ReactTooltip>
                     <TextButton
-                        className="flex text-color-bg mt-12 text-center justify-center w-[calc(100%-1.5rem)] mx-3 hover:brightness-100 py-0"
+                        className="flex text-color-bg border-b border-color-special mt-12 text-center justify-center w-[calc(100%-1.5rem)] mx-3 hover:brightness-100 py-0"
                         onClick={() => toggleThemes()}
                     >
-                        <div data-tip data-for="themeTip">
-                            Site Themes
-                        </div>
+                        <div>Change Theme</div>
                     </TextButton>
                     <div
                         className={clsx(
@@ -129,9 +131,23 @@ export const ThemeLayout: React.FC<Props> = ({ children, authState }) => {
                     >
                         <ThemeButton
                             themeSet={setTheme}
-                            theme={ThemesEnum.CLASSY}
+                            theme={ThemesEnum.CLASSIC}
                             fontSet={setFontStyles}
                             font="font-roboto-slab"
+                            className="mb-3"
+                        />
+                        <ThemeButton
+                            themeSet={setTheme}
+                            theme={ThemesEnum.DESERT}
+                            fontSet={setFontStyles}
+                            font="font-roboto-slab"
+                            className="mb-3"
+                        />
+                        <ThemeButton
+                            themeSet={setTheme}
+                            theme={ThemesEnum.FOREST}
+                            fontSet={setFontStyles}
+                            font="font-monsterrat"
                             className="mb-3"
                         />
                         <ThemeButton
@@ -150,9 +166,37 @@ export const ThemeLayout: React.FC<Props> = ({ children, authState }) => {
                         />
                         <ThemeButton
                             themeSet={setTheme}
-                            theme={ThemesEnum.DOLCH}
+                            theme={ThemesEnum.ARCHFEY}
                             fontSet={setFontStyles}
                             font="font-open"
+                            className="mb-3"
+                        />
+                        <ThemeButton
+                            themeSet={setTheme}
+                            theme={ThemesEnum.ABYSS}
+                            fontSet={setFontStyles}
+                            font="font-inter"
+                            className="mb-3"
+                        />
+                        <ThemeButton
+                            themeSet={setTheme}
+                            theme={ThemesEnum.ICEBURG}
+                            fontSet={setFontStyles}
+                            font="font-inter"
+                            className="mb-3"
+                        />
+                        <ThemeButton
+                            themeSet={setTheme}
+                            theme={ThemesEnum.OTHERWORLD}
+                            fontSet={setFontStyles}
+                            font="font-inter"
+                            className="mb-3"
+                        />
+                        <ThemeButton
+                            themeSet={setTheme}
+                            theme={ThemesEnum.FIRE}
+                            fontSet={setFontStyles}
+                            font="font-inter"
                             className="mb-3"
                         />
                     </div>
@@ -164,18 +208,15 @@ export const ThemeLayout: React.FC<Props> = ({ children, authState }) => {
                                 ♥
                             </span>{" "}
                             by{" "}
-                            <a href="https://creativedesignsguru.com">
-                                CreativeDesignsGuru{" "}
+                            <a
+                                href="https://creativedesignsguru.com"
+                                className="text-color-text"
+                            >
+                                CreativeDesignsGuru
                             </a>
-                            Modified by {AppConfig.author}
+                            . Modified by {AppConfig.author}
                             <Bullet />v{AppConfig.version}
                             <span className="flex flex-row justify-center no-underline">
-                                <a
-                                    href="https://firebase.google.com/"
-                                    className="text-color-text no-underline"
-                                >
-                                    <BrandFirebase />
-                                </a>
                                 <a
                                     href="https://github.com/TheDunco/book-of-names.next"
                                     className="text-color-text no-underline"
@@ -194,11 +235,18 @@ export const ThemeLayout: React.FC<Props> = ({ children, authState }) => {
                                 >
                                     <BrandReactNative />
                                 </a>
+                                <a
+                                    href="https://firebase.google.com/"
+                                    className="text-color-text no-underline"
+                                >
+                                    <BrandFirebase />
+                                </a>
                             </span>
                         </div>
                     </div>
+                    u
                 </aside>
-                <div className="flex h-[calc(100vh-4rem)] mt-16 max-h-full justify-start align-start overflow-scroll">
+                <div className="flex h-[calc(100vh-4rem)] mt-16 max-h-full justify-start align-start overflow-auto">
                     {children}
                 </div>
             </div>

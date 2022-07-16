@@ -1,15 +1,14 @@
 import { Meta } from "@/layouts/Meta";
 import { Main } from "@/templates/Main";
 import { AppConfig } from "@/utils/AppConfig";
-import { useAuthState } from "react-firebase-hooks/auth";
-import firebase from "../../firebase/clientApp";
 import { SignInScreen } from "../components/Auth";
 import { ThemeLayout } from "@/layouts/ThemeLayout";
-import { Dashboard } from "../components/Dashboard";
+import { Dashboard } from "../components/Dashboard/Dashboard";
 import { Loader } from "@/components/Loader";
+import { useUser } from "@/services/UserService";
 
 export const Index = () => {
-    const [user, loading, error] = useAuthState(firebase.auth());
+    const { user, userLoading, userError } = useUser();
     return (
         <Main
             meta={
@@ -19,17 +18,17 @@ export const Index = () => {
                 />
             }
         >
-            <ThemeLayout authState={user}>
-                {!user && loading && (
+            <ThemeLayout>
+                {!user && userLoading && (
                     <div className="w-full flex justify-center align-center">
                         <Loader />
                     </div>
                 )}
                 {user && <Dashboard />}
-                {!user && !loading && <SignInScreen />}
-                {error && (
+                {!user && !userLoading && <SignInScreen />}
+                {userError && (
                     <>
-                        {error.code}: {error.message}
+                        {userError.code}: {userError.message}
                     </>
                 )}
             </ThemeLayout>
