@@ -17,7 +17,7 @@ export const CharacterInputValue: React.FC<Props> = ({
             <input
                 className={clsx(
                     className,
-                    "border-none bg-color-bg text-color-text rounded-sm focus:border-color-primary focus:ring-0 focus:outline-color-primary"
+                    "border-none bg-color-bg text-color-text rounded-md hover:ring-1 hover:rounded-sm hover:ring-color-secondary focus:border-color-primary focus:ring-0 focus:outline-color-primary"
                 )}
                 type="text"
                 value={value}

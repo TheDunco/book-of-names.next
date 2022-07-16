@@ -115,16 +115,11 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                         "fixed transition-all duration-300 ease-in-out bg-color-secondary z-20 shadow-xl "
                     )}
                 >
-                    <ReactTooltip id="themeTip" type="light" delayShow={400}>
-                        <span>Change Theme</span>
-                    </ReactTooltip>
                     <TextButton
                         className="flex text-color-bg border-b border-color-special mt-12 text-center justify-center w-[calc(100%-1.5rem)] mx-3 hover:brightness-100 py-0"
                         onClick={() => toggleThemes()}
                     >
-                        <div data-tip data-for="themeTip">
-                            Site Themes
-                        </div>
+                        <div>Change Theme</div>
                     </TextButton>
                     <div
                         className={clsx(
@@ -249,8 +244,9 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                             </span>
                         </div>
                     </div>
+                    u
                 </aside>
-                <div className="flex h-[calc(100vh-4rem)] mt-16 max-h-full justify-start align-start overflow-scroll">
+                <div className="flex h-[calc(100vh-4rem)] mt-16 max-h-full justify-start align-start overflow-auto">
                     {children}
                 </div>
             </div>
