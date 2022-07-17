@@ -1,5 +1,5 @@
 import { ThemesEnum } from "@/templates/Main";
-import { Character } from "@/types/character/character";
+import { Character } from "@/types/character/characterTypes";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollection, useDocument } from "react-firebase-hooks/firestore";
 import firebase from "../../firebase/clientApp";
