@@ -18,7 +18,7 @@ import { useDocument } from "react-firebase-hooks/firestore";
 import { loaderURL } from "@/components/Loader";
 import { TextButton } from "@/components/Buttons/TextButton";
 import ReactTooltip from "react-tooltip";
-import { useUser } from "@/services/UserService";
+import { useUser } from "@/services/user-service";
 import { setDocMerge } from "@/services/firebase-helpers";
 
 const flexSyles = "flex flex-1 grow flex-col justify-start";
@@ -162,7 +162,7 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                             onClick={() => {
                                 setDocMerge(userDoc, {
                                     settings: {
-                                        currentTheme: ThemesEnum.CHERRY,
+                                        currentTheme: ThemesEnum.DESERT,
                                     },
                                 });
                             }}

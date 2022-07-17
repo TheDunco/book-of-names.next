@@ -5,7 +5,7 @@ import { SignInScreen } from "../components/Auth";
 import { ThemeLayout } from "@/layouts/ThemeLayout";
 import { Dashboard } from "../components/Dashboard/Dashboard";
 import { Loader } from "@/components/Loader";
-import { useUser } from "@/services/UserService";
+import { useUser } from "@/services/user-service";
 
 export const Index = () => {
     const { user, userLoading, userError } = useUser();

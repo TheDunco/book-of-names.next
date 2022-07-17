@@ -8,6 +8,7 @@ export interface UserSettings {
     currentTheme: ThemesEnum;
     currentCharacter: string;
     currentLayout: string;
+    dashboardBackgroundImageLink: string;
 }
 
 export interface User {
@@ -51,7 +52,12 @@ export const useUser = () => {
     const [usersCollection] = useCollection(
         firebase.firestore().collection("users")
     );
-    return { user, userLoading, userError, usersCollection };
+    return {
+        user,
+        userLoading,
+        userError,
+        usersCollection,
+    };
 };
 
 export const useUserDocument = (userId: string) => {

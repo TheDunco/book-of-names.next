@@ -4,7 +4,7 @@ import firebase from "../../../firebase/clientApp";
 import { useState } from "react";
 import { Minus } from "tabler-icons-react";
 import { deleteCharacter } from "@/services/character/delete-character";
-import { useUser } from "@/services/UserService";
+import { useUser } from "@/services/user-service";
 import { SecondaryButton } from "../Buttons/SecondaryButton";
 
 interface Props {
@@ -36,7 +36,9 @@ export const CharacterCard: React.FC<Props> = ({ className, character }) => {
                         onChange={(e) => {
                             setName(e.target.value);
                             character.ref.set(
-                                { name: e.target.value },
+                                {
+                                    name: e.target.value,
+                                },
                                 { merge: true }
                             );
                         }}
