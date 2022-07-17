@@ -45,7 +45,6 @@ export const Dashboard: React.FC<Props> = ({ className }) => {
             settings: { currentLayout: layoutMode },
         });
     };
-    // const usersSelectedLayout = userDoc?.data()?.settings?.currentLayout;
 
     return (
         <>
@@ -116,6 +115,7 @@ export const Dashboard: React.FC<Props> = ({ className }) => {
                         <CharacterCard
                             key={character.id}
                             character={character}
+                            dashboardMode={true}
                         ></CharacterCard>
                     ))}
                 </div>

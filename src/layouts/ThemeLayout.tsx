@@ -281,7 +281,7 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                         />
                     </div>
                     <div>
-                        <div className="py-8 px-3 text-center text-sm text-color-text lg:text-base">
+                        <div className="mx-3 pt-5 text-center text-sm text-color-text lg:text-base border-t border-color-special">
                             © Copyright {new Date().getFullYear()}{" "}
                             {AppConfig.author}. Initial template powered with{" "}
                             <span role="img" aria-label="Love">
@@ -325,7 +325,7 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                         </div>
                     </div>
                 </aside>
-                <div className="flex h-[calc(100vh-4rem)] mt-16 max-h-full justify-start align-start overflow-auto">
+                <div className="flex h-[calc(100vh-4rem)] mt-16 max-h-full justify-start align-start overflow-hidden">
                     {children}
                 </div>
             </div>

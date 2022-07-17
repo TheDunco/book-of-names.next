@@ -17,7 +17,13 @@ export const SecondaryButton: React.FC<Props> = ({
                 className,
                 "bg-color-secondary px-3 py-2 hover:brightness-[.85] hover:text-opacity-0 rounded-md text-color-special"
             )}
-            onClick={onClick}
+            onClick={(e) => {
+                if (onClick) {
+                    onClick();
+                }
+                e.stopPropagation();
+                e.nativeEvent.stopImmediatePropagation();
+            }}
         >
             {children}
         </button>
