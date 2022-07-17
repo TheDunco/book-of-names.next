@@ -115,6 +115,7 @@ export const newBlankCharacter = (
             accordionSortOrder: [],
             campaigns: [],
             pc: playerName,
+            gameVersion: "5e",
         });
 
     firebase
