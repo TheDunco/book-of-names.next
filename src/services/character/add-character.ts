@@ -1,10 +1,17 @@
 import firebase from "../../../firebase/clientApp";
 import { v4 as uuidv4 } from "uuid";
+import { AppConfig } from "@/utils/AppConfig";
 
-export const newBlankCharacter = (userId: string | undefined) => {
+export const newBlankCharacter = (
+    userId: string | undefined,
+    playerName: string | null | undefined
+) => {
     const cid = uuidv4();
     if (!userId) {
         throw new Error("User ID is required to create a new character");
+    }
+    if (playerName === undefined) {
+        throw new Error("Player name is required to create a new character");
     }
     firebase
         .firestore()
@@ -16,7 +23,8 @@ export const newBlankCharacter = (userId: string | undefined) => {
             xp: 0,
             level: 1,
             spellcastingAbility: "Intelligence",
-            languages: "",
+            proficiencyAblility: "Intelligence",
+            languages: "Common",
             miscProfs: "",
             health: {
                 hpMax: 10,
@@ -64,8 +72,8 @@ export const newBlankCharacter = (userId: string | undefined) => {
             abilityList: [],
             notesList: [
                 {
-                    nTitle: "Greetings!",
-                    nDescription:
+                    title: "Greetings!",
+                    description:
                         "Thank you so much for using our character sheet",
                 },
             ],
@@ -100,6 +108,14 @@ export const newBlankCharacter = (userId: string | undefined) => {
             id: cid,
             imageLink:
                 "https://m.mythcreants.com/wp-content/uploads/2013/10/mysterman-180x135.png",
+            currentVersion: AppConfig.version,
+            createdVersion: AppConfig.version,
+            createdByUser: userId,
+            allowedUsers: [userId],
+            accordionSortOrder: [],
+            campaigns: [],
+            pc: playerName,
+            gameVersion: "5e",
         });
 
     firebase

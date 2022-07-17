@@ -1,7 +1,7 @@
 import { useLocalStorage, useToggle } from "@mantine/hooks";
 import firebase from "../../firebase/clientApp";
 import clsx from "clsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ThemeButton } from "@/components/Buttons/ThemeSelectButton";
 import { ThemesEnum } from "@/templates/Main";
 import { AppConfig } from "@/utils/AppConfig";
@@ -18,7 +18,8 @@ import { useDocument } from "react-firebase-hooks/firestore";
 import { loaderURL } from "@/components/Loader";
 import { TextButton } from "@/components/Buttons/TextButton";
 import ReactTooltip from "react-tooltip";
-import { useUser } from "@/services/UserService";
+import { useUser } from "@/services/user-service";
+import { setDocMerge } from "@/services/firebase-helpers";
 
 const flexSyles = "flex flex-1 grow flex-col justify-start";
 const textStyles = "text-color-text";
@@ -38,11 +39,17 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
     const [fontStyles, setFontStyles] = useState("font-theme-font");
     const [showSidebar, toggleSidebar] = useToggle(false, [true, false]);
     const [showThemes, toggleThemes] = useToggle(false, [true, false]);
-
-    const [value, loading] = useDocument(
+    const [userDoc, loading] = useDocument(
         firebase.firestore().doc(`users/${user?.uid}`)
     );
-    const photoURL: string = value?.data()?.photoURL;
+    const photoURL: string = userDoc?.data()?.photoURL;
+    const userCurrentTheme = userDoc?.data()?.settings?.currentTheme;
+    useEffect(() => {
+        return () => {
+            setTheme(userCurrentTheme ?? theme);
+        };
+    }, [setTheme, userCurrentTheme, theme]);
+
     return (
         <>
             <div
@@ -51,8 +58,8 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                     flexSyles,
                     textStyles,
                     fontStyles,
-                    showSidebar ? "grid grid-cols-[0fr_1fr]" : "",
-                    "scroll-smooth bg-color-bg transition-all duration-300 ease-in-out text-lg md:text-2xl z-0"
+                    showSidebar ? "grid grid-cols-[0fr_1fr] touch-none" : "",
+                    "scroll-smooth bg-color-bg transition-all duration-300 ease-in-out text-lg md:text-2xl z-0 overflow-hidden"
                 )}
             >
                 <button
@@ -111,12 +118,15 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                     className={clsx(
                         showSidebar
                             ? "w-72 h-full overflow-y-auto"
-                            : "w-0 h-full -ml-48",
-                        "fixed transition-all duration-300 ease-in-out bg-color-secondary z-20 shadow-xl "
+                            : "w-72 h-full -ml-80",
+                        "fixed transition-all duration-300 ease-in-out bg-color-secondary z-20 shadow-xl"
                     )}
                 >
                     <TextButton
-                        className="flex text-color-bg border-b border-color-special mt-12 text-center justify-center w-[calc(100%-1.5rem)] mx-3 hover:brightness-100 py-0"
+                        className={clsx(
+                            "flex text-color-bg border-color-special mt-12 text-center justify-center w-[calc(100%-1.5rem)] mx-3 hover:brightness-100 py-0",
+                            showThemes ? "border-b" : ""
+                        )}
                         onClick={() => toggleThemes()}
                     >
                         <div>Change Theme</div>
@@ -135,6 +145,13 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                             fontSet={setFontStyles}
                             font="font-roboto-slab"
                             className="mb-3"
+                            onClick={() => {
+                                setDocMerge(userDoc, {
+                                    settings: {
+                                        currentTheme: ThemesEnum.CLASSIC,
+                                    },
+                                });
+                            }}
                         />
                         <ThemeButton
                             themeSet={setTheme}
@@ -142,6 +159,13 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                             fontSet={setFontStyles}
                             font="font-roboto-slab"
                             className="mb-3"
+                            onClick={() => {
+                                setDocMerge(userDoc, {
+                                    settings: {
+                                        currentTheme: ThemesEnum.DESERT,
+                                    },
+                                });
+                            }}
                         />
                         <ThemeButton
                             themeSet={setTheme}
@@ -149,6 +173,13 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                             fontSet={setFontStyles}
                             font="font-monsterrat"
                             className="mb-3"
+                            onClick={() => {
+                                setDocMerge(userDoc, {
+                                    settings: {
+                                        currentTheme: ThemesEnum.FOREST,
+                                    },
+                                });
+                            }}
                         />
                         <ThemeButton
                             themeSet={setTheme}
@@ -156,6 +187,13 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                             fontSet={setFontStyles}
                             font="font-monsterrat"
                             className="mb-3"
+                            onClick={() => {
+                                setDocMerge(userDoc, {
+                                    settings: {
+                                        currentTheme: ThemesEnum.CHERRY,
+                                    },
+                                });
+                            }}
                         />
                         <ThemeButton
                             themeSet={setTheme}
@@ -163,6 +201,13 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                             fontSet={setFontStyles}
                             font="font-open"
                             className="mb-3"
+                            onClick={() => {
+                                setDocMerge(userDoc, {
+                                    settings: {
+                                        currentTheme: ThemesEnum.PACIFIC,
+                                    },
+                                });
+                            }}
                         />
                         <ThemeButton
                             themeSet={setTheme}
@@ -170,6 +215,13 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                             fontSet={setFontStyles}
                             font="font-open"
                             className="mb-3"
+                            onClick={() => {
+                                setDocMerge(userDoc, {
+                                    settings: {
+                                        currentTheme: ThemesEnum.ARCHFEY,
+                                    },
+                                });
+                            }}
                         />
                         <ThemeButton
                             themeSet={setTheme}
@@ -177,6 +229,13 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                             fontSet={setFontStyles}
                             font="font-inter"
                             className="mb-3"
+                            onClick={() => {
+                                setDocMerge(userDoc, {
+                                    settings: {
+                                        currentTheme: ThemesEnum.ABYSS,
+                                    },
+                                });
+                            }}
                         />
                         <ThemeButton
                             themeSet={setTheme}
@@ -184,6 +243,13 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                             fontSet={setFontStyles}
                             font="font-inter"
                             className="mb-3"
+                            onClick={() => {
+                                setDocMerge(userDoc, {
+                                    settings: {
+                                        currentTheme: ThemesEnum.ICEBURG,
+                                    },
+                                });
+                            }}
                         />
                         <ThemeButton
                             themeSet={setTheme}
@@ -191,6 +257,13 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                             fontSet={setFontStyles}
                             font="font-inter"
                             className="mb-3"
+                            onClick={() => {
+                                setDocMerge(userDoc, {
+                                    settings: {
+                                        currentTheme: ThemesEnum.OTHERWORLD,
+                                    },
+                                });
+                            }}
                         />
                         <ThemeButton
                             themeSet={setTheme}
@@ -198,10 +271,17 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                             fontSet={setFontStyles}
                             font="font-inter"
                             className="mb-3"
+                            onClick={() => {
+                                setDocMerge(userDoc, {
+                                    settings: {
+                                        currentTheme: ThemesEnum.FIRE,
+                                    },
+                                });
+                            }}
                         />
                     </div>
                     <div>
-                        <div className="py-8 px-3 text-center text-sm text-color-text lg:text-base opacity-60">
+                        <div className="py-8 px-3 text-center text-sm text-color-text lg:text-base">
                             © Copyright {new Date().getFullYear()}{" "}
                             {AppConfig.author}. Initial template powered with{" "}
                             <span role="img" aria-label="Love">
@@ -214,24 +294,24 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                             >
                                 CreativeDesignsGuru
                             </a>
-                            . Modified by {AppConfig.author}
+                            .
                             <Bullet />v{AppConfig.version}
                             <span className="flex flex-row justify-center no-underline">
                                 <a
                                     href="https://github.com/TheDunco/book-of-names.next"
-                                    className="text-color-text no-underline"
+                                    className="text-color-text no-underline mr-2"
                                 >
                                     <BrandGithub />
                                 </a>
                                 <a
                                     href="https://nextjs.org/"
-                                    className="text-color-text no-underline"
+                                    className="text-color-text no-underline mr-2"
                                 >
                                     <BrandNextjs />
                                 </a>
                                 <a
                                     href="https://reactjs.org/"
-                                    className="text-color-text no-underline"
+                                    className="text-color-text no-underline mr-2"
                                 >
                                     <BrandReactNative />
                                 </a>

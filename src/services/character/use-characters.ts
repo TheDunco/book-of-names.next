@@ -1,5 +1,5 @@
 import firebase from "../../../firebase/clientApp";
-import { useUser, useUserDocument } from "../UserService";
+import { useUser, useUserDocument } from "../user-service";
 import { useCharactersCollection } from "./use-character-collection";
 
 export const useCharacters = () => {

@@ -1,8 +1,14 @@
+import clsx from "clsx";
+
 export const loaderURL = "/Ellipsis-1s-200px.svg";
 
-export const Loader: React.FC = () => {
+interface Props {
+    className?: string;
+}
+
+export const Loader: React.FC<Props> = ({ className }) => {
     return (
-        <div className="w-fit h-fit">
+        <div className={clsx("w-fit h-fit", className)}>
             <img
                 alt="loader"
                 aria-label="loader"

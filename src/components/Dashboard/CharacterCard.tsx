@@ -4,7 +4,8 @@ import firebase from "../../../firebase/clientApp";
 import { useState } from "react";
 import { Minus } from "tabler-icons-react";
 import { deleteCharacter } from "@/services/character/delete-character";
-import { useUser } from "@/services/UserService";
+import { useUser } from "@/services/user-service";
+import { SecondaryButton } from "../Buttons/SecondaryButton";
 
 interface Props {
     className?: string;
@@ -19,24 +20,34 @@ export const CharacterCard: React.FC<Props> = ({ className, character }) => {
         <>
             <div
                 className={clsx(
-                    "flex flex-col justify-center border border-color-secondary rounded-md p-5 cursor-pointer w-fit h-fit mr-5 ml-0 mb-3",
+                    "flex flex-col justify-end border border-color-secondary rounded-md p-5 cursor-pointer min-h-[30rem] w-full min-w-fit mr-5 ml-0 mb-3",
                     className
                 )}
+                style={{
+                    backgroundImage: `url(${characterData.imageLink})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center center",
+                    backgroundRepeat: "no-repeat",
+                }}
             >
-                <div className="flex mb-5">
+                <div className="flex justify-between">
                     <CharacterInputValue
                         value={name}
                         onChange={(e) => {
                             setName(e.target.value);
                             character.ref.set(
-                                { name: e.target.value },
+                                {
+                                    name: e.target.value,
+                                },
                                 { merge: true }
                             );
                         }}
+                        formClassName="w-1/2"
+                        className="bg-opacity-40"
                     />
-                    <div className="-mt-3 ml-2">
-                        <button
-                            className="text-color-primary py-0 rounded-sm hover:bg-color-special"
+                    <div className="">
+                        <SecondaryButton
+                            className="text-color-primary py-0 bg-transparent"
                             onClick={() => {
                                 deleteCharacter(
                                     character.id,
@@ -46,14 +57,9 @@ export const CharacterCard: React.FC<Props> = ({ className, character }) => {
                             }}
                         >
                             <Minus />
-                        </button>
+                        </SecondaryButton>
                     </div>
                 </div>
-                <img
-                    src={characterData.imageLink}
-                    alt={characterData.name}
-                    className="rounded-md"
-                />
             </div>
         </>
     );
