@@ -39,8 +39,14 @@ export interface User {
     settings?: UserSettings;
 }
 
+export const currentUserIdLocalStorageKey = "current-user-id";
+
 export const useUser = () => {
     const [user, userLoading, userError] = useAuthState(firebase.auth());
+    const userId = user?.uid;
+    if (userId) {
+        localStorage.setItem(currentUserIdLocalStorageKey, userId);
+    }
 
     const [usersCollection] = useCollection(
         firebase.firestore().collection("users")

@@ -1,7 +1,7 @@
 import { useLocalStorage, useToggle } from "@mantine/hooks";
 import firebase from "../../firebase/clientApp";
 import clsx from "clsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ThemeButton } from "@/components/Buttons/ThemeSelectButton";
 import { ThemesEnum } from "@/templates/Main";
 import { AppConfig } from "@/utils/AppConfig";
@@ -19,6 +19,7 @@ import { loaderURL } from "@/components/Loader";
 import { TextButton } from "@/components/Buttons/TextButton";
 import ReactTooltip from "react-tooltip";
 import { useUser } from "@/services/UserService";
+import { setDocMerge } from "@/services/firebase-helpers";
 
 const flexSyles = "flex flex-1 grow flex-col justify-start";
 const textStyles = "text-color-text";
@@ -38,11 +39,17 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
     const [fontStyles, setFontStyles] = useState("font-theme-font");
     const [showSidebar, toggleSidebar] = useToggle(false, [true, false]);
     const [showThemes, toggleThemes] = useToggle(false, [true, false]);
-
-    const [value, loading] = useDocument(
+    const [userDoc, loading] = useDocument(
         firebase.firestore().doc(`users/${user?.uid}`)
     );
-    const photoURL: string = value?.data()?.photoURL;
+    const photoURL: string = userDoc?.data()?.photoURL;
+    const userCurrentTheme = userDoc?.data()?.settings?.currentTheme;
+    useEffect(() => {
+        return () => {
+            setTheme(userCurrentTheme ?? theme);
+        };
+    }, [setTheme, userCurrentTheme, theme]);
+
     return (
         <>
             <div
@@ -52,7 +59,7 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                     textStyles,
                     fontStyles,
                     showSidebar ? "grid grid-cols-[0fr_1fr] touch-none" : "",
-                    "scroll-smooth bg-color-bg transition-all duration-300 ease-in-out text-lg md:text-2xl z-0"
+                    "scroll-smooth bg-color-bg transition-all duration-300 ease-in-out text-lg md:text-2xl z-0 overflow-hidden"
                 )}
             >
                 <button
@@ -138,6 +145,13 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                             fontSet={setFontStyles}
                             font="font-roboto-slab"
                             className="mb-3"
+                            onClick={() => {
+                                setDocMerge(userDoc, {
+                                    settings: {
+                                        currentTheme: ThemesEnum.CLASSIC,
+                                    },
+                                });
+                            }}
                         />
                         <ThemeButton
                             themeSet={setTheme}
@@ -145,6 +159,13 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                             fontSet={setFontStyles}
                             font="font-roboto-slab"
                             className="mb-3"
+                            onClick={() => {
+                                setDocMerge(userDoc, {
+                                    settings: {
+                                        currentTheme: ThemesEnum.CHERRY,
+                                    },
+                                });
+                            }}
                         />
                         <ThemeButton
                             themeSet={setTheme}
@@ -152,6 +173,13 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                             fontSet={setFontStyles}
                             font="font-monsterrat"
                             className="mb-3"
+                            onClick={() => {
+                                setDocMerge(userDoc, {
+                                    settings: {
+                                        currentTheme: ThemesEnum.FOREST,
+                                    },
+                                });
+                            }}
                         />
                         <ThemeButton
                             themeSet={setTheme}
@@ -159,6 +187,13 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                             fontSet={setFontStyles}
                             font="font-monsterrat"
                             className="mb-3"
+                            onClick={() => {
+                                setDocMerge(userDoc, {
+                                    settings: {
+                                        currentTheme: ThemesEnum.CHERRY,
+                                    },
+                                });
+                            }}
                         />
                         <ThemeButton
                             themeSet={setTheme}
@@ -166,6 +201,13 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                             fontSet={setFontStyles}
                             font="font-open"
                             className="mb-3"
+                            onClick={() => {
+                                setDocMerge(userDoc, {
+                                    settings: {
+                                        currentTheme: ThemesEnum.PACIFIC,
+                                    },
+                                });
+                            }}
                         />
                         <ThemeButton
                             themeSet={setTheme}
@@ -173,6 +215,13 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                             fontSet={setFontStyles}
                             font="font-open"
                             className="mb-3"
+                            onClick={() => {
+                                setDocMerge(userDoc, {
+                                    settings: {
+                                        currentTheme: ThemesEnum.ARCHFEY,
+                                    },
+                                });
+                            }}
                         />
                         <ThemeButton
                             themeSet={setTheme}
@@ -180,6 +229,13 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                             fontSet={setFontStyles}
                             font="font-inter"
                             className="mb-3"
+                            onClick={() => {
+                                setDocMerge(userDoc, {
+                                    settings: {
+                                        currentTheme: ThemesEnum.ABYSS,
+                                    },
+                                });
+                            }}
                         />
                         <ThemeButton
                             themeSet={setTheme}
@@ -187,6 +243,13 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                             fontSet={setFontStyles}
                             font="font-inter"
                             className="mb-3"
+                            onClick={() => {
+                                setDocMerge(userDoc, {
+                                    settings: {
+                                        currentTheme: ThemesEnum.ICEBURG,
+                                    },
+                                });
+                            }}
                         />
                         <ThemeButton
                             themeSet={setTheme}
@@ -194,6 +257,13 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                             fontSet={setFontStyles}
                             font="font-inter"
                             className="mb-3"
+                            onClick={() => {
+                                setDocMerge(userDoc, {
+                                    settings: {
+                                        currentTheme: ThemesEnum.OTHERWORLD,
+                                    },
+                                });
+                            }}
                         />
                         <ThemeButton
                             themeSet={setTheme}
@@ -201,6 +271,13 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                             fontSet={setFontStyles}
                             font="font-inter"
                             className="mb-3"
+                            onClick={() => {
+                                setDocMerge(userDoc, {
+                                    settings: {
+                                        currentTheme: ThemesEnum.FIRE,
+                                    },
+                                });
+                            }}
                         />
                     </div>
                     <div>

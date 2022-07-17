@@ -1,8 +1,9 @@
 import clsx from "clsx";
-import type { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
 import { capitalizeFirstLetter } from "@/lib/capitalizeFirstLetter";
 import type { ThemesEnum } from "@/templates/Main";
+import { Loader } from "../Loader";
 
 export interface ThemeButtonProps {
     className?: string;
@@ -12,6 +13,7 @@ export interface ThemeButtonProps {
     ) => void;
     fontSet: Dispatch<SetStateAction<string>>;
     font: string;
+    onClick?: () => void;
 }
 
 export const ThemeButtonStyles =
@@ -23,7 +25,13 @@ export const ThemeButton: React.FC<ThemeButtonProps> = ({
     themeSet,
     font,
     fontSet,
+    onClick,
 }) => {
+    const badClickFunctionToAvoidHavingToClickThemeButtonTwice = () => {
+        themeSet(theme);
+        fontSet(font);
+    };
+    const [loading, setLoading] = useState(false);
     return (
         <button
             data-theme={theme}
@@ -34,11 +42,24 @@ export const ThemeButton: React.FC<ThemeButtonProps> = ({
                 "font-theme-font"
             )}
             onClick={() => {
-                themeSet(theme);
-                fontSet(font);
+                if (onClick) {
+                    onClick();
+                    setLoading(true);
+                    setTimeout(() => {
+                        badClickFunctionToAvoidHavingToClickThemeButtonTwice();
+                        setLoading(false);
+                    }, 500);
+                }
+                badClickFunctionToAvoidHavingToClickThemeButtonTwice();
             }}
         >
-            {capitalizeFirstLetter(theme)}
+            {loading ? (
+                <div className="flex justify-center">
+                    <Loader className="w-10 h-10" />
+                </div>
+            ) : (
+                capitalizeFirstLetter(theme)
+            )}
         </button>
     );
 };
