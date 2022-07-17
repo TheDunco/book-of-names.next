@@ -19,7 +19,7 @@ export const SheetAccordion: React.FC<AccordionProps> = ({
             <div
                 aria-label="accordion-border"
                 className={clsx(
-                    "flex flex-col border border-color-special rounded-md p-3 transition-all duration-300 ease-in-out"
+                    "flex flex-col border border-color-special rounded-md p-3 transition-all duration-300 ease-in-out min-w-fit"
                 )}
             >
                 <div
@@ -44,7 +44,7 @@ export const SheetAccordion: React.FC<AccordionProps> = ({
                     />
                     <h2
                         className={clsx(
-                            "font-semibold select-none whitespace-nowrap",
+                            "font-semibold select-none whitespace-nowrap min-w-fit",
                             expanded ? "cursor-s-resize" : "cursor-n-resize"
                         )}
                     >
