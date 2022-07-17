@@ -20,6 +20,7 @@
         "@mantine/modals": "^4.2.9",
         "@mantine/next": "^4.2.9",
         "@mantine/notifications": "^4.2.9",
+        "axios": "^0.27.2",
         "clsx": "^1.2.1",
         "dotenv": "^16.0.1",
         "firebase": "^8.6.2",

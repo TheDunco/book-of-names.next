@@ -1,4 +1,5 @@
 import { PrimaryButton } from "@/components/Buttons/PrimaryButton";
+import { SecondaryButton } from "@/components/Buttons/SecondaryButton";
 import { TextButton } from "@/components/Buttons/TextButton";
 import { CharacterCard } from "@/components/Dashboard/CharacterCard";
 import { Loader } from "@/components/Loader";
@@ -11,10 +12,12 @@ import { useRouter } from "next/router";
 import ReactTooltip from "react-tooltip";
 import {
     ArrowLeft,
+    Globe,
     LayoutDistributeHorizontal,
     LayoutDistributeVertical,
     LayoutGrid,
 } from "tabler-icons-react";
+import axios from "axios";
 
 const layoutHorizontal = "flex flex-1";
 const layoutVertical = "flex flex-1 flex-col m-auto ";

@@ -61,7 +61,7 @@ export const CharacterCard: React.FC<Props> = ({
                             formClassName="w-1/2"
                             className="bg-opacity-40"
                         />
-                        <div className="">
+                        <div>
                             <SecondaryButton
                                 className="text-color-primary py-0 bg-transparent"
                                 onClick={() => {
@@ -75,6 +75,7 @@ export const CharacterCard: React.FC<Props> = ({
                                 <Minus />
                             </SecondaryButton>
                         </div>
+                        <div></div>
                     </div>
                 ) : (
                     <div></div>
