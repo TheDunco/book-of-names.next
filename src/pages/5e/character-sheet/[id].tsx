@@ -4,7 +4,7 @@ import { CharacterCard } from "@/components/Dashboard/CharacterCard";
 import { Loader } from "@/components/Loader";
 import { SheetAccordion } from "@/components/SheetComponents/SheetAccordion";
 import { ThemeLayout } from "@/layouts/ThemeLayout";
-import { useCharacter } from "@/services/character/use-character";
+import { useCharacter } from "@/services/5e-character/use-character";
 import { useLocalStorage } from "@mantine/hooks";
 import clsx from "clsx";
 import { useRouter } from "next/router";

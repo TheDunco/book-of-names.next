@@ -1,6 +1,6 @@
 import { Loader } from "../Loader";
 import clsx from "clsx";
-import { useCharacters } from "../../services/character/use-characters";
+import { useCharacters } from "../../services/5e-character/use-characters";
 import { CharacterCard } from "./CharacterCard";
 import { PrimaryButton } from "../Buttons/PrimaryButton";
 import {
@@ -9,7 +9,7 @@ import {
     LayoutGrid,
     Plus,
 } from "tabler-icons-react";
-import { newBlankCharacter } from "@/services/character/add-character";
+import { newBlankCharacter } from "@/services/5e-character/add-character";
 import { useUser } from "@/services/user-service";
 import { useLocalStorage } from "@mantine/hooks";
 import { setDocMerge } from "@/services/firebase-helpers";
