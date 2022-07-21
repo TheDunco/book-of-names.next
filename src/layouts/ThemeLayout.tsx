@@ -45,10 +45,10 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
     const photoURL: string = userDoc?.data()?.photoURL;
     const userCurrentTheme = userDoc?.data()?.settings?.currentTheme;
     useEffect(() => {
-        return () => {
+        if (user) {
             setTheme(userCurrentTheme ?? theme);
-        };
-    }, [setTheme, userCurrentTheme, theme]);
+        }
+    }, [user, setTheme, userCurrentTheme, theme]);
 
     return (
         <>
