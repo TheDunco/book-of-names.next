@@ -34,14 +34,6 @@ export const SheetAccordion: React.FC<AccordionProps> = ({
                         toggleExpanded();
                     }}
                 >
-                    <CaretDown
-                        className={clsx(
-                            "transition-all duration-300 ease-in-out",
-                            expanded
-                                ? "rotate-180 cursor-s-resize"
-                                : "cursor-n-resize"
-                        )}
-                    />
                     <h2
                         className={clsx(
                             "font-semibold select-none whitespace-nowrap min-w-fit",
@@ -50,6 +42,14 @@ export const SheetAccordion: React.FC<AccordionProps> = ({
                     >
                         {headerContent}
                     </h2>
+                    <CaretDown
+                        className={clsx(
+                            "transition-all duration-300 ease-in-out",
+                            expanded
+                                ? "rotate-180 cursor-s-resize"
+                                : "cursor-n-resize"
+                        )}
+                    />
                 </div>
                 <div className={clsx(expanded ? "" : "h-0 hidden")}>
                     {children}

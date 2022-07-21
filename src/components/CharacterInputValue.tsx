@@ -6,6 +6,7 @@ interface Props {
     formClassName?: string;
     value: string | number | readonly string[] | undefined;
     onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+    label?: React.ReactNode;
 }
 
 const standardStyles = "bg-color-bg text-color-text ";
@@ -17,14 +18,33 @@ export const CharacterInputValue: React.FC<Props> = ({
     value,
     formClassName,
     onChange,
+    label,
 }) => {
     return (
-        <form className={formClassName}>
+        <form
+            className={clsx(
+                formClassName,
+                "flex flex-row items-middle justify-between py-2"
+            )}
+            onSubmit={(e) => {
+                e.preventDefault();
+            }}
+        >
+            <label className="mr-3">{label}</label>
             <input
-                className={clsx(className, stateStyles, standardStyles)}
+                className={clsx(
+                    className,
+                    stateStyles,
+                    standardStyles,
+                    "flex-1"
+                )}
                 type="text"
                 value={value}
                 onChange={onChange}
+                onClick={(e) => {
+                    e.stopPropagation();
+                    e.nativeEvent.stopImmediatePropagation();
+                }}
             ></input>
         </form>
     );
