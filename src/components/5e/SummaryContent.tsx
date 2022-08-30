@@ -2,7 +2,7 @@ import { CharacterInputValue } from "@/components/CharacterInputValue";
 import { CharacterCard } from "@/components/Dashboard/CharacterCard";
 import { AlignmentEnum, Character } from "@/types/character/5e-character";
 import { useState } from "react";
-import firebase from "../../../../firebase/clientApp";
+import firebase from "../../../firebase/clientApp";
 
 interface Props {
     character: firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData>;
