@@ -18,18 +18,20 @@ import { useDocument } from "react-firebase-hooks/firestore";
 import { loaderURL } from "@/components/Loader";
 import { TextButton } from "@/components/Buttons/TextButton";
 import ReactTooltip from "react-tooltip";
+import { useUser } from "@/services/user-service";
+import { setDocMerge } from "@/services/firebase-helpers";
 
 const flexSyles = "flex flex-1 grow flex-col justify-start";
 const textStyles = "text-color-text";
 const localStorageThemeEntry = "color-scheme";
-const defaultTheme = ThemesEnum.CLASSY;
+const defaultTheme = ThemesEnum.DEFAULT;
 
 interface Props {
     children: React.ReactNode;
-    authState: firebase.User | null | undefined;
 }
 
-export const ThemeLayout: React.FC<Props> = ({ children, authState }) => {
+export const ThemeLayout: React.FC<Props> = ({ children }) => {
+    const { user } = useUser();
     const [theme, setTheme] = useLocalStorage({
         key: localStorageThemeEntry,
         defaultValue: defaultTheme,
@@ -37,11 +39,17 @@ export const ThemeLayout: React.FC<Props> = ({ children, authState }) => {
     const [fontStyles, setFontStyles] = useState("font-theme-font");
     const [showSidebar, toggleSidebar] = useToggle(false, [true, false]);
     const [showThemes, toggleThemes] = useToggle(false, [true, false]);
-
-    const [value, loading] = useDocument(
-        firebase.firestore().doc(`users/${authState?.uid}`)
+    const [userDoc, loading] = useDocument(
+        firebase.firestore().doc(`users/${user?.uid}`)
     );
-    const photoURL: string = value?.data()?.photoURL;
+    const photoURL: string = userDoc?.data()?.photoURL;
+    // const userCurrentTheme = userDoc?.data()?.settings?.currentTheme;
+    // useEffect(() => {
+    //     if (user) {
+    //         setTheme(userCurrentTheme ?? theme);
+    //     }
+    // }, [user, setTheme, userCurrentTheme, theme]);
+
     return (
         <>
             <div
@@ -50,8 +58,8 @@ export const ThemeLayout: React.FC<Props> = ({ children, authState }) => {
                     flexSyles,
                     textStyles,
                     fontStyles,
-                    showSidebar ? "grid grid-cols-[0fr_1fr]" : "",
-                    "scroll-smooth bg-color-bg transition-all duration-300 ease-in-out text-lg md:text-2xl z-0"
+                    showSidebar ? "grid grid-cols-[0fr_1fr] touch-none" : "",
+                    "scroll-smooth bg-color-bg transition-all duration-300 ease-in-out text-lg md:text-2xl z-0 overflow-hidden"
                 )}
             >
                 <button
@@ -71,18 +79,23 @@ export const ThemeLayout: React.FC<Props> = ({ children, authState }) => {
                         />
                     )}
                 </button>
+
                 <header>
                     <div className="fixed w-full bg-color-primary h-16 shadow-lg">
-                        <div className="absolute left-[calc(50%-6rem)] transition-all duration-300 whitespace-nowrap text-2xl top-4 sm:top-2 sm:text-3xl z-0 select-none">
+                        <div className="absolute left-[calc(50%-7rem)] transition-all duration-300 whitespace-nowrap text-2xl top-4 sm:top-2 sm:text-3xl z-0 select-none">
                             {AppConfig.title}
                         </div>
                         <div
                             className={clsx(
                                 "relative left-[calc(100%-4rem)] top-2",
-                                authState ? "visible" : "hidden"
+                                user ? "visible" : "hidden"
                             )}
                         >
-                            <ReactTooltip id="logoutTip" delayShow={400}>
+                            <ReactTooltip
+                                id="logoutTip"
+                                delayShow={400}
+                                type="light"
+                            >
                                 <span>Logout</span>
                             </ReactTooltip>
                             <img
@@ -104,20 +117,20 @@ export const ThemeLayout: React.FC<Props> = ({ children, authState }) => {
                 </header>
                 <aside
                     className={clsx(
-                        showSidebar ? "w-72 h-full" : "w-0 h-full -ml-48",
+                        showSidebar
+                            ? "w-72 h-full overflow-y-auto"
+                            : "w-72 h-full -ml-80",
                         "fixed transition-all duration-300 ease-in-out bg-color-secondary z-20 shadow-xl"
                     )}
                 >
-                    <ReactTooltip id="themeTip">
-                        <span>Change Theme</span>
-                    </ReactTooltip>
                     <TextButton
-                        className="flex text-color-bg mt-12 text-center justify-center w-[calc(100%-1.5rem)] mx-3 hover:brightness-100 py-0"
+                        className={clsx(
+                            "flex text-color-bg border-color-special mt-12 text-center justify-center w-[calc(100%-1.5rem)] mx-3 hover:brightness-100 py-0",
+                            showThemes ? "border-b" : ""
+                        )}
                         onClick={() => toggleThemes()}
                     >
-                        <div data-tip data-for="themeTip">
-                            Site Themes
-                        </div>
+                        <div>Change Theme</div>
                     </TextButton>
                     <div
                         className={clsx(
@@ -129,76 +142,230 @@ export const ThemeLayout: React.FC<Props> = ({ children, authState }) => {
                     >
                         <ThemeButton
                             themeSet={setTheme}
-                            theme={ThemesEnum.CLASSY}
+                            theme={ThemesEnum.DEFAULT}
                             fontSet={setFontStyles}
                             font="font-roboto-slab"
                             className="mb-3"
+                            onClick={() => {
+                                setDocMerge(userDoc, {
+                                    settings: {
+                                        currentTheme: ThemesEnum.DEFAULT,
+                                    },
+                                });
+                            }}
                         />
+
+                        <ThemeButton
+                            themeSet={setTheme}
+                            theme={ThemesEnum.DEFAULT_DARK}
+                            fontSet={setFontStyles}
+                            font="font-roboto-slab"
+                            className="mb-3"
+                            onClick={() => {
+                                setDocMerge(userDoc, {
+                                    settings: {
+                                        currentTheme: ThemesEnum.DEFAULT_DARK,
+                                    },
+                                });
+                            }}
+                        />
+
+                        <ThemeButton
+                            themeSet={setTheme}
+                            theme={ThemesEnum.CLASSIC}
+                            fontSet={setFontStyles}
+                            font="font-roboto-slab"
+                            className="mb-3"
+                            onClick={() => {
+                                setDocMerge(userDoc, {
+                                    settings: {
+                                        currentTheme: ThemesEnum.CLASSIC,
+                                    },
+                                });
+                            }}
+                        />
+
+                        <ThemeButton
+                            themeSet={setTheme}
+                            theme={ThemesEnum.DESERT}
+                            fontSet={setFontStyles}
+                            font="font-roboto-slab"
+                            className="mb-3"
+                            onClick={() => {
+                                setDocMerge(userDoc, {
+                                    settings: {
+                                        currentTheme: ThemesEnum.DESERT,
+                                    },
+                                });
+                            }}
+                        />
+
+                        <ThemeButton
+                            themeSet={setTheme}
+                            theme={ThemesEnum.FOREST}
+                            fontSet={setFontStyles}
+                            font="font-monsterrat"
+                            className="mb-3"
+                            onClick={() => {
+                                setDocMerge(userDoc, {
+                                    settings: {
+                                        currentTheme: ThemesEnum.FOREST,
+                                    },
+                                });
+                            }}
+                        />
+
                         <ThemeButton
                             themeSet={setTheme}
                             theme={ThemesEnum.CHERRY}
                             fontSet={setFontStyles}
                             font="font-monsterrat"
                             className="mb-3"
+                            onClick={() => {
+                                setDocMerge(userDoc, {
+                                    settings: {
+                                        currentTheme: ThemesEnum.CHERRY,
+                                    },
+                                });
+                            }}
                         />
+
                         <ThemeButton
                             themeSet={setTheme}
                             theme={ThemesEnum.PACIFIC}
                             fontSet={setFontStyles}
                             font="font-open"
                             className="mb-3"
+                            onClick={() => {
+                                setDocMerge(userDoc, {
+                                    settings: {
+                                        currentTheme: ThemesEnum.PACIFIC,
+                                    },
+                                });
+                            }}
                         />
+
                         <ThemeButton
                             themeSet={setTheme}
-                            theme={ThemesEnum.DOLCH}
+                            theme={ThemesEnum.ARCHFEY}
                             fontSet={setFontStyles}
                             font="font-open"
                             className="mb-3"
+                            onClick={() => {
+                                setDocMerge(userDoc, {
+                                    settings: {
+                                        currentTheme: ThemesEnum.ARCHFEY,
+                                    },
+                                });
+                            }}
+                        />
+
+                        <ThemeButton
+                            themeSet={setTheme}
+                            theme={ThemesEnum.ABYSS}
+                            fontSet={setFontStyles}
+                            font="font-inter"
+                            className="mb-3"
+                            onClick={() => {
+                                setDocMerge(userDoc, {
+                                    settings: {
+                                        currentTheme: ThemesEnum.ABYSS,
+                                    },
+                                });
+                            }}
+                        />
+
+                        <ThemeButton
+                            themeSet={setTheme}
+                            theme={ThemesEnum.ICEBURG}
+                            fontSet={setFontStyles}
+                            font="font-inter"
+                            className="mb-3"
+                            onClick={() => {
+                                setDocMerge(userDoc, {
+                                    settings: {
+                                        currentTheme: ThemesEnum.ICEBURG,
+                                    },
+                                });
+                            }}
+                        />
+
+                        <ThemeButton
+                            themeSet={setTheme}
+                            theme={ThemesEnum.OTHERWORLD}
+                            fontSet={setFontStyles}
+                            font="font-inter"
+                            className="mb-3"
+                            onClick={() => {
+                                setDocMerge(userDoc, {
+                                    settings: {
+                                        currentTheme: ThemesEnum.OTHERWORLD,
+                                    },
+                                });
+                            }}
+                        />
+
+                        <ThemeButton
+                            themeSet={setTheme}
+                            theme={ThemesEnum.FIRE}
+                            fontSet={setFontStyles}
+                            font="font-inter"
+                            className="mb-3"
+                            onClick={() => {
+                                setDocMerge(userDoc, {
+                                    settings: {
+                                        currentTheme: ThemesEnum.FIRE,
+                                    },
+                                });
+                            }}
                         />
                     </div>
                     <div>
-                        <div className="py-8 px-3 text-center text-sm text-color-text lg:text-base opacity-60">
+                        <div className="mx-3 pt-5 text-center text-sm text-color-text lg:text-base border-t border-color-special">
                             © Copyright {new Date().getFullYear()}{" "}
-                            {AppConfig.title}. Initial template powered with{" "}
+                            {AppConfig.author}. Initial template powered with{" "}
                             <span role="img" aria-label="Love">
                                 ♥
                             </span>{" "}
                             by{" "}
-                            <a href="https://creativedesignsguru.com">
-                                CreativeDesignsGuru{" "}
+                            <a
+                                href="https://creativedesignsguru.com"
+                                className="text-color-text"
+                            >
+                                CreativeDesignsGuru
                             </a>
-                            Modified by {AppConfig.author}
+                            .
                             <Bullet />v{AppConfig.version}
                             <span className="flex flex-row justify-center no-underline">
+                                <a
+                                    href="https://github.com/TheDunco/book-of-names.next"
+                                    className="text-color-text no-underline mr-2"
+                                >
+                                    <BrandGithub />
+                                </a>
+                                <a
+                                    href="https://nextjs.org/"
+                                    className="text-color-text no-underline mr-2"
+                                >
+                                    <BrandNextjs />
+                                </a>
+                                <a
+                                    href="https://reactjs.org/"
+                                    className="text-color-text no-underline mr-2"
+                                >
+                                    <BrandReactNative />
+                                </a>
                                 <a
                                     href="https://firebase.google.com/"
                                     className="text-color-text no-underline"
                                 >
                                     <BrandFirebase />
                                 </a>
-                                <a
-                                    href="https://github.com/TheDunco/book-of-names.next"
-                                    className="text-color-text no-underline"
-                                >
-                                    <BrandGithub />
-                                </a>
-                                <a
-                                    href="https://nextjs.org/"
-                                    className="text-color-text no-underline"
-                                >
-                                    <BrandNextjs />
-                                </a>
-                                <a
-                                    href="https://reactjs.org/"
-                                    className="text-color-text no-underline"
-                                >
-                                    <BrandReactNative />
-                                </a>
                             </span>
                         </div>
                     </div>
                 </aside>
-                <div className="flex h-[calc(100vh-4rem)] mt-16 max-h-full justify-start align-start overflow-scroll">
+                <div className="flex h-[calc(100vh-4rem)] mt-16 max-h-full justify-start align-start overflow-hidden">
                     {children}
                 </div>
             </div>
