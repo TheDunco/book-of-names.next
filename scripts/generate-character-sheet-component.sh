@@ -1,0 +1,1 @@
+cp src/templates/character-sheet-component-template.tsx src/pages/5e/character-sheet/$1.tsx

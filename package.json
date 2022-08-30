@@ -7,6 +7,7 @@
         "start": "next start",
         "deploy-functions": "firebase deploy --only functions",
         "generate-component": "./scripts/generate-component.sh",
+        "generate-character-sheet-component": "./scripts/generate-character-sheet-component.sh",
         "build-stats": "cross-env ANALYZE=true npm run build",
         "export": "next export",
         "build-prod": "run-s clean build export",

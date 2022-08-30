@@ -3,11 +3,11 @@ import { CharacterInputValue } from "../CharacterInputValue";
 import firebase from "../../../firebase/clientApp";
 import { useState } from "react";
 import { Minus } from "tabler-icons-react";
-import { deleteCharacter } from "@/services/character/delete-character";
+import { deleteCharacter } from "@/services/5e-character/delete-character";
 import { useUser } from "@/services/user-service";
 import { SecondaryButton } from "../Buttons/SecondaryButton";
 import { useRouter } from "next/router";
-import { Character } from "@/types/character/characterTypes";
+import { Character } from "@/types/character/5e-character";
 
 interface Props {
     className?: string;

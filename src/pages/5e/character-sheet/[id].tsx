@@ -1,13 +1,15 @@
 import { PrimaryButton } from "@/components/Buttons/PrimaryButton";
 import { TextButton } from "@/components/Buttons/TextButton";
-import { CharacterCard } from "@/components/Dashboard/CharacterCard";
 import { Loader } from "@/components/Loader";
 import { SheetAccordion } from "@/components/SheetComponents/SheetAccordion";
 import { ThemeLayout } from "@/layouts/ThemeLayout";
-import { useCharacter } from "@/services/character/use-character";
+import { useCharacter } from "@/services/5e-character/use-character";
+import { useUser } from "@/services/user-service";
 import { useLocalStorage } from "@mantine/hooks";
 import clsx from "clsx";
 import { useRouter } from "next/router";
+import React from "react";
+import { useEffect } from "react";
 import ReactTooltip from "react-tooltip";
 import {
     ArrowLeft,
@@ -15,6 +17,7 @@ import {
     LayoutDistributeVertical,
     LayoutGrid,
 } from "tabler-icons-react";
+import { SummaryContent } from "../../../components/5e/SummaryContent";
 
 const layoutHorizontal = "flex flex-1";
 const layoutVertical = "flex flex-1 flex-col m-auto ";
@@ -23,6 +26,14 @@ const layoutKey = "5e-sheet-layout";
 
 const fifthEditionCharacterSheet: React.FC = () => {
     const router = useRouter();
+    const { user, userLoading } = useUser();
+    useEffect(() => {
+        // redirect to login if user is not logged in and we're on the client
+        if (!user && !userLoading) {
+            router.push("/");
+        }
+    }, [user, userLoading]);
+
     const routerId = router.asPath.split("/")[3];
     const characterId = routerId as string;
 
@@ -47,7 +58,7 @@ const fifthEditionCharacterSheet: React.FC = () => {
                         {characterError && <div>{characterError.message}</div>}
                         <div
                             className={clsx(
-                                "flex flex-col mx-10 w-[calc(100vw-4rem)]"
+                                "flex flex-col mx-10 w-[calc(100vw-4rem)] pb-5"
                             )}
                         >
                             <span className="flex justify-start gap-3 my-3">
@@ -122,19 +133,9 @@ const fifthEditionCharacterSheet: React.FC = () => {
                                 <SheetAccordion
                                     headerContent={character.data()?.name}
                                 >
-                                    <CharacterCard
+                                    <SummaryContent
                                         character={character}
-                                    ></CharacterCard>
-                                </SheetAccordion>
-                                <SheetAccordion headerContent="Very large header but very small">
-                                    Content
-                                </SheetAccordion>
-                                <SheetAccordion headerContent="Very">
-                                    Small header but very relatively large
-                                    content
-                                </SheetAccordion>
-                                <SheetAccordion headerContent="Roughly equal">
-                                    header and content
+                                    ></SummaryContent>
                                 </SheetAccordion>
                             </div>
                         </div>

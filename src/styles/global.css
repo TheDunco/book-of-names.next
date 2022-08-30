@@ -21,6 +21,22 @@ a:hover {
 }
 
 @layer base {
+    [data-theme="default-dark"] {
+        --color-bg: #000;
+        --color-text: #a48e65;
+        --color-primary: #caa247;
+        --color-secondary: #fff8e8;
+        --color-special: #caa247;
+    }
+
+    [data-theme="default"] {
+        --color-bg: #dfe0df;
+        --color-text: #a48e65;
+        --color-primary: #caa247;
+        --color-secondary: #fff8e8;
+        --color-special: #caa247;
+    }
+
     [data-theme="classic"] {
         --color-bg: #f1edee;
         --color-text: #3d5467;
