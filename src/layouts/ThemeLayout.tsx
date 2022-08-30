@@ -24,7 +24,7 @@ import { setDocMerge } from "@/services/firebase-helpers";
 const flexSyles = "flex flex-1 grow flex-col justify-start";
 const textStyles = "text-color-text";
 const localStorageThemeEntry = "color-scheme";
-const defaultTheme = ThemesEnum.CLASSIC;
+const defaultTheme = ThemesEnum.DEFAULT;
 
 interface Props {
     children: React.ReactNode;
@@ -43,12 +43,12 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
         firebase.firestore().doc(`users/${user?.uid}`)
     );
     const photoURL: string = userDoc?.data()?.photoURL;
-    const userCurrentTheme = userDoc?.data()?.settings?.currentTheme;
-    useEffect(() => {
-        if (user) {
-            setTheme(userCurrentTheme ?? theme);
-        }
-    }, [user, setTheme, userCurrentTheme, theme]);
+    // const userCurrentTheme = userDoc?.data()?.settings?.currentTheme;
+    // useEffect(() => {
+    //     if (user) {
+    //         setTheme(userCurrentTheme ?? theme);
+    //     }
+    // }, [user, setTheme, userCurrentTheme, theme]);
 
     return (
         <>
@@ -79,6 +79,7 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                         />
                     )}
                 </button>
+
                 <header>
                     <div className="fixed w-full bg-color-primary h-16 shadow-lg">
                         <div className="absolute left-[calc(50%-7rem)] transition-all duration-300 whitespace-nowrap text-2xl top-4 sm:top-2 sm:text-3xl z-0 select-none">
@@ -141,6 +142,36 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                     >
                         <ThemeButton
                             themeSet={setTheme}
+                            theme={ThemesEnum.DEFAULT}
+                            fontSet={setFontStyles}
+                            font="font-roboto-slab"
+                            className="mb-3"
+                            onClick={() => {
+                                setDocMerge(userDoc, {
+                                    settings: {
+                                        currentTheme: ThemesEnum.DEFAULT,
+                                    },
+                                });
+                            }}
+                        />
+
+                        <ThemeButton
+                            themeSet={setTheme}
+                            theme={ThemesEnum.DEFAULT_DARK}
+                            fontSet={setFontStyles}
+                            font="font-roboto-slab"
+                            className="mb-3"
+                            onClick={() => {
+                                setDocMerge(userDoc, {
+                                    settings: {
+                                        currentTheme: ThemesEnum.DEFAULT_DARK,
+                                    },
+                                });
+                            }}
+                        />
+
+                        <ThemeButton
+                            themeSet={setTheme}
                             theme={ThemesEnum.CLASSIC}
                             fontSet={setFontStyles}
                             font="font-roboto-slab"
@@ -153,6 +184,7 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                                 });
                             }}
                         />
+
                         <ThemeButton
                             themeSet={setTheme}
                             theme={ThemesEnum.DESERT}
@@ -167,6 +199,7 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                                 });
                             }}
                         />
+
                         <ThemeButton
                             themeSet={setTheme}
                             theme={ThemesEnum.FOREST}
@@ -181,6 +214,7 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                                 });
                             }}
                         />
+
                         <ThemeButton
                             themeSet={setTheme}
                             theme={ThemesEnum.CHERRY}
@@ -195,6 +229,7 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                                 });
                             }}
                         />
+
                         <ThemeButton
                             themeSet={setTheme}
                             theme={ThemesEnum.PACIFIC}
@@ -209,6 +244,7 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                                 });
                             }}
                         />
+
                         <ThemeButton
                             themeSet={setTheme}
                             theme={ThemesEnum.ARCHFEY}
@@ -223,6 +259,7 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                                 });
                             }}
                         />
+
                         <ThemeButton
                             themeSet={setTheme}
                             theme={ThemesEnum.ABYSS}
@@ -237,6 +274,7 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                                 });
                             }}
                         />
+
                         <ThemeButton
                             themeSet={setTheme}
                             theme={ThemesEnum.ICEBURG}
@@ -251,6 +289,7 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                                 });
                             }}
                         />
+
                         <ThemeButton
                             themeSet={setTheme}
                             theme={ThemesEnum.OTHERWORLD}
@@ -265,6 +304,7 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                                 });
                             }}
                         />
+
                         <ThemeButton
                             themeSet={setTheme}
                             theme={ThemesEnum.FIRE}
