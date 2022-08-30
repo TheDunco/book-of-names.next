@@ -17,7 +17,7 @@ import {
     LayoutDistributeVertical,
     LayoutGrid,
 } from "tabler-icons-react";
-import { SummaryContent } from "./summary-content";
+import { SummaryContent } from "../../../components/5e/SummaryContent";
 
 const layoutHorizontal = "flex flex-1";
 const layoutVertical = "flex flex-1 flex-col m-auto ";
