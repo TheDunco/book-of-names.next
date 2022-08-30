@@ -1,7 +1,7 @@
 import { useLocalStorage, useToggle } from "@mantine/hooks";
 import firebase from "../../firebase/clientApp";
 import clsx from "clsx";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ThemeButton } from "@/components/Buttons/ThemeSelectButton";
 import { ThemesEnum } from "@/templates/Main";
 import { AppConfig } from "@/utils/AppConfig";
