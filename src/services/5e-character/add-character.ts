@@ -106,8 +106,7 @@ export const newBlankCharacter = (
             highestLevelSpell: 0,
             preppedSpells: 0,
             id: cid,
-            imageLink:
-                "https://m.mythcreants.com/wp-content/uploads/2013/10/mysterman-180x135.png",
+            imageLink: "https://book-of-names.tech/logo.svg",
             currentVersion: AppConfig.version,
             createdVersion: AppConfig.version,
             createdByUser: userId,

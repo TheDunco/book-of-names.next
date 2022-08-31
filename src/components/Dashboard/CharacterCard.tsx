@@ -1,7 +1,5 @@
 import clsx from "clsx";
-import { CharacterInputValue } from "../CharacterInputValue";
 import firebase from "../../../firebase/clientApp";
-import { useState } from "react";
 import { Minus } from "tabler-icons-react";
 import { deleteCharacter } from "@/services/5e-character/delete-character";
 import { useUser } from "@/services/user-service";
@@ -24,7 +22,6 @@ export const CharacterCard: React.FC<Props> = ({
 }) => {
     const characterData = character.data() as Character;
     const characterSheetLink = `/${characterData.gameVersion}/character-sheet/${character.id}`;
-    const [name, setName] = useState(characterData.name);
     const { user } = useUser();
     const router = useRouter();
     return (
@@ -62,8 +59,8 @@ export const CharacterCard: React.FC<Props> = ({
                             </SecondaryButton>
                         </div>
 
-                        <div className="bg-color-bg rounded-md px-3 my-3">
-                            {name}
+                        <div className="bg-color-bg -mb-2 pb-2 border-t border-color-primary px-3">
+                            {characterData.name}
                         </div>
 
                         <div className="bg-color-bg rounded-md px-3">

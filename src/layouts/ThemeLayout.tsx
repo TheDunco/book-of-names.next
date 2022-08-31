@@ -144,7 +144,7 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                             themeSet={setTheme}
                             theme={ThemesEnum.DEFAULT}
                             fontSet={setFontStyles}
-                            font="font-roboto-slab"
+                            font="fira"
                             className="mb-3"
                             onClick={() => {
                                 setDocMerge(userDoc, {
@@ -157,14 +157,14 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
 
                         <ThemeButton
                             themeSet={setTheme}
-                            theme={ThemesEnum.DEFAULT_DARK}
+                            theme={ThemesEnum.DEFAULT_LIGHT}
                             fontSet={setFontStyles}
-                            font="font-roboto-slab"
+                            font="fira"
                             className="mb-3"
                             onClick={() => {
                                 setDocMerge(userDoc, {
                                     settings: {
-                                        currentTheme: ThemesEnum.DEFAULT_DARK,
+                                        currentTheme: ThemesEnum.DEFAULT_LIGHT,
                                     },
                                 });
                             }}
