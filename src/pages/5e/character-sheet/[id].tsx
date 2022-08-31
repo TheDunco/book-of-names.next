@@ -61,6 +61,7 @@ const fifthEditionCharacterSheet: React.FC = () => {
         characterState.name = staticCharacter.name;
         characterState.class = staticCharacter.class;
         characterState.summary = staticCharacter.summary;
+        characterState.level = staticCharacter.level;
     }
 
     return (
@@ -145,6 +146,10 @@ const fifthEditionCharacterSheet: React.FC = () => {
                                     <LayoutGrid />
                                 </PrimaryButton>
                             </span>
+                            <h1 className="flex font-bold text-3xl align-center">
+                                {characterState.name} &mdash; Level&nbsp;
+                                {characterState.level} {characterState.class}
+                            </h1>
 
                             <div
                                 className={clsx(

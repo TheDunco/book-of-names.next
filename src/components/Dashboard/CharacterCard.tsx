@@ -31,7 +31,7 @@ export const CharacterCard: React.FC<Props> = ({
         <>
             <div
                 className={clsx(
-                    "flex flex-col justify-end border border-color-secondary rounded-md p-5 min-h-[30rem] w-full min-w-fit mr-5 ml-0 mb-3",
+                    "flex flex-col justify-end border border-color-secondary rounded-md min-h-[30rem] w-full min-w-fit mr-5 ml-0 mb-3",
                     dashboardMode ? "cursor-alias" : "",
                     className
                 )}
@@ -46,24 +46,10 @@ export const CharacterCard: React.FC<Props> = ({
                 }}
             >
                 {dashboardMode ? (
-                    <div className="flex justify-between">
-                        <CharacterInputValue
-                            value={name}
-                            onChange={(e) => {
-                                setName(e.target.value);
-                                character.ref.set(
-                                    {
-                                        name: e.target.value,
-                                    },
-                                    { merge: true }
-                                );
-                            }}
-                            formClassName="w-1/2"
-                            className="bg-opacity-40"
-                        />
-                        <div>
+                    <>
+                        <div className="flex justify-end">
                             <SecondaryButton
-                                className="text-color-primary py-0 bg-transparent"
+                                className="text-color-primary py-0 bg-transparent justify-end"
                                 onClick={() => {
                                     deleteCharacter(
                                         character.id,
@@ -75,10 +61,17 @@ export const CharacterCard: React.FC<Props> = ({
                                 <Minus />
                             </SecondaryButton>
                         </div>
-                        <div></div>
-                    </div>
+
+                        <div className="bg-color-bg rounded-md px-3 my-3">
+                            {name}
+                        </div>
+
+                        <div className="bg-color-bg rounded-md px-3">
+                            Level {characterData.level} {characterData.class}
+                        </div>
+                    </>
                 ) : (
-                    <div></div>
+                    <></>
                 )}
             </div>
         </>

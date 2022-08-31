@@ -82,7 +82,7 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
 
                 <header>
                     <div className="fixed w-full bg-color-primary h-16 shadow-lg">
-                        <div className="absolute left-[calc(50%-7rem)] transition-all duration-300 whitespace-nowrap text-2xl top-4 sm:top-2 sm:text-3xl z-0 select-none">
+                        <div className="absolute text-color-bg left-[calc(50%-7rem)] transition-all duration-300 whitespace-nowrap text-2xl top-4 sm:top-2 sm:text-3xl z-0 select-none">
                             {AppConfig.title}
                         </div>
                         <div

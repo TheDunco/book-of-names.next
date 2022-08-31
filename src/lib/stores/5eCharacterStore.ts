@@ -6,6 +6,7 @@ type SummaryState = { summary: Summary };
 type FifthEditionCharacterStore = SummaryState & {
     name: string;
     class: string;
+    level: number;
 };
 
 export const use5eCharacterStore = create<FifthEditionCharacterStore>(
@@ -13,6 +14,7 @@ export const use5eCharacterStore = create<FifthEditionCharacterStore>(
     () => ({
         name: "",
         class: "",
+        level: 1,
         summary: {
             age: "",
             background: "",
