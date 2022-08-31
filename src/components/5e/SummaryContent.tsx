@@ -1,8 +1,6 @@
 import { CharacterInputValue } from "@/components/CharacterInputValue";
 import { CharacterCard } from "@/components/Dashboard/CharacterCard";
 import { use5eCharacterStore } from "@/lib/stores/5eCharacterStore";
-import { AlignmentEnum, Character } from "@/types/character/5e-character";
-import { useState } from "react";
 import firebase from "../../../firebase/clientApp";
 
 interface Props {
@@ -10,8 +8,6 @@ interface Props {
 }
 
 export const SummaryContent: React.FC<Props> = ({ character }) => {
-    // const staticCharacter = character.data() as Character;
-    // const [characterState, setCharacterState] = useState(staticCharacter);
     const charRefSet = (data: any) => {
         character.ref.set(data, { merge: true });
     };
