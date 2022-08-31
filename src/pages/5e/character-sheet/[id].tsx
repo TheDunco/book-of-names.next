@@ -3,8 +3,10 @@ import { TextButton } from "@/components/Buttons/TextButton";
 import { Loader } from "@/components/Loader";
 import { SheetAccordion } from "@/components/SheetComponents/SheetAccordion";
 import { ThemeLayout } from "@/layouts/ThemeLayout";
+import { use5eCharacterStore } from "@/lib/stores/5eCharacterStore";
 import { useCharacter } from "@/services/5e-character/use-character";
 import { useUser } from "@/services/user-service";
+import { Character } from "@/types/character/5e-character";
 import { useLocalStorage } from "@mantine/hooks";
 import clsx from "clsx";
 import { useRouter } from "next/router";
@@ -27,6 +29,7 @@ const layoutKey = "5e-sheet-layout";
 const fifthEditionCharacterSheet: React.FC = () => {
     const router = useRouter();
     const { user, userLoading } = useUser();
+
     useEffect(() => {
         // redirect to login if user is not logged in and we're on the client
         if (!user && !userLoading) {
@@ -35,17 +38,31 @@ const fifthEditionCharacterSheet: React.FC = () => {
     }, [user, userLoading]);
 
     const routerId = router.asPath.split("/")[3];
+
     const characterId = routerId as string;
 
     const { character, characterLoading, characterError } =
         useCharacter(characterId);
+
     const [layoutMode, setLayoutMode] = useLocalStorage({
         key: layoutKey,
         defaultValue: layoutHorizontal,
     });
+
     const syncLayout = () => {
         character?.ref.set({ layout: layoutMode }, { merge: true });
     };
+
+    const check = character?.data();
+    const staticCharacter = check as Character;
+    const characterState = use5eCharacterStore();
+
+    if (!characterLoading && Boolean(check)) {
+        characterState.name = staticCharacter.name;
+        characterState.class = staticCharacter.class;
+        characterState.summary = staticCharacter.summary;
+    }
+
     return (
         <>
             {characterLoading ? (
@@ -70,6 +87,7 @@ const fifthEditionCharacterSheet: React.FC = () => {
                                     >
                                         Back to Dashboard
                                     </ReactTooltip>
+
                                     <TextButton
                                         data-tip
                                         data-for="backButtonTip"
@@ -81,6 +99,7 @@ const fifthEditionCharacterSheet: React.FC = () => {
                                         <ArrowLeft />
                                     </TextButton>
                                 </div>
+
                                 <PrimaryButton
                                     className={clsx(
                                         "h-fit w-fit py-1",
@@ -95,6 +114,7 @@ const fifthEditionCharacterSheet: React.FC = () => {
                                 >
                                     <LayoutDistributeHorizontal />
                                 </PrimaryButton>
+
                                 <PrimaryButton
                                     className={clsx(
                                         "h-fit w-fit py-1",
@@ -109,6 +129,7 @@ const fifthEditionCharacterSheet: React.FC = () => {
                                 >
                                     <LayoutDistributeVertical />
                                 </PrimaryButton>
+
                                 <PrimaryButton
                                     className={clsx(
                                         "h-fit w-fit py-1",
@@ -124,6 +145,7 @@ const fifthEditionCharacterSheet: React.FC = () => {
                                     <LayoutGrid />
                                 </PrimaryButton>
                             </span>
+
                             <div
                                 className={clsx(
                                     "overflow-auto gap-3",
