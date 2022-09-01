@@ -1,3 +1,4 @@
+import { HealthContent } from "@/components/5e/HealthContent";
 import { PrimaryButton } from "@/components/Buttons/PrimaryButton";
 import { TextButton } from "@/components/Buttons/TextButton";
 import { Loader } from "@/components/Loader";
@@ -62,6 +63,7 @@ const fifthEditionCharacterSheet: React.FC = () => {
         characterState.class = staticCharacter.class;
         characterState.summary = staticCharacter.summary;
         characterState.level = staticCharacter.level;
+        characterState.health = staticCharacter.health;
     }
 
     return (
@@ -158,11 +160,21 @@ const fifthEditionCharacterSheet: React.FC = () => {
                                 )}
                             >
                                 <SheetAccordion
-                                    headerContent={character.data()?.name}
+                                    headerContent={staticCharacter.name}
                                 >
                                     <SummaryContent
                                         character={character}
                                     ></SummaryContent>
+                                </SheetAccordion>
+                                <SheetAccordion
+                                    headerContent={`Health: ${
+                                        Number(
+                                            staticCharacter.health.hpCurrent
+                                        ) +
+                                        Number(staticCharacter.health.hpTemp)
+                                    }/${staticCharacter.health.hpMax}`}
+                                >
+                                    <HealthContent character={character} />
                                 </SheetAccordion>
                             </div>
                         </div>
