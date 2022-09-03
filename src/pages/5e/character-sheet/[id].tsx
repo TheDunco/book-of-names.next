@@ -59,11 +59,15 @@ const fifthEditionCharacterSheet: React.FC = () => {
     const characterState = use5eCharacterStore();
 
     if (!characterLoading && Boolean(check)) {
+        console.log("setting character state");
+        characterState.firebaseCharacter = character;
         characterState.name = staticCharacter.name;
         characterState.class = staticCharacter.class;
         characterState.summary = staticCharacter.summary;
         characterState.level = staticCharacter.level;
         characterState.health = staticCharacter.health;
+        characterState.unconscious = staticCharacter.unconscious;
+        characterState.dead = staticCharacter.dead;
     }
 
     return (
