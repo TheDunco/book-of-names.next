@@ -205,8 +205,8 @@ export const HealthContent: React.FC<Props> = ({ character }) => {
                         className="inline-flex items-center"
                         onKeyDownCapture={preventSubmission}
                     >
-                        <label htmlFor="hit-dice" className="text-xl">
-                            Hit Dice&nbsp;
+                        <label htmlFor="hit-dice" className="text-xl mr-2">
+                            Hit Dice Used:
                         </label>
                         <input
                             id="hit-dice"
