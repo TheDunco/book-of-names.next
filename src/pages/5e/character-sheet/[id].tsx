@@ -1,6 +1,11 @@
 import { HealthContent } from "@/components/5e/HealthContent";
 import { PrimaryButton } from "@/components/Buttons/PrimaryButton";
 import { TextButton } from "@/components/Buttons/TextButton";
+import {
+    layoutGrid,
+    layoutHorizontal,
+    layoutVertical,
+} from "@/components/Dashboard/Dashboard";
 import { Loader } from "@/components/Loader";
 import { SheetAccordion } from "@/components/SheetComponents/SheetAccordion";
 import { ThemeLayout } from "@/layouts/ThemeLayout";
@@ -22,9 +27,6 @@ import {
 } from "tabler-icons-react";
 import { SummaryContent } from "../../../components/5e/SummaryContent";
 
-const layoutHorizontal = "flex flex-1";
-const layoutVertical = "flex flex-1 flex-col w-full pr-2";
-const layoutGrid = "grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 pr-2";
 const layoutKey = "5e-sheet-layout";
 
 const fifthEditionCharacterSheet: React.FC = () => {

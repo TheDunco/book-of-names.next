@@ -20,10 +20,10 @@ interface Props {
     className?: string;
 }
 
-const layoutHorizontal = "flex flex-1";
-const layoutVertical = "flex flex-1 flex-col m-auto ";
-const layoutGrid =
-    "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2";
+export const layoutHorizontal = "flex flex-1";
+export const layoutVertical = "flex flex-1 flex-col w-full pr-2";
+export const layoutGrid =
+    "grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 pr-2 gap-3";
 const layoutKey = "dasboard-layout";
 
 export const Dashboard: React.FC<Props> = ({ className }) => {
@@ -51,7 +51,7 @@ export const Dashboard: React.FC<Props> = ({ className }) => {
             <div
                 className={clsx(
                     className,
-                    "flex flex-col mx-10 mt-5 w-[calc(100vw-4rem)]"
+                    "flex flex-col mx-10 mt-5 w-[calc(100vw-1rem)]"
                 )}
             >
                 <span className="flex flex-row mb-3 justify-between">
