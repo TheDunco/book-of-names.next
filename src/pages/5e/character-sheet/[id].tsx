@@ -23,8 +23,8 @@ import {
 import { SummaryContent } from "../../../components/5e/SummaryContent";
 
 const layoutHorizontal = "flex flex-1";
-const layoutVertical = "flex flex-1 flex-col m-auto ";
-const layoutGrid = "grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3";
+const layoutVertical = "flex flex-1 flex-col w-full pr-2";
+const layoutGrid = "grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 pr-2";
 const layoutKey = "5e-sheet-layout";
 
 const fifthEditionCharacterSheet: React.FC = () => {
@@ -82,7 +82,7 @@ const fifthEditionCharacterSheet: React.FC = () => {
                         {characterError && <div>{characterError.message}</div>}
                         <div
                             className={clsx(
-                                "flex flex-col mx-10 w-[calc(100vw-4rem)] pb-5"
+                                "flex flex-col mx-1 sm:mx-3 w-[calc(100vw-1rem)] pb-5"
                             )}
                         >
                             <span className="flex justify-start gap-3 my-3">
