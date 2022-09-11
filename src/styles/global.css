@@ -21,7 +21,7 @@ a:hover {
 }
 
 @layer base {
-    [data-theme="default-dark"] {
+    [data-theme="default"] {
         --color-bg: #000;
         --color-text: #a48e65;
         --color-primary: #caa247;
@@ -29,7 +29,7 @@ a:hover {
         --color-special: #caa247;
     }
 
-    [data-theme="default"] {
+    [data-theme="default-light"] {
         --color-bg: #dfe0df;
         --color-text: #a48e65;
         --color-primary: #caa247;

@@ -1,3 +1,4 @@
+import { HealthContent } from "@/components/5e/HealthContent";
 import { PrimaryButton } from "@/components/Buttons/PrimaryButton";
 import { TextButton } from "@/components/Buttons/TextButton";
 import { Loader } from "@/components/Loader";
@@ -58,9 +59,15 @@ const fifthEditionCharacterSheet: React.FC = () => {
     const characterState = use5eCharacterStore();
 
     if (!characterLoading && Boolean(check)) {
+        console.log("setting character state");
+        characterState.firebaseCharacter = character;
         characterState.name = staticCharacter.name;
         characterState.class = staticCharacter.class;
         characterState.summary = staticCharacter.summary;
+        characterState.level = staticCharacter.level;
+        characterState.health = staticCharacter.health;
+        characterState.unconscious = staticCharacter.unconscious;
+        characterState.dead = staticCharacter.dead;
     }
 
     return (
@@ -145,6 +152,10 @@ const fifthEditionCharacterSheet: React.FC = () => {
                                     <LayoutGrid />
                                 </PrimaryButton>
                             </span>
+                            <h1 className="flex font-bold text-3xl align-center">
+                                {characterState.name} &mdash; Level&nbsp;
+                                {characterState.level} {characterState.class}
+                            </h1>
 
                             <div
                                 className={clsx(
@@ -153,11 +164,21 @@ const fifthEditionCharacterSheet: React.FC = () => {
                                 )}
                             >
                                 <SheetAccordion
-                                    headerContent={character.data()?.name}
+                                    headerContent={staticCharacter.name}
                                 >
                                     <SummaryContent
                                         character={character}
                                     ></SummaryContent>
+                                </SheetAccordion>
+                                <SheetAccordion
+                                    headerContent={`Health: ${
+                                        Number(
+                                            staticCharacter.health.hpCurrent
+                                        ) +
+                                        Number(staticCharacter.health.hpTemp)
+                                    }/${staticCharacter.health.hpMax}`}
+                                >
+                                    <HealthContent character={character} />
                                 </SheetAccordion>
                             </div>
                         </div>

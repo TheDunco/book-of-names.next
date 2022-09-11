@@ -7,7 +7,7 @@ type IMainProps = {
 
 export enum ThemesEnum {
     DEFAULT = "default",
-    DEFAULT_DARK = "default-dark",
+    DEFAULT_LIGHT = "default-light",
     CLASSIC = "classic",
     CHERRY = "cherry",
     PACIFIC = "pacific",

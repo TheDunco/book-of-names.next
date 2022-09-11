@@ -1,5 +1,6 @@
 import { CharacterInputValue } from "@/components/CharacterInputValue";
 import { CharacterCard } from "@/components/Dashboard/CharacterCard";
+import { charRefSet } from "@/lib/charRefSet";
 import { use5eCharacterStore } from "@/lib/stores/5eCharacterStore";
 import firebase from "../../../firebase/clientApp";
 
@@ -8,10 +9,6 @@ interface Props {
 }
 
 export const SummaryContent: React.FC<Props> = ({ character }) => {
-    const charRefSet = (data: any) => {
-        character.ref.set(data, { merge: true });
-    };
-
     const characterState = use5eCharacterStore();
 
     return (
@@ -22,7 +19,7 @@ export const SummaryContent: React.FC<Props> = ({ character }) => {
                 label="Name:"
                 value={characterState.name}
                 onChange={(e) => {
-                    charRefSet({
+                    charRefSet(character, {
                         name: e.target.value,
                     });
                 }}
@@ -32,7 +29,7 @@ export const SummaryContent: React.FC<Props> = ({ character }) => {
                 label="Class:"
                 value={characterState.class}
                 onChange={(e) => {
-                    charRefSet({
+                    charRefSet(character, {
                         class: e.target.value,
                     });
                 }}
@@ -42,7 +39,7 @@ export const SummaryContent: React.FC<Props> = ({ character }) => {
                 label="Age:"
                 value={characterState.summary.age}
                 onChange={(e) => {
-                    charRefSet({
+                    charRefSet(character, {
                         summary: { age: e.target.value },
                     });
                 }}
@@ -52,7 +49,7 @@ export const SummaryContent: React.FC<Props> = ({ character }) => {
                 label="Height:"
                 value={characterState.summary.height}
                 onChange={(e) => {
-                    charRefSet({
+                    charRefSet(character, {
                         summary: { height: e.target.value },
                     });
                 }}
@@ -62,7 +59,7 @@ export const SummaryContent: React.FC<Props> = ({ character }) => {
                 label="Weight:"
                 value={characterState.summary.weight}
                 onChange={(e) => {
-                    charRefSet({
+                    charRefSet(character, {
                         summary: { weight: e.target.value },
                     });
                 }}
@@ -72,7 +69,7 @@ export const SummaryContent: React.FC<Props> = ({ character }) => {
                 label="Eyes:"
                 value={characterState.summary.eyes}
                 onChange={(e) => {
-                    charRefSet({
+                    charRefSet(character, {
                         summary: { eyes: e.target.value },
                     });
                 }}
@@ -82,7 +79,7 @@ export const SummaryContent: React.FC<Props> = ({ character }) => {
                 label="Hair:"
                 value={characterState.summary.hair}
                 onChange={(e) => {
-                    charRefSet({
+                    charRefSet(character, {
                         summary: { hair: e.target.value },
                     });
                 }}
@@ -92,7 +89,7 @@ export const SummaryContent: React.FC<Props> = ({ character }) => {
                 label="Skin:"
                 value={characterState.summary.skin}
                 onChange={(e) => {
-                    charRefSet({
+                    charRefSet(character, {
                         summary: { skin: e.target.value },
                     });
                 }}
@@ -102,7 +99,7 @@ export const SummaryContent: React.FC<Props> = ({ character }) => {
                 label="Race:"
                 value={characterState.summary.race}
                 onChange={(e) => {
-                    charRefSet({
+                    charRefSet(character, {
                         summary: { race: e.target.value },
                     });
                 }}
@@ -112,7 +109,7 @@ export const SummaryContent: React.FC<Props> = ({ character }) => {
                 label="Alignment:"
                 value={characterState.summary.alignment}
                 onChange={(e) => {
-                    charRefSet({
+                    charRefSet(character, {
                         summary: { alignment: e.target.value },
                     });
                 }}
@@ -122,7 +119,7 @@ export const SummaryContent: React.FC<Props> = ({ character }) => {
                 label="Background:"
                 value={characterState.summary.background}
                 onChange={(e) => {
-                    charRefSet({
+                    charRefSet(character, {
                         summary: { background: e.target.value },
                     });
                 }}

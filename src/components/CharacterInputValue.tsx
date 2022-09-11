@@ -22,10 +22,7 @@ export const CharacterInputValue: React.FC<Props> = ({
 }) => {
     return (
         <form
-            className={clsx(
-                formClassName,
-                "flex flex-row items-middle justify-between py-2"
-            )}
+            className={clsx(formClassName, "flex flex-row py-2")}
             onSubmit={(e) => {
                 e.preventDefault();
             }}

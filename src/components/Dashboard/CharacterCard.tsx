@@ -1,13 +1,11 @@
 import clsx from "clsx";
-import { CharacterInputValue } from "../CharacterInputValue";
 import firebase from "../../../firebase/clientApp";
-import { useState } from "react";
 import { Minus } from "tabler-icons-react";
 import { deleteCharacter } from "@/services/5e-character/delete-character";
 import { useUser } from "@/services/user-service";
-import { SecondaryButton } from "../Buttons/SecondaryButton";
 import { useRouter } from "next/router";
 import { Character } from "@/types/character/5e-character";
+import { PrimaryButton } from "../Buttons/PrimaryButton";
 
 interface Props {
     className?: string;
@@ -24,14 +22,13 @@ export const CharacterCard: React.FC<Props> = ({
 }) => {
     const characterData = character.data() as Character;
     const characterSheetLink = `/${characterData.gameVersion}/character-sheet/${character.id}`;
-    const [name, setName] = useState(characterData.name);
     const { user } = useUser();
     const router = useRouter();
     return (
         <>
             <div
                 className={clsx(
-                    "flex flex-col justify-end border border-color-secondary rounded-md p-5 min-h-[30rem] w-full min-w-fit mr-5 ml-0 mb-3",
+                    "flex flex-col justify-end border border-color-secondary rounded-md min-h-[30rem] w-full min-w-fit mr-5 ml-0 mb-3",
                     dashboardMode ? "cursor-alias" : "",
                     className
                 )}
@@ -46,24 +43,10 @@ export const CharacterCard: React.FC<Props> = ({
                 }}
             >
                 {dashboardMode ? (
-                    <div className="flex justify-between">
-                        <CharacterInputValue
-                            value={name}
-                            onChange={(e) => {
-                                setName(e.target.value);
-                                character.ref.set(
-                                    {
-                                        name: e.target.value,
-                                    },
-                                    { merge: true }
-                                );
-                            }}
-                            formClassName="w-1/2"
-                            className="bg-opacity-40"
-                        />
-                        <div>
-                            <SecondaryButton
-                                className="text-color-primary py-0 bg-transparent"
+                    <>
+                        <div className="flex justify-end">
+                            <PrimaryButton
+                                className="text-color-primary py-0 bg-transparent justify-end"
                                 onClick={() => {
                                     deleteCharacter(
                                         character.id,
@@ -73,12 +56,19 @@ export const CharacterCard: React.FC<Props> = ({
                                 }}
                             >
                                 <Minus />
-                            </SecondaryButton>
+                            </PrimaryButton>
                         </div>
-                        <div></div>
-                    </div>
+
+                        <div className="bg-color-bg -mb-2 pb-2 border-t border-color-primary px-3">
+                            {characterData.name}
+                        </div>
+
+                        <div className="bg-color-bg rounded-md px-3">
+                            Level {characterData.level} {characterData.class}
+                        </div>
+                    </>
                 ) : (
-                    <div></div>
+                    <></>
                 )}
             </div>
         </>
