@@ -19,7 +19,7 @@ interface IndexProp {
 export const HealthContent: React.FC<Props> = ({ character }) => {
     const characterState = use5eCharacterStore();
     const staticHealth = character.data()?.health as Health;
-    const [granularHealthValue, setGanularHealthValue] = useState(0);
+    const [granularHealthValue, setGranularHealthValue] = useState(0);
     const [showGranularButtons, setShowGranularButtons] = useState(false);
 
     const SuccessValCheck: React.FC<IndexProp> = ({ index }) => {
@@ -65,25 +65,42 @@ export const HealthContent: React.FC<Props> = ({ character }) => {
                                 type="number"
                                 value={granularHealthValue}
                                 onChange={(e) => {
-                                    setGanularHealthValue(
+                                    setGranularHealthValue(
                                         parseInt(e.target.value)
                                     );
                                 }}
                                 onFocus={() => {
                                     setShowGranularButtons(true);
                                 }}
-                                onBlur={() => {
-                                    setShowGranularButtons(false);
-                                }}
                             />
                         </form>
                         <span>
                             {showGranularButtons ? (
                                 <>
-                                    <PrimaryButton className="my-2 mr-2">
+                                    <PrimaryButton
+                                        onClick={() => {
+                                            console.log("damage");
+                                            characterState.damage(
+                                                granularHealthValue
+                                            );
+                                            // it could be a setting in the future to do this
+                                            // setGranularHealthValue(0);
+                                            setShowGranularButtons(false);
+                                        }}
+                                        className="my-2 mr-2"
+                                    >
                                         Damage
                                     </PrimaryButton>
-                                    <PrimaryButton className="my-2 mr-2 text-color-secondary bg-color-special">
+                                    <PrimaryButton
+                                        className="text-color-primary bg-color-secondary"
+                                        onClick={() => {
+                                            characterState.heal(
+                                                granularHealthValue
+                                            );
+                                            // setGranularHealthValue(0);
+                                            setShowGranularButtons(false);
+                                        }}
+                                    >
                                         Heal
                                     </PrimaryButton>
                                 </>
@@ -182,7 +199,7 @@ export const HealthContent: React.FC<Props> = ({ character }) => {
                     <div>
                         <PrimaryButton
                             onClick={() => {
-                                characterState.setDeathSaveSuccesses(3);
+                                characterState.setDeathSaveSuccesses(3, true);
                             }}
                             className="mr-2"
                         >

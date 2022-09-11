@@ -35,6 +35,7 @@
         "react-firebaseui": "^5.0.2",
         "react-tooltip": "^4.2.21",
         "tabler-icons-react": "^1.49.0",
+        "tailwind-merge": "^1.6.0",
         "uuidv4": "^6.2.13",
         "zustand": "^4.1.1"
     },

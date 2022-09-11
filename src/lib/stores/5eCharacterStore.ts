@@ -9,10 +9,12 @@ type HealthState = {
     health: Health;
     setCurrentHp: (val: number) => void;
     setHpMax: (val: number) => void;
-    setDeathSaveSuccesses: (val: number) => void;
+    setDeathSaveSuccesses: (val: number, nat20?: boolean) => void;
     setDeathSaveFails: (val: number) => void;
     unconscious: boolean;
     dead: boolean;
+    heal: (val: number) => void;
+    damage: (val: number) => void;
 };
 
 type FifthEditionCharacterStore = SummaryState &
@@ -128,7 +130,7 @@ export const use5eCharacterStore = create<FifthEditionCharacterStore>(
             }
         },
 
-        setDeathSaveSuccesses(val) {
+        setDeathSaveSuccesses(val, nat20 = false) {
             const health = get().health;
             const character = get().firebaseCharacter;
             if (!character) {
@@ -143,7 +145,7 @@ export const use5eCharacterStore = create<FifthEditionCharacterStore>(
                 charRefSet(character, {
                     health: {
                         ...health,
-                        hpCurrent: 0,
+                        hpCurrent: nat20 ? 1 : 0,
                         deathSaveSuccesses: 0,
                         deathSaveFails: 0,
                     },
@@ -179,6 +181,71 @@ export const use5eCharacterStore = create<FifthEditionCharacterStore>(
             } else {
                 charRefSet(character, {
                     health: { ...health, deathSaveFails: val },
+                });
+            }
+        },
+        heal(val) {
+            const health = get().health;
+            const character = get().firebaseCharacter;
+            if (!character) {
+                return;
+            }
+
+            if (val <= 0) {
+                return;
+            }
+
+            if (health.hpCurrent + val > health.hpMax) {
+                charRefSet(character, {
+                    health: {
+                        ...health,
+                        hpCurrent: health.hpMax,
+                    },
+                });
+            } else {
+                charRefSet(character, {
+                    health: {
+                        ...health,
+                        hpCurrent: health.hpCurrent + val,
+                    },
+                });
+            }
+        },
+        damage(val) {
+            const health = get().health;
+            const character = get().firebaseCharacter;
+            if (!character) {
+                return;
+            }
+
+            if (val <= 0) {
+                return;
+            }
+
+            if (health.hpCurrent - val < -health.hpMax) {
+                charRefSet(character, {
+                    health: {
+                        ...health,
+                        hpCurrent: -health.hpMax,
+                    },
+                    unconscious: true,
+                    dead: true,
+                });
+            } else if (health.hpCurrent - val <= 0) {
+                charRefSet(character, {
+                    health: {
+                        ...health,
+                        hpCurrent: 0,
+                    },
+                    unconscious: true,
+                    dead: false,
+                });
+            } else {
+                charRefSet(character, {
+                    health: {
+                        ...health,
+                        hpCurrent: health.hpCurrent - val,
+                    },
                 });
             }
         },
