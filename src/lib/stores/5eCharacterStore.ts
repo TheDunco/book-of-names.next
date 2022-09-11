@@ -143,7 +143,7 @@ export const use5eCharacterStore = create<FifthEditionCharacterStore>(
                 charRefSet(character, {
                     health: {
                         ...health,
-                        hpCurrent: 1,
+                        hpCurrent: 0,
                         deathSaveSuccesses: 0,
                         deathSaveFails: 0,
                     },

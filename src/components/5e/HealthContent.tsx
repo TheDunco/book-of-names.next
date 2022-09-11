@@ -6,6 +6,7 @@ import { Health } from "@/types/character/5e-character";
 import { Equal, Plus } from "tabler-icons-react";
 import { Checkbox } from "../Checkbox";
 import { PrimaryButton } from "../Buttons/PrimaryButton";
+import { useState } from "react";
 
 interface Props {
     character: firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData>;
@@ -18,6 +19,8 @@ interface IndexProp {
 export const HealthContent: React.FC<Props> = ({ character }) => {
     const characterState = use5eCharacterStore();
     const staticHealth = character.data()?.health as Health;
+    const [granularHealthValue, setGanularHealthValue] = useState(0);
+    const [showGranularButtons, setShowGranularButtons] = useState(false);
 
     const SuccessValCheck: React.FC<IndexProp> = ({ index }) => {
         return (
@@ -54,6 +57,42 @@ export const HealthContent: React.FC<Props> = ({ character }) => {
         <>
             {!characterState.unconscious ? (
                 <div className="flex flex-col items-start">
+                    <div>
+                        <h1>Take Damage/Heal</h1>
+                        <form className="flex flex-col">
+                            <input
+                                className="py-0 text-center bg-color-special border-color-primary text-3xl font-bold focus:ring-color-primary w-32 mt-0.5 rounded-md px-2"
+                                type="number"
+                                value={granularHealthValue}
+                                onChange={(e) => {
+                                    setGanularHealthValue(
+                                        parseInt(e.target.value)
+                                    );
+                                }}
+                                onFocus={() => {
+                                    setShowGranularButtons(true);
+                                }}
+                                onBlur={() => {
+                                    setShowGranularButtons(false);
+                                }}
+                            />
+                        </form>
+                        <span>
+                            {showGranularButtons ? (
+                                <>
+                                    <PrimaryButton className="my-2 mr-2">
+                                        Damage
+                                    </PrimaryButton>
+                                    <PrimaryButton className="my-2 mr-2 text-color-secondary bg-color-special">
+                                        Heal
+                                    </PrimaryButton>
+                                </>
+                            ) : null}
+                        </span>
+                    </div>
+
+                    <div className="border-t border-color-primary w-full pt-3 mt-3"></div>
+
                     <form>
                         <input
                             className="py-0 text-left bg-color-bg border-color-primary text-3xl font-bold focus:ring-color-primary w-32 mt-0.5 rounded-md px-2"
@@ -86,31 +125,40 @@ export const HealthContent: React.FC<Props> = ({ character }) => {
                         </label>
                     </form>
                     <Equal className="ml-12 my-1" />
-                    <form>
-                        <input
-                            className="text-color-secondary py-0 text-left bg-color-bg border-color-primary text-3xl font-extrabold focus:ring-color-secondary w-32 mt-0.5 rounded-md px-2"
-                            type="text"
-                            disabled={true}
-                            value={staticHealth.hpCurrent + staticHealth.hpTemp}
-                        />
-                        <label className="text-color-secondary font-extrabold">
-                            &nbsp;HP
-                        </label>
-                    </form>
-                    <div className="border-t border-color-primary w-full pt-3 mt-3"></div>
-                    <form>
-                        <input
-                            className="py-0 text-left bg-color-bg border-color-primary text-3xl font-bold focus:ring-color-primary w-32 mt-0.5 rounded-md px-2"
-                            type="number"
-                            value={staticHealth.hpMax}
-                            onChange={(e) => {
-                                charRefSet(character, {
-                                    health: { hpMax: parseInt(e.target.value) },
-                                });
-                            }}
-                        />
-                        <label>&nbsp;Max</label>
-                    </form>
+
+                    <span className="inline-flex">
+                        <form>
+                            <input
+                                className="text-color-secondary py-0 text-left bg-color-bg border-color-primary text-3xl font-extrabold focus:ring-color-secondary w-32 mt-0.5 rounded-md px-2"
+                                type="text"
+                                disabled={true}
+                                value={
+                                    staticHealth.hpCurrent + staticHealth.hpTemp
+                                }
+                            />
+                            <label className="text-color-secondary font-extrabold">
+                                &nbsp;HP
+                            </label>
+                        </form>
+                        <h1 className="text-4xl font-bold mx-3 -mt-2 text-color-secondary">
+                            /
+                        </h1>
+                        <form>
+                            <input
+                                className="py-0 text-left bg-color-bg border-color-primary text-3xl font-bold focus:ring-color-primary w-32 mt-0.5 rounded-md px-2"
+                                type="number"
+                                value={staticHealth.hpMax}
+                                onChange={(e) => {
+                                    charRefSet(character, {
+                                        health: {
+                                            hpMax: parseInt(e.target.value),
+                                        },
+                                    });
+                                }}
+                            />
+                            <label>&nbsp;Max</label>
+                        </form>
+                    </span>
                 </div>
             ) : (
                 <>
