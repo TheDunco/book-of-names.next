@@ -1,6 +1,6 @@
 import clsx from "clsx";
 
-export const loaderURL = "loader.svg";
+export const loaderURL = "/loader.svg";
 
 interface Props {
     className?: string;

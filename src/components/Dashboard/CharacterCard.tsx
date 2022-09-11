@@ -3,9 +3,9 @@ import firebase from "../../../firebase/clientApp";
 import { Minus } from "tabler-icons-react";
 import { deleteCharacter } from "@/services/5e-character/delete-character";
 import { useUser } from "@/services/user-service";
-import { SecondaryButton } from "../Buttons/SecondaryButton";
 import { useRouter } from "next/router";
 import { Character } from "@/types/character/5e-character";
+import { PrimaryButton } from "../Buttons/PrimaryButton";
 
 interface Props {
     className?: string;
@@ -45,7 +45,7 @@ export const CharacterCard: React.FC<Props> = ({
                 {dashboardMode ? (
                     <>
                         <div className="flex justify-end">
-                            <SecondaryButton
+                            <PrimaryButton
                                 className="text-color-primary py-0 bg-transparent justify-end"
                                 onClick={() => {
                                     deleteCharacter(
@@ -56,7 +56,7 @@ export const CharacterCard: React.FC<Props> = ({
                                 }}
                             >
                                 <Minus />
-                            </SecondaryButton>
+                            </PrimaryButton>
                         </div>
 
                         <div className="bg-color-bg -mb-2 pb-2 border-t border-color-primary px-3">

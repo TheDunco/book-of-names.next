@@ -2,6 +2,8 @@ export interface Character {
     livingState: LivingStateEnum;
     name: string;
     class: string;
+    unconscious: boolean;
+    dead: boolean;
     xp: number;
     level: number;
     spellcastingAbility: string;
