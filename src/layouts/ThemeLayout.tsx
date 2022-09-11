@@ -88,7 +88,7 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                         </div>
                         <div
                             className={clsx(
-                                "relative left-[calc(100%-4rem)] ",
+                                "relative left-[calc(100%-4rem)] top-1",
                                 user ? "visible" : "hidden"
                             )}
                         >
