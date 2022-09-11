@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import { ChangeEvent } from "react";
+import { twMerge } from "tailwind-merge";
 
 interface Props {
     className?: string;
@@ -22,9 +23,14 @@ export const CharacterInputValue: React.FC<Props> = ({
 }) => {
     return (
         <form
-            className={clsx(formClassName, "flex flex-row py-2")}
+            className={twMerge(formClassName, "flex flex-row py-2")}
             onSubmit={(e) => {
                 e.preventDefault();
+            }}
+            onKeyDownCapture={(e) => {
+                if (e.key === "Enter") {
+                    e.preventDefault();
+                }
             }}
         >
             <label className="mr-3">{label}</label>

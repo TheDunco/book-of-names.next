@@ -1,8 +1,8 @@
 export const AppConfig = {
-    site_name: "Book of Names v2",
+    site_name: "The Book Of Names",
     author: "Duncan Van Keulen",
-    title: "Book of Names v2",
+    title: "The Book of Names",
     description: "A 5e D&D character sheet",
     locale: "en",
-    version: "0.1.3",
+    version: "0.2.0",
 };

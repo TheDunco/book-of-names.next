@@ -130,7 +130,6 @@ export interface Health {
     hpMax: number;
     hpTemp: number;
     hitDiceCurrent: number;
-    hitDiceMax: number;
     hitDiceType: number;
     deathSaveFails: number;
     deathSaveSuccesses: number;
@@ -188,7 +187,7 @@ export interface Summary {
     skin: string;
     race: string;
     class: string;
-    alignment: AlignmentEnum;
+    alignment: AlignmentEnum | string;
     background: string;
     speed: number;
     other?: string;
