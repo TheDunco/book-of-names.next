@@ -20,6 +20,7 @@ import { TextButton } from "@/components/Buttons/TextButton";
 import ReactTooltip from "react-tooltip";
 import { useUser } from "@/services/user-service";
 import { setDocMerge } from "@/services/firebase-helpers";
+import { twMerge } from "tailwind-merge";
 
 const flexSyles = "flex flex-1 grow flex-col justify-start";
 const textStyles = "text-color-text";
@@ -54,7 +55,7 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
         <>
             <div
                 data-theme={theme}
-                className={clsx(
+                className={twMerge(
                     flexSyles,
                     textStyles,
                     fontStyles,
@@ -82,12 +83,12 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
 
                 <header>
                     <div className="fixed w-full bg-color-primary h-16 shadow-lg">
-                        <div className="absolute text-color-bg left-[calc(50%-7rem)] transition-all duration-300 whitespace-nowrap text-2xl top-4 sm:top-2 sm:text-3xl z-0 select-none">
+                        <div className="absolute text-color-primary sm:text-color-bg left-[calc(50%-7rem)] transition-all duration-300 whitespace-nowrap text-2xl top-3 sm:top-2 sm:text-3xl z-0 select-none">
                             {AppConfig.title}
                         </div>
                         <div
                             className={clsx(
-                                "relative left-[calc(100%-4rem)] top-2",
+                                "relative left-[calc(100%-4rem)] ",
                                 user ? "visible" : "hidden"
                             )}
                         >

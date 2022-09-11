@@ -1,6 +1,11 @@
 import { HealthContent } from "@/components/5e/HealthContent";
 import { PrimaryButton } from "@/components/Buttons/PrimaryButton";
 import { TextButton } from "@/components/Buttons/TextButton";
+import {
+    layoutGrid,
+    layoutHorizontal,
+    layoutVertical,
+} from "@/components/Dashboard/Dashboard";
 import { Loader } from "@/components/Loader";
 import { SheetAccordion } from "@/components/SheetComponents/SheetAccordion";
 import { ThemeLayout } from "@/layouts/ThemeLayout";
@@ -22,9 +27,6 @@ import {
 } from "tabler-icons-react";
 import { SummaryContent } from "../../../components/5e/SummaryContent";
 
-const layoutHorizontal = "flex flex-1";
-const layoutVertical = "flex flex-1 flex-col m-auto ";
-const layoutGrid = "grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3";
 const layoutKey = "5e-sheet-layout";
 
 const fifthEditionCharacterSheet: React.FC = () => {
@@ -82,7 +84,7 @@ const fifthEditionCharacterSheet: React.FC = () => {
                         {characterError && <div>{characterError.message}</div>}
                         <div
                             className={clsx(
-                                "flex flex-col mx-10 w-[calc(100vw-4rem)] pb-5"
+                                "flex flex-col mx-1 sm:mx-3 w-[calc(100vw-1rem)] pb-5"
                             )}
                         >
                             <span className="flex justify-start gap-3 my-3">

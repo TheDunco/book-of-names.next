@@ -6,7 +6,8 @@ import { Health } from "@/types/character/5e-character";
 import { Equal, Plus } from "tabler-icons-react";
 import { Checkbox } from "../Checkbox";
 import { PrimaryButton } from "../Buttons/PrimaryButton";
-import { useState } from "react";
+import { KeyboardEvent, useState } from "react";
+import { Divider } from "../Divider";
 
 interface Props {
     character: firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData>;
@@ -53,15 +54,21 @@ export const HealthContent: React.FC<Props> = ({ character }) => {
         );
     };
 
+    const preventSubmission = (e: KeyboardEvent<HTMLFormElement>) => {
+        if (e.key === "Enter") {
+            e.preventDefault();
+        }
+    };
+
     return (
         <>
             {!characterState.unconscious ? (
                 <div className="flex flex-col items-start">
                     <div>
                         <h1>Take Damage/Heal</h1>
-                        <form className="flex flex-col">
+                        <form className="flex flex-row">
                             <input
-                                className="py-0 text-center bg-color-special border-color-primary text-3xl font-bold focus:ring-color-primary w-32 mt-0.5 rounded-md px-2"
+                                className="py-0 transition-all duration-200 text-center bg-color-special border-color-primary text-3xl font-bold focus:ring-color-primary w-40 md:w-48 mt-0.5 rounded-md px-2"
                                 type="number"
                                 value={granularHealthValue}
                                 onChange={(e) => {
@@ -83,7 +90,7 @@ export const HealthContent: React.FC<Props> = ({ character }) => {
                                             characterState.damage(
                                                 granularHealthValue
                                             );
-                                            // it could be a setting in the future to do this
+                                            // TODO: Setting
                                             // setGranularHealthValue(0);
                                             setShowGranularButtons(false);
                                         }}
@@ -108,27 +115,32 @@ export const HealthContent: React.FC<Props> = ({ character }) => {
                         </span>
                     </div>
 
-                    <div className="border-t border-color-primary w-full pt-3 mt-3"></div>
+                    <Divider />
 
-                    <form>
+                    <form onKeyDownCapture={preventSubmission}>
                         <input
                             className="py-0 text-left bg-color-bg border-color-primary text-3xl font-bold focus:ring-color-primary w-32 mt-0.5 rounded-md px-2"
                             type="number"
                             value={staticHealth.hpCurrent}
+                            id="hp-current"
+                            aria-label="Current HP"
                             onChange={(e) => {
                                 characterState.setCurrentHp(
                                     parseInt(e.target.value)
                                 );
                             }}
                         />
-                        <label>&nbsp;HP</label>
+                        <label htmlFor="hp-current">&nbsp;HP</label>
                     </form>
+
                     <Plus className="ml-12 my-1" />
-                    <form>
+                    <form onKeyDownCapture={preventSubmission}>
                         <input
                             className="text-color-special font-thin py-0 text-left bg-color-bg border-color-special text-3xl focus:ring-color-special w-32 mt-0.5 rounded-md px-2"
                             type="number"
                             value={staticHealth.hpTemp}
+                            id="temp"
+                            aria-label="Temporary hit points"
                             onChange={(e) => {
                                 charRefSet(character, {
                                     health: {
@@ -137,34 +149,46 @@ export const HealthContent: React.FC<Props> = ({ character }) => {
                                 });
                             }}
                         />
-                        <label className="text-color-special font-thin">
+                        <label
+                            htmlFor="temp"
+                            className="text-color-special font-thin"
+                        >
                             &nbsp;Temp
                         </label>
                     </form>
                     <Equal className="ml-12 my-1" />
 
                     <span className="inline-flex">
-                        <form>
+                        <form onKeyDownCapture={preventSubmission}>
                             <input
                                 className="text-color-secondary py-0 text-left bg-color-bg border-color-primary text-3xl font-extrabold focus:ring-color-secondary w-32 mt-0.5 rounded-md px-2"
                                 type="text"
                                 disabled={true}
+                                id="hp-total"
+                                aria-label="Total hit points including temp"
                                 value={
                                     staticHealth.hpCurrent + staticHealth.hpTemp
                                 }
                             />
-                            <label className="text-color-secondary font-extrabold">
+                            <label
+                                htmlFor="hp-total"
+                                className="text-color-secondary font-extrabold"
+                            >
                                 &nbsp;HP
                             </label>
                         </form>
-                        <h1 className="text-4xl font-bold mx-3 -mt-2 text-color-secondary">
+
+                        <h2 className="text-4xl font-bold mx-3 -mt-2 text-color-secondary">
                             /
-                        </h1>
-                        <form>
+                        </h2>
+
+                        <form onKeyDownCapture={preventSubmission}>
                             <input
                                 className="py-0 text-left bg-color-bg border-color-primary text-3xl font-bold focus:ring-color-primary w-32 mt-0.5 rounded-md px-2"
                                 type="number"
                                 value={staticHealth.hpMax}
+                                id="max"
+                                aria-label="Max health"
                                 onChange={(e) => {
                                     charRefSet(character, {
                                         health: {
@@ -173,9 +197,37 @@ export const HealthContent: React.FC<Props> = ({ character }) => {
                                     });
                                 }}
                             />
-                            <label>&nbsp;Max</label>
+                            <label htmlFor="max">&nbsp;Max</label>
                         </form>
                     </span>
+
+                    <Divider />
+
+                    <form
+                        className="inline-flex items-center"
+                        onKeyDownCapture={preventSubmission}
+                    >
+                        <label htmlFor="hit-dice" className="text-xl">
+                            Hit Dice&nbsp;
+                        </label>
+                        <input
+                            id="hit-dice"
+                            className="py-0 text-left bg-color-bg border-color-primary text-3xl font-bold focus:ring-color-primary w-32 mt-0.5 rounded-md px-2"
+                            type="number"
+                            value={staticHealth.hitDiceCurrent}
+                            onChange={(e) => {
+                                characterState.setHitDice(
+                                    parseInt(e.target.value)
+                                );
+                            }}
+                        />
+                        <h2 className="text-4xl font-bold mx-3 -mt-2 text-color-secondary">
+                            /
+                        </h2>
+                        <h2 className="text-3xl font-bold text-color-text">
+                            {characterState.level}
+                        </h2>
+                    </form>
                 </div>
             ) : (
                 <>

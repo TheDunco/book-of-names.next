@@ -15,6 +15,7 @@ type HealthState = {
     dead: boolean;
     heal: (val: number) => void;
     damage: (val: number) => void;
+    setHitDice: (val: number) => void;
 };
 
 type FifthEditionCharacterStore = SummaryState &
@@ -245,6 +246,38 @@ export const use5eCharacterStore = create<FifthEditionCharacterStore>(
                     health: {
                         ...health,
                         hpCurrent: health.hpCurrent - val,
+                    },
+                });
+            }
+        },
+        setHitDice(val) {
+            const health = get().health;
+            const character = get().firebaseCharacter;
+            if (!character) {
+                return;
+            }
+
+            const level = get().level;
+
+            if (val <= 0) {
+                charRefSet(character, {
+                    health: {
+                        ...health,
+                        hitDiceCurrent: 0,
+                    },
+                });
+            } else if (val > level) {
+                charRefSet(character, {
+                    health: {
+                        ...health,
+                        hitDiceCurrent: level,
+                    },
+                });
+            } else {
+                charRefSet(character, {
+                    health: {
+                        ...health,
+                        hitDiceCurrent: val,
                     },
                 });
             }
