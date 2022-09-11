@@ -74,13 +74,11 @@ export const use5eCharacterStore = create<FifthEditionCharacterStore>(
                 });
                 set({ health: { ...health, hpCurrent: health.hpMax } });
             } else if (val < -health.hpMax) {
-                console.log("Super dead");
                 charRefSet(character, {
                     health: { ...health, hpCurrent: -health.hpMax },
                 });
                 set({ health: { ...health, hpCurrent: -health.hpMax } });
             } else if (val <= 0) {
-                console.log("Unconscious");
                 charRefSet(character, {
                     health: { ...health, hpCurrent: val },
                 });
@@ -223,25 +221,68 @@ export const use5eCharacterStore = create<FifthEditionCharacterStore>(
                 return;
             }
 
-            if (health.hpCurrent - val < -health.hpMax) {
+            const trueHp = health.hpCurrent + health.hpTemp;
+
+            if (trueHp - val < -health.hpMax) {
+                // instadeath
                 charRefSet(character, {
                     health: {
                         ...health,
                         hpCurrent: -health.hpMax,
+                        hpTemp: 0,
                     },
                     unconscious: true,
                     dead: true,
                 });
-            } else if (health.hpCurrent - val <= 0) {
+            } else if (health.hpTemp - val <= 0) {
+                // unconscious
+                const rollover = val - health.hpTemp;
                 charRefSet(character, {
                     health: {
                         ...health,
-                        hpCurrent: 0,
+                        hpTemp: 0,
+                        hpCurrent: health.hpCurrent - rollover,
                     },
-                    unconscious: true,
-                    dead: false,
+                });
+                set({
+                    health: {
+                        ...health,
+                        hpTemp: 0,
+                        hpCurrent: health.hpCurrent - rollover,
+                    },
+                });
+                const newHealth = get().health;
+                if (newHealth.hpCurrent <= -newHealth.hpMax) {
+                    charRefSet(character, {
+                        unconscious: true,
+                        dead: true,
+                        health: {
+                            ...newHealth,
+                            hpCurrent: -newHealth.hpMax,
+                            hpTemp: 0,
+                        },
+                    });
+                    set({ unconscious: true });
+                } else if (newHealth.hpCurrent <= 0) {
+                    charRefSet(character, {
+                        unconscious: true,
+                        health: {
+                            ...newHealth,
+                            hpTemp: 0,
+                        },
+                    });
+                    set({ unconscious: true });
+                }
+            } else if (health.hpTemp - val > 0) {
+                // temp damage
+                charRefSet(character, {
+                    health: {
+                        ...health,
+                        hpTemp: health.hpTemp - val,
+                    },
                 });
             } else {
+                // normal damage
                 charRefSet(character, {
                     health: {
                         ...health,

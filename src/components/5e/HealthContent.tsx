@@ -43,7 +43,6 @@ export const HealthContent: React.FC<Props> = ({ character }) => {
             <Checkbox
                 checked={characterState.health.deathSaveFails >= index + 1}
                 onChange={(e) => {
-                    console.log(e);
                     if (!e.target.checked) {
                         characterState.setDeathSaveFails(index);
                     } else {
@@ -86,7 +85,6 @@ export const HealthContent: React.FC<Props> = ({ character }) => {
                                 <>
                                     <PrimaryButton
                                         onClick={() => {
-                                            console.log("damage");
                                             characterState.damage(
                                                 granularHealthValue
                                             );
@@ -207,8 +205,8 @@ export const HealthContent: React.FC<Props> = ({ character }) => {
                         className="inline-flex items-center"
                         onKeyDownCapture={preventSubmission}
                     >
-                        <label htmlFor="hit-dice" className="text-xl">
-                            Hit Dice&nbsp;
+                        <label htmlFor="hit-dice" className="text-xl mr-2">
+                            Hit Dice Used:
                         </label>
                         <input
                             id="hit-dice"
@@ -272,7 +270,6 @@ export const HealthContent: React.FC<Props> = ({ character }) => {
                                         deathSaveFails: currentFails,
                                     },
                                     dead: deadState,
-                                    unconscious: deadState,
                                 });
                             }}
                             className="text-color-special bg-color-secondary"
