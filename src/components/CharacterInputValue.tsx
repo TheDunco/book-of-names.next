@@ -10,7 +10,7 @@ interface Props {
     label?: React.ReactNode;
 }
 
-const standardStyles = "bg-color-bg text-color-text ";
+const standardStyles = "bg-color-bg text-color-text w-full";
 const stateStyles =
     "border border-opacity-50 rounded-md hover:border-opacity-100 hover:ring-1 hover:ring-color-secondary focus:border-color-primary focus:ring-0";
 
@@ -35,12 +35,7 @@ export const CharacterInputValue: React.FC<Props> = ({
         >
             <label className="mr-3">{label}</label>
             <input
-                className={clsx(
-                    className,
-                    stateStyles,
-                    standardStyles,
-                    "flex-1"
-                )}
+                className={clsx(className, stateStyles, standardStyles)}
                 type="text"
                 value={value}
                 onChange={onChange}

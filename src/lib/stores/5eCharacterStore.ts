@@ -1,4 +1,10 @@
-import { AlignmentEnum, Health, Summary } from "@/types/character/5e-character";
+import {
+    AbilityScore,
+    AbilityScoresEnum,
+    AlignmentEnum,
+    Health,
+    Summary,
+} from "@/types/character/5e-character";
 import firebase from "../../../firebase/clientApp";
 import create from "zustand";
 import { charRefSet } from "../charRefSet";
@@ -18,8 +24,20 @@ type HealthState = {
     setHitDice: (val: number) => void;
 };
 
+type AbilityScoresState = {
+    abilityScores: {
+        strength: AbilityScore;
+        dexterity: AbilityScore;
+        constitution: AbilityScore;
+        intelligence: AbilityScore;
+        wisdom: AbilityScore;
+        charisma: AbilityScore;
+    };
+};
+
 type FifthEditionCharacterStore = SummaryState &
-    HealthState & {
+    HealthState &
+    AbilityScoresState & {
         name: string;
         class: string;
         level: number;
@@ -322,6 +340,38 @@ export const use5eCharacterStore = create<FifthEditionCharacterStore>(
                     },
                 });
             }
+        },
+        abilityScores: {
+            charisma: {
+                name: AbilityScoresEnum.CHARISMA,
+                save: false,
+                value: 9,
+            },
+            constitution: {
+                name: AbilityScoresEnum.CONSTITUTION,
+                save: false,
+                value: 9,
+            },
+            dexterity: {
+                name: AbilityScoresEnum.DEXTERITY,
+                save: false,
+                value: 9,
+            },
+            intelligence: {
+                name: AbilityScoresEnum.INTELLIGENCE,
+                save: false,
+                value: 9,
+            },
+            strength: {
+                name: AbilityScoresEnum.STRENGTH,
+                save: false,
+                value: 9,
+            },
+            wisdom: {
+                name: AbilityScoresEnum.WISDOM,
+                save: false,
+                value: 9,
+            },
         },
     })
 );
