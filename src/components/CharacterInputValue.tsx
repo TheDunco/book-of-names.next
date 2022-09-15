@@ -8,6 +8,7 @@ interface Props {
     value: string | number | readonly string[] | undefined;
     onChange: (e: ChangeEvent<HTMLInputElement>) => void;
     label?: React.ReactNode;
+    type?: "text" | "number";
 }
 
 const standardStyles = "bg-color-bg text-color-text w-full";
@@ -20,6 +21,7 @@ export const CharacterInputValue: React.FC<Props> = ({
     formClassName,
     onChange,
     label,
+    type,
 }) => {
     return (
         <form
@@ -36,7 +38,7 @@ export const CharacterInputValue: React.FC<Props> = ({
             <label className="mr-3">{label}</label>
             <input
                 className={clsx(className, stateStyles, standardStyles)}
-                type="text"
+                type={type}
                 value={value}
                 onChange={onChange}
                 onClick={(e) => {

@@ -15,8 +15,9 @@ export const AbilityScoresContent: React.FC = () => {
             <CharacterInputValue
                 label="Charisma:"
                 value={characterState.abilityScores.charisma.value}
-                className="w-10"
+                className="w-16"
                 formClassName="justify-center"
+                type="number"
                 onChange={(e) => {
                     charRefSet(character, {
                         abilityScores: {
@@ -34,8 +35,9 @@ export const AbilityScoresContent: React.FC = () => {
             <CharacterInputValue
                 label="Constitution:"
                 value={characterState.abilityScores.constitution.value}
-                className="w-10"
+                className="w-16"
                 formClassName="justify-center"
+                type="number"
                 onChange={(e) => {
                     charRefSet(character, {
                         abilityScores: {
@@ -53,8 +55,9 @@ export const AbilityScoresContent: React.FC = () => {
             <CharacterInputValue
                 label="Dexterity:"
                 value={characterState.abilityScores.dexterity.value}
-                className="w-10"
+                className="w-16"
                 formClassName="justify-center"
+                type="number"
                 onChange={(e) => {
                     charRefSet(character, {
                         abilityScores: {
@@ -72,8 +75,9 @@ export const AbilityScoresContent: React.FC = () => {
             <CharacterInputValue
                 label="Intelligence:"
                 value={characterState.abilityScores.intelligence.value}
-                className="w-10"
+                className="w-16"
                 formClassName="justify-center"
+                type="number"
                 onChange={(e) => {
                     charRefSet(character, {
                         abilityScores: {
@@ -91,8 +95,9 @@ export const AbilityScoresContent: React.FC = () => {
             <CharacterInputValue
                 label="Strength:"
                 value={characterState.abilityScores.strength.value}
-                className="w-10"
+                className="w-16"
                 formClassName="justify-center"
+                type="number"
                 onChange={(e) => {
                     charRefSet(character, {
                         abilityScores: {
@@ -110,8 +115,9 @@ export const AbilityScoresContent: React.FC = () => {
             <CharacterInputValue
                 label="Wisdom:"
                 value={characterState.abilityScores.wisdom.value}
-                className="w-10"
+                className="w-16"
                 formClassName="justify-center"
+                type="number"
                 onChange={(e) => {
                     charRefSet(character, {
                         abilityScores: {
