@@ -19,7 +19,7 @@ export const SheetAccordion: React.FC<AccordionProps> = ({
             <div
                 aria-label="accordion-border"
                 className={clsx(
-                    "flex flex-col border border-color-special rounded-md p-3 transition-all duration-300 ease-in-out min-w-fit"
+                    "flex flex-col border bg-color-bg border-color-special rounded-md p-3 transition-all duration-300 ease-in-out min-w-fit"
                 )}
             >
                 <div

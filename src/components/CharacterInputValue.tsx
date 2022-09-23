@@ -11,7 +11,7 @@ interface Props {
     type?: "text" | "number";
 }
 
-const standardStyles = "bg-color-bg text-color-text w-full";
+const standardStyles = "pl-3 bg-color-bg text-color-text";
 const stateStyles =
     "border border-opacity-50 rounded-md hover:border-opacity-100 hover:ring-1 hover:ring-color-secondary focus:border-color-primary focus:ring-0";
 
@@ -25,7 +25,7 @@ export const CharacterInputValue: React.FC<Props> = ({
 }) => {
     return (
         <form
-            className={twMerge(formClassName, "flex flex-row py-2")}
+            className={twMerge(formClassName, "flex flex-col pb-1")}
             onSubmit={(e) => {
                 e.preventDefault();
             }}

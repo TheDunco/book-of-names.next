@@ -60,7 +60,7 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                     textStyles,
                     fontStyles,
                     showSidebar ? "grid grid-cols-[0fr_1fr] touch-none" : "",
-                    "scroll-smooth bg-color-bg transition-all duration-300 ease-in-out text-lg md:text-2xl z-0 overflow-hidden"
+                    "scroll-smooth bg-color-secondary transition-all duration-300 ease-in-out text-lg z-0 overflow-hidden"
                 )}
             >
                 <button
