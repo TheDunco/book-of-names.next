@@ -6,9 +6,9 @@ import firebase from "../../firebase/clientApp";
 
 export interface UserSettings {
     currentTheme: ThemesEnum;
-    currentCharacter: string;
     currentLayout: string;
     dashboardBackgroundImageLink: string;
+    sheetAccordionBlur: boolean;
 }
 
 export interface User {

@@ -1,18 +1,18 @@
+import { FifthEditionCharacterSheetHeader } from "@/components/5e/5eHeaderContent";
 import { AbilitiesContent } from "@/components/5e/AbilitiesContent";
 import { AbilityScoresContent } from "@/components/5e/AbilityScoresContent";
 import { ActionsContent } from "@/components/5e/ActionsContent";
+import { DefensesContent } from "@/components/5e/DefensesContent";
 import { EquipmentContent } from "@/components/5e/EquipmentContent";
 import { FeatsContent } from "@/components/5e/FeatsContent";
 import { HealthContent } from "@/components/5e/HealthContent";
+import { ImagesContent } from "@/components/5e/ImagesContent";
+import { LanguagesContent } from "@/components/5e/LanguagesContent";
+import { NotesContent } from "@/components/5e/NotesContent";
+import { ProficienciesContent } from "@/components/5e/ProficienciesContent";
 import { SkillsContent } from "@/components/5e/SkillsContent";
 import { SpellsContent } from "@/components/5e/SpellsContent";
-import { PrimaryButton } from "@/components/Buttons/PrimaryButton";
-import { TextButton } from "@/components/Buttons/TextButton";
-import {
-    layoutGrid,
-    layoutHorizontal,
-    layoutVertical,
-} from "@/components/Dashboard/Dashboard";
+import { layoutHorizontal } from "@/components/Dashboard/Dashboard";
 import { Loader } from "@/components/Loader";
 import { SheetAccordion } from "@/components/SheetComponents/SheetAccordion";
 import { ThemeLayout } from "@/layouts/ThemeLayout";
@@ -27,13 +27,6 @@ import clsx from "clsx";
 import { useRouter } from "next/router";
 import React from "react";
 import { useEffect } from "react";
-import ReactTooltip from "react-tooltip";
-import {
-    ArrowLeft,
-    LayoutDistributeHorizontal,
-    LayoutDistributeVertical,
-    LayoutGrid,
-} from "tabler-icons-react";
 import { SummaryContent } from "../../../components/5e/SummaryContent";
 
 const layoutKey = "5e-sheet-layout";
@@ -114,78 +107,11 @@ const fifthEditionCharacterSheet: React.FC = () => {
                                 "flex flex-col mx-1 sm:mx-3 w-[calc(100vw-1rem)] pb-5"
                             )}
                         >
-                            <span className="flex justify-start gap-3 my-3">
-                                <div>
-                                    <ReactTooltip
-                                        id="backButtonTip"
-                                        type="light"
-                                        delayShow={400}
-                                    >
-                                        Back to Dashboard
-                                    </ReactTooltip>
-
-                                    <TextButton
-                                        data-tip
-                                        data-for="backButtonTip"
-                                        className="h-fit w-fit py-1"
-                                        onClick={() => {
-                                            router.push("/");
-                                        }}
-                                    >
-                                        <ArrowLeft />
-                                    </TextButton>
-                                </div>
-
-                                <PrimaryButton
-                                    className={clsx(
-                                        "h-fit w-fit py-1",
-                                        layoutMode === layoutHorizontal
-                                            ? "bg-color-secondary"
-                                            : "bg-color-special"
-                                    )}
-                                    onClick={() => {
-                                        setLayoutMode(layoutHorizontal);
-                                        syncLayout();
-                                    }}
-                                >
-                                    <LayoutDistributeHorizontal />
-                                </PrimaryButton>
-
-                                <PrimaryButton
-                                    className={clsx(
-                                        "h-fit w-fit py-1",
-                                        layoutMode === layoutVertical
-                                            ? "bg-color-secondary"
-                                            : "bg-color-special"
-                                    )}
-                                    onClick={() => {
-                                        setLayoutMode(layoutVertical);
-                                        syncLayout();
-                                    }}
-                                >
-                                    <LayoutDistributeVertical />
-                                </PrimaryButton>
-
-                                <PrimaryButton
-                                    className={clsx(
-                                        "h-fit w-fit py-1",
-                                        layoutMode === layoutGrid
-                                            ? "bg-color-secondary"
-                                            : "bg-color-special"
-                                    )}
-                                    onClick={() => {
-                                        setLayoutMode(layoutGrid);
-                                        syncLayout();
-                                    }}
-                                >
-                                    <LayoutGrid />
-                                </PrimaryButton>
-                            </span>
-                            <h1 className="flex font-bold text-2xl align-center">
-                                {characterState.name} &mdash; Level&nbsp;
-                                {characterState.level} {characterState.class}
-                            </h1>
-
+                            <FifthEditionCharacterSheetHeader
+                                layoutMode={layoutMode}
+                                setLayoutMode={setLayoutMode}
+                                syncLayout={syncLayout}
+                            />
                             <div
                                 className={clsx(
                                     "overflow-auto gap-3",
@@ -211,14 +137,14 @@ const fifthEditionCharacterSheet: React.FC = () => {
                                     <HealthContent character={character} />
                                 </SheetAccordion>
 
-                                <SheetAccordion
-                                    headerContent={`Ability Scores`}
-                                >
-                                    <AbilityScoresContent />
-                                </SheetAccordion>
-
                                 <SheetAccordion headerContent={"Skills"}>
                                     <SkillsContent />
+                                </SheetAccordion>
+
+                                <SheetAccordion
+                                    headerContent={"Ability Scores"}
+                                >
+                                    <AbilityScoresContent />
                                 </SheetAccordion>
 
                                 <SheetAccordion headerContent={"Spells"}>
@@ -239,6 +165,26 @@ const fifthEditionCharacterSheet: React.FC = () => {
 
                                 <SheetAccordion headerContent={"Equipment"}>
                                     <EquipmentContent />
+                                </SheetAccordion>
+
+                                <SheetAccordion headerContent={"Defenses"}>
+                                    <DefensesContent />
+                                </SheetAccordion>
+
+                                <SheetAccordion headerContent={"Proficiencies"}>
+                                    <ProficienciesContent />
+                                </SheetAccordion>
+
+                                <SheetAccordion headerContent={"Languages"}>
+                                    <LanguagesContent />
+                                </SheetAccordion>
+
+                                <SheetAccordion headerContent={"Images"}>
+                                    <ImagesContent />
+                                </SheetAccordion>
+
+                                <SheetAccordion headerContent={"Notes"}>
+                                    <NotesContent />
                                 </SheetAccordion>
                             </div>
                         </div>

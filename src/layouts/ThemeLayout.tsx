@@ -18,9 +18,11 @@ import { useDocument } from "react-firebase-hooks/firestore";
 import { loaderURL } from "@/components/Loader";
 import { TextButton } from "@/components/Buttons/TextButton";
 import ReactTooltip from "react-tooltip";
-import { useUser } from "@/services/user-service";
+import { User, useUser } from "@/services/user-service";
 import { setDocMerge } from "@/services/firebase-helpers";
 import { twMerge } from "tailwind-merge";
+import { useSettingsStore } from "@/lib/stores/SettingsStore";
+import { layoutHorizontal } from "@/components/Dashboard/Dashboard";
 
 const flexSyles = "flex flex-1 grow flex-col justify-start";
 const textStyles = "text-color-text";
@@ -52,8 +54,34 @@ export const ThemeLayout: React.FC<Props> = ({ children, backgroundImage }) => {
     //     }
     // }, [user, setTheme, userCurrentTheme, theme]);
 
+    const staticUser = userDoc?.data() as User;
+    const settingsStore = useSettingsStore();
+    if (user && !!staticUser) {
+        settingsStore.firebaseUser = user;
+        settingsStore.settings.currentLayout =
+            staticUser.settings?.currentLayout || layoutHorizontal;
+        settingsStore.settings.currentTheme =
+            staticUser.settings?.currentTheme || theme;
+        settingsStore.settings.dashboardBackgroundImageLink =
+            staticUser.settings?.dashboardBackgroundImageLink ||
+            backgroundImage ||
+            "";
+        settingsStore.settings.sheetAccordionBlur =
+            staticUser.settings?.sheetAccordionBlur || true;
+        settingsStore.userDoc = userDoc;
+    }
+
     return (
         <>
+            <div
+                className="fixed w-full -z-10 h-full blur-sm"
+                style={{
+                    backgroundImage: `url(${backgroundImage})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center center",
+                    backgroundRepeat: "no-repeat",
+                }}
+            ></div>
             <div
                 data-theme={theme}
                 className={twMerge(
@@ -63,12 +91,6 @@ export const ThemeLayout: React.FC<Props> = ({ children, backgroundImage }) => {
                     showSidebar ? "grid grid-cols-[0fr_1fr] touch-none" : "",
                     "scroll-smooth transition-all duration-300 ease-in-out text-lg z-0 overflow-hidden"
                 )}
-                style={{
-                    backgroundImage: `url(${backgroundImage})`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center center",
-                    backgroundRepeat: "no-repeat",
-                }}
             >
                 <button
                     className={clsx(
@@ -87,7 +109,6 @@ export const ThemeLayout: React.FC<Props> = ({ children, backgroundImage }) => {
                         />
                     )}
                 </button>
-
                 <header>
                     <div
                         className={clsx(
@@ -163,21 +184,6 @@ export const ThemeLayout: React.FC<Props> = ({ children, backgroundImage }) => {
                                 setDocMerge(userDoc, {
                                     settings: {
                                         currentTheme: ThemesEnum.DEFAULT,
-                                    },
-                                });
-                            }}
-                        />
-
-                        <ThemeButton
-                            themeSet={setTheme}
-                            theme={ThemesEnum.DEFAULT_LIGHT}
-                            fontSet={setFontStyles}
-                            font="fira"
-                            className="mb-3"
-                            onClick={() => {
-                                setDocMerge(userDoc, {
-                                    settings: {
-                                        currentTheme: ThemesEnum.DEFAULT_LIGHT,
                                     },
                                 });
                             }}
