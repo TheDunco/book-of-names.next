@@ -11,7 +11,7 @@ export const AbilityScoresContent: React.FC = () => {
     if (!character) return <Loader />;
 
     return (
-        <div className="grid grid-cols-1 lg:grid-cols-2">
+        <div className="grid grid-cols-2">
             <CharacterInputValue
                 label="Charisma:"
                 value={characterState.abilityScores.charisma.value}

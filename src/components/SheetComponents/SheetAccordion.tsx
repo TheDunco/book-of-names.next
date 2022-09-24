@@ -14,12 +14,14 @@ export const SheetAccordion: React.FC<AccordionProps> = ({
     headerContent,
 }) => {
     const [expanded, toggleExpanded] = useToggle(true, [true, false]);
+    // const settings = useSettingsStore((state) => state.settings);
     return (
-        <div className={clsx("", className)}>
+        <div className={className}>
             <div
                 aria-label="accordion-border"
                 className={clsx(
-                    "flex flex-col border backdrop-blur-xl border-color-special rounded-md p-3 transition-all duration-300 ease-in-out min-w-fit"
+                    "flex flex-col border bg-color-bg border-color-special rounded-md p-3 transition-all duration-300 ease-in-out min-w-[200px] max-w-screen",
+                    "sm:bg-transparent sm:backdrop-blur-xl" // this eventually should be toggleable
                 )}
             >
                 <div
