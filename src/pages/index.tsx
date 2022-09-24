@@ -18,7 +18,7 @@ export const Index = () => {
                 />
             }
         >
-            <ThemeLayout>
+            <ThemeLayout backgroundImage={user && user.photoURL}>
                 {!user && userLoading && (
                     <div className="w-full flex justify-center align-center">
                         <Loader />

@@ -1,5 +1,11 @@
+import { AbilitiesContent } from "@/components/5e/AbilitiesContent";
 import { AbilityScoresContent } from "@/components/5e/AbilityScoresContent";
+import { ActionsContent } from "@/components/5e/ActionsContent";
+import { EquipmentContent } from "@/components/5e/EquipmentContent";
+import { FeatsContent } from "@/components/5e/FeatsContent";
 import { HealthContent } from "@/components/5e/HealthContent";
+import { SkillsContent } from "@/components/5e/SkillsContent";
+import { SpellsContent } from "@/components/5e/SpellsContent";
 import { PrimaryButton } from "@/components/Buttons/PrimaryButton";
 import { TextButton } from "@/components/Buttons/TextButton";
 import {
@@ -101,7 +107,7 @@ const fifthEditionCharacterSheet: React.FC = () => {
                 </ThemeLayout>
             ) : (
                 character && (
-                    <ThemeLayout>
+                    <ThemeLayout backgroundImage={staticCharacter.imageLink}>
                         {characterError && <div>{characterError.message}</div>}
                         <div
                             className={clsx(
@@ -175,7 +181,7 @@ const fifthEditionCharacterSheet: React.FC = () => {
                                     <LayoutGrid />
                                 </PrimaryButton>
                             </span>
-                            <h1 className="flex font-bold text-3xl align-center">
+                            <h1 className="flex font-bold text-2xl align-center">
                                 {characterState.name} &mdash; Level&nbsp;
                                 {characterState.level} {characterState.class}
                             </h1>
@@ -193,6 +199,7 @@ const fifthEditionCharacterSheet: React.FC = () => {
                                         character={character}
                                     ></SummaryContent>
                                 </SheetAccordion>
+
                                 <SheetAccordion
                                     headerContent={`Health: ${
                                         Number(
@@ -203,10 +210,35 @@ const fifthEditionCharacterSheet: React.FC = () => {
                                 >
                                     <HealthContent character={character} />
                                 </SheetAccordion>
+
                                 <SheetAccordion
                                     headerContent={`Ability Scores`}
                                 >
                                     <AbilityScoresContent />
+                                </SheetAccordion>
+
+                                <SheetAccordion headerContent={"Skills"}>
+                                    <SkillsContent />
+                                </SheetAccordion>
+
+                                <SheetAccordion headerContent={"Spells"}>
+                                    <SpellsContent />
+                                </SheetAccordion>
+
+                                <SheetAccordion headerContent={"Actions"}>
+                                    <ActionsContent />
+                                </SheetAccordion>
+
+                                <SheetAccordion headerContent={"Abilities"}>
+                                    <AbilitiesContent />
+                                </SheetAccordion>
+
+                                <SheetAccordion headerContent={"Feats"}>
+                                    <FeatsContent />
+                                </SheetAccordion>
+
+                                <SheetAccordion headerContent={"Equipment"}>
+                                    <EquipmentContent />
                                 </SheetAccordion>
                             </div>
                         </div>

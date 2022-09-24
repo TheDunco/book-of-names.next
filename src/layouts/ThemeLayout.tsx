@@ -29,9 +29,10 @@ const defaultTheme = ThemesEnum.DEFAULT;
 
 interface Props {
     children: React.ReactNode;
+    backgroundImage?: string | null;
 }
 
-export const ThemeLayout: React.FC<Props> = ({ children }) => {
+export const ThemeLayout: React.FC<Props> = ({ children, backgroundImage }) => {
     const { user } = useUser();
     const [theme, setTheme] = useLocalStorage({
         key: localStorageThemeEntry,
@@ -60,8 +61,14 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                     textStyles,
                     fontStyles,
                     showSidebar ? "grid grid-cols-[0fr_1fr] touch-none" : "",
-                    "scroll-smooth bg-color-secondary transition-all duration-300 ease-in-out text-lg z-0 overflow-hidden"
+                    "scroll-smooth transition-all duration-300 ease-in-out text-lg z-0 overflow-hidden"
                 )}
+                style={{
+                    backgroundImage: `url(${backgroundImage})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center center",
+                    backgroundRepeat: "no-repeat",
+                }}
             >
                 <button
                     className={clsx(
@@ -82,7 +89,12 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                 </button>
 
                 <header>
-                    <div className="fixed w-full bg-color-primary h-16 shadow-lg">
+                    <div
+                        className={clsx(
+                            "fixed w-full bg-color-primary h-16 shadow-lg",
+                            showSidebar && "blur-sm"
+                        )}
+                    >
                         <div className="absolute text-color-primary sm:text-color-bg left-[calc(50%-7rem)] transition-all duration-300 whitespace-nowrap text-2xl top-3 sm:top-2 sm:text-3xl z-0 select-none">
                             {AppConfig.title}
                         </div>
@@ -366,7 +378,12 @@ export const ThemeLayout: React.FC<Props> = ({ children }) => {
                         </div>
                     </div>
                 </aside>
-                <div className="flex h-[calc(100vh-4rem)] mt-16 max-h-full justify-start align-start overflow-hidden">
+                <div
+                    className={clsx(
+                        "flex h-[calc(100vh-4rem)] mt-16 max-h-full justify-start align-start overflow-hidden",
+                        showSidebar && "blur-sm"
+                    )}
+                >
                     {children}
                 </div>
             </div>

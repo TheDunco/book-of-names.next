@@ -25,7 +25,7 @@ export const CharacterInputValue: React.FC<Props> = ({
 }) => {
     return (
         <form
-            className={twMerge(formClassName, "flex flex-col pb-1")}
+            className={twMerge(formClassName, "flex flex-col")}
             onSubmit={(e) => {
                 e.preventDefault();
             }}
