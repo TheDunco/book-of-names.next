@@ -1,4 +1,11 @@
+import { AbilitiesContent } from "@/components/5e/AbilitiesContent";
+import { AbilityScoresContent } from "@/components/5e/AbilityScoresContent";
+import { ActionsContent } from "@/components/5e/ActionsContent";
+import { EquipmentContent } from "@/components/5e/EquipmentContent";
+import { FeatsContent } from "@/components/5e/FeatsContent";
 import { HealthContent } from "@/components/5e/HealthContent";
+import { SkillsContent } from "@/components/5e/SkillsContent";
+import { SpellsContent } from "@/components/5e/SpellsContent";
 import { PrimaryButton } from "@/components/Buttons/PrimaryButton";
 import { TextButton } from "@/components/Buttons/TextButton";
 import {
@@ -9,10 +16,12 @@ import {
 import { Loader } from "@/components/Loader";
 import { SheetAccordion } from "@/components/SheetComponents/SheetAccordion";
 import { ThemeLayout } from "@/layouts/ThemeLayout";
+import { charRefSet } from "@/lib/charRefSet";
 import { use5eCharacterStore } from "@/lib/stores/5eCharacterStore";
 import { useCharacter } from "@/services/5e-character/use-character";
 import { useUser } from "@/services/user-service";
 import { Character } from "@/types/character/5e-character";
+import { AppConfig } from "@/utils/AppConfig";
 import { useLocalStorage } from "@mantine/hooks";
 import clsx from "clsx";
 import { useRouter } from "next/router";
@@ -60,7 +69,22 @@ const fifthEditionCharacterSheet: React.FC = () => {
     const staticCharacter = check as Character;
     const characterState = use5eCharacterStore();
 
-    if (!characterLoading && Boolean(check)) {
+    const mapAbilityScores = () => {
+        characterState.abilityScores.charisma =
+            staticCharacter.abilityScores.scores.Charisma;
+        characterState.abilityScores.constitution =
+            staticCharacter.abilityScores.scores.Constitution;
+        characterState.abilityScores.dexterity =
+            staticCharacter.abilityScores.scores.Dexterity;
+        characterState.abilityScores.intelligence =
+            staticCharacter.abilityScores.scores.Intelligence;
+        characterState.abilityScores.strength =
+            staticCharacter.abilityScores.scores.Strength;
+        characterState.abilityScores.wisdom =
+            staticCharacter.abilityScores.scores.Wisdom;
+    };
+
+    if (!characterLoading && Boolean(check) && !!character) {
         characterState.firebaseCharacter = character;
         characterState.name = staticCharacter.name;
         characterState.class = staticCharacter.class;
@@ -69,6 +93,10 @@ const fifthEditionCharacterSheet: React.FC = () => {
         characterState.health = staticCharacter.health;
         characterState.unconscious = staticCharacter.unconscious;
         characterState.dead = staticCharacter.dead;
+        mapAbilityScores();
+        charRefSet(character, {
+            currentVersion: AppConfig.version,
+        });
     }
 
     return (
@@ -79,7 +107,7 @@ const fifthEditionCharacterSheet: React.FC = () => {
                 </ThemeLayout>
             ) : (
                 character && (
-                    <ThemeLayout>
+                    <ThemeLayout backgroundImage={staticCharacter.imageLink}>
                         {characterError && <div>{characterError.message}</div>}
                         <div
                             className={clsx(
@@ -153,7 +181,7 @@ const fifthEditionCharacterSheet: React.FC = () => {
                                     <LayoutGrid />
                                 </PrimaryButton>
                             </span>
-                            <h1 className="flex font-bold text-3xl align-center">
+                            <h1 className="flex font-bold text-2xl align-center">
                                 {characterState.name} &mdash; Level&nbsp;
                                 {characterState.level} {characterState.class}
                             </h1>
@@ -171,6 +199,7 @@ const fifthEditionCharacterSheet: React.FC = () => {
                                         character={character}
                                     ></SummaryContent>
                                 </SheetAccordion>
+
                                 <SheetAccordion
                                     headerContent={`Health: ${
                                         Number(
@@ -180,6 +209,36 @@ const fifthEditionCharacterSheet: React.FC = () => {
                                     }/${staticCharacter.health.hpMax}`}
                                 >
                                     <HealthContent character={character} />
+                                </SheetAccordion>
+
+                                <SheetAccordion
+                                    headerContent={`Ability Scores`}
+                                >
+                                    <AbilityScoresContent />
+                                </SheetAccordion>
+
+                                <SheetAccordion headerContent={"Skills"}>
+                                    <SkillsContent />
+                                </SheetAccordion>
+
+                                <SheetAccordion headerContent={"Spells"}>
+                                    <SpellsContent />
+                                </SheetAccordion>
+
+                                <SheetAccordion headerContent={"Actions"}>
+                                    <ActionsContent />
+                                </SheetAccordion>
+
+                                <SheetAccordion headerContent={"Abilities"}>
+                                    <AbilitiesContent />
+                                </SheetAccordion>
+
+                                <SheetAccordion headerContent={"Feats"}>
+                                    <FeatsContent />
+                                </SheetAccordion>
+
+                                <SheetAccordion headerContent={"Equipment"}>
+                                    <EquipmentContent />
                                 </SheetAccordion>
                             </div>
                         </div>

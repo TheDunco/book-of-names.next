@@ -33,7 +33,7 @@ export const Checkbox: React.FC<Props> = ({
                 />
                 <label
                     htmlFor={`checkbox-${id}`}
-                    className="ml-2 text-sm font-lg text-color-text "
+                    className="ml-2 text-sm text-color-text "
                 >
                     {label}
                 </label>

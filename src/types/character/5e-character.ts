@@ -112,7 +112,7 @@ export interface AbilityScore {
 }
 
 export interface AbilityScores {
-    scores: AbilityScore[];
+    scores: Record<AbilityScoresEnum, AbilityScore>;
 }
 
 export interface NSD {
