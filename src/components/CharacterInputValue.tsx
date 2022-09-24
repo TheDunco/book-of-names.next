@@ -8,9 +8,10 @@ interface Props {
     value: string | number | readonly string[] | undefined;
     onChange: (e: ChangeEvent<HTMLInputElement>) => void;
     label?: React.ReactNode;
+    type?: "text" | "number";
 }
 
-const standardStyles = "bg-color-bg text-color-text ";
+const standardStyles = "pl-3 bg-color-bg text-color-text";
 const stateStyles =
     "border border-opacity-50 rounded-md hover:border-opacity-100 hover:ring-1 hover:ring-color-secondary focus:border-color-primary focus:ring-0";
 
@@ -20,10 +21,11 @@ export const CharacterInputValue: React.FC<Props> = ({
     formClassName,
     onChange,
     label,
+    type,
 }) => {
     return (
         <form
-            className={twMerge(formClassName, "flex flex-row py-2")}
+            className={twMerge(formClassName, "flex flex-col")}
             onSubmit={(e) => {
                 e.preventDefault();
             }}
@@ -35,13 +37,8 @@ export const CharacterInputValue: React.FC<Props> = ({
         >
             <label className="mr-3">{label}</label>
             <input
-                className={clsx(
-                    className,
-                    stateStyles,
-                    standardStyles,
-                    "flex-1"
-                )}
-                type="text"
+                className={clsx(className, stateStyles, standardStyles)}
+                type={type}
                 value={value}
                 onChange={onChange}
                 onClick={(e) => {

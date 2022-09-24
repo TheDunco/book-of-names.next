@@ -67,7 +67,7 @@ export const HealthContent: React.FC<Props> = ({ character }) => {
                         <h1>Take Damage/Heal</h1>
                         <form className="flex flex-row">
                             <input
-                                className="py-0 transition-all duration-200 text-center bg-color-special border-color-primary text-3xl font-bold focus:ring-color-primary w-40 md:w-48 mt-0.5 rounded-md px-2"
+                                className="py-1 transition-all duration-200 text-center bg-color-special border-color-primary text-lg font-bold focus:ring-color-primary w-40 md:w-48 mt-0.5 rounded-md px-2"
                                 type="number"
                                 value={granularHealthValue}
                                 onChange={(e) => {
@@ -117,7 +117,7 @@ export const HealthContent: React.FC<Props> = ({ character }) => {
 
                     <form onKeyDownCapture={preventSubmission}>
                         <input
-                            className="py-0 text-left bg-color-bg border-color-primary text-3xl font-bold focus:ring-color-primary w-32 mt-0.5 rounded-md px-2"
+                            className="py-1 text-left bg-color-bg border-color-primary text-lg font-bold focus:ring-color-primary w-32 mt-0.5 rounded-md px-2"
                             type="number"
                             value={staticHealth.hpCurrent}
                             id="hp-current"
@@ -134,7 +134,7 @@ export const HealthContent: React.FC<Props> = ({ character }) => {
                     <Plus className="ml-12 my-1" />
                     <form onKeyDownCapture={preventSubmission}>
                         <input
-                            className="text-color-special font-thin py-0 text-left bg-color-bg border-color-special text-3xl focus:ring-color-special w-32 mt-0.5 rounded-md px-2"
+                            className="text-color-special font-thin py-1 text-left bg-color-bg border-color-special text-lg focus:ring-color-special w-32 mt-0.5 rounded-md px-2"
                             type="number"
                             value={staticHealth.hpTemp}
                             id="temp"
@@ -159,7 +159,7 @@ export const HealthContent: React.FC<Props> = ({ character }) => {
                     <span className="inline-flex">
                         <form onKeyDownCapture={preventSubmission}>
                             <input
-                                className="text-color-secondary py-0 text-left bg-color-bg border-color-primary text-3xl font-extrabold focus:ring-color-secondary w-32 mt-0.5 rounded-md px-2"
+                                className="text-color-secondary py-1 text-left bg-color-bg border-color-primary text-lg font-extrabold focus:ring-color-secondary w-32 mt-0.5 rounded-md px-2"
                                 type="text"
                                 disabled={true}
                                 id="hp-total"
@@ -182,7 +182,7 @@ export const HealthContent: React.FC<Props> = ({ character }) => {
 
                         <form onKeyDownCapture={preventSubmission}>
                             <input
-                                className="py-0 text-left bg-color-bg border-color-primary text-3xl font-bold focus:ring-color-primary w-32 mt-0.5 rounded-md px-2"
+                                className="py-1 text-left bg-color-bg border-color-primary text-lg font-bold focus:ring-color-primary w-32 mt-0.5 rounded-md px-2"
                                 type="number"
                                 value={staticHealth.hpMax}
                                 id="max"
@@ -210,7 +210,7 @@ export const HealthContent: React.FC<Props> = ({ character }) => {
                         </label>
                         <input
                             id="hit-dice"
-                            className="py-0 text-left bg-color-bg border-color-primary text-3xl font-bold focus:ring-color-primary w-32 mt-0.5 rounded-md px-2"
+                            className="py-1 text-left bg-color-bg border-color-primary text-lg font-bold focus:ring-color-primary w-32 mt-0.5 rounded-md px-2"
                             type="number"
                             value={staticHealth.hitDiceCurrent}
                             onChange={(e) => {
@@ -222,7 +222,7 @@ export const HealthContent: React.FC<Props> = ({ character }) => {
                         <h2 className="text-4xl font-bold mx-3 -mt-2 text-color-secondary">
                             /
                         </h2>
-                        <h2 className="text-3xl font-bold text-color-text">
+                        <h2 className="text-lg font-bold text-color-text">
                             {characterState.level}
                         </h2>
                     </form>

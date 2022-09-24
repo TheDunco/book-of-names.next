@@ -34,7 +34,7 @@ a:hover {
         --color-text: #a48e65;
         --color-primary: #caa247;
         --color-secondary: #fff8e8;
-        --color-special: #caa247;
+        --color-special: #dddddd;
     }
 
     [data-theme="classic"] {

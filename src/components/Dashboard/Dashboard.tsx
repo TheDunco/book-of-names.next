@@ -21,7 +21,8 @@ interface Props {
 }
 
 export const layoutHorizontal = "flex flex-1";
-export const layoutVertical = "flex flex-1 flex-col w-full pr-2";
+export const layoutVertical =
+    "flex flex-1 flex-col w-full pr-2 overflow-x-hidden";
 export const layoutGrid =
     "grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 pr-2 gap-3";
 const layoutKey = "dasboard-layout";
