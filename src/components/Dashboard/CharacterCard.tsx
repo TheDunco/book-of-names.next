@@ -33,7 +33,7 @@ export const CharacterCard: React.FC<Props> = ({
                     className
                 )}
                 style={{
-                    backgroundImage: `url(${characterData.imageLink})`,
+                    backgroundImage: `url(${characterData.imageLink || ""})`,
                     backgroundSize: "cover",
                     backgroundPosition: "center center",
                     backgroundRepeat: "no-repeat",
@@ -53,7 +53,9 @@ export const CharacterCard: React.FC<Props> = ({
                                         character?.data()?.name,
                                         user?.uid
                                     );
+                                    router.push("/");
                                 }}
+                                stopPropagation={true}
                             >
                                 <Minus />
                             </PrimaryButton>

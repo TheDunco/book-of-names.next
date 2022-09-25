@@ -9,6 +9,8 @@ import { PrimaryButton } from "../Buttons/PrimaryButton";
 import { KeyboardEvent, useState } from "react";
 import { Divider } from "../Divider";
 
+//TODO: Add health history - a calculation of how the health reached what it is currently
+
 interface Props {
     character: firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData>;
 }
@@ -67,7 +69,7 @@ export const HealthContent: React.FC<Props> = ({ character }) => {
                         <h1>Take Damage/Heal</h1>
                         <form className="flex flex-row">
                             <input
-                                className="py-1 transition-all duration-200 text-center bg-color-special border-color-primary text-lg font-bold focus:ring-color-primary w-40 md:w-48 mt-0.5 rounded-md px-2"
+                                className="py-1 transition-all duration-200 text-center bg-color-special border-color-primary text-lg font-bold focus:ring-color-primary w-20 mt-0.5 rounded-md px-2"
                                 type="number"
                                 value={granularHealthValue}
                                 onChange={(e) => {
@@ -117,7 +119,7 @@ export const HealthContent: React.FC<Props> = ({ character }) => {
 
                     <form onKeyDownCapture={preventSubmission}>
                         <input
-                            className="py-1 text-left bg-color-bg border-color-primary text-lg font-bold focus:ring-color-primary w-32 mt-0.5 rounded-md px-2"
+                            className="py-1 text-left bg-color-bg border-color-primary text-lg font-bold focus:ring-color-primary w-20 mt-0.5 rounded-md px-2"
                             type="number"
                             value={staticHealth.hpCurrent}
                             id="hp-current"
@@ -131,10 +133,10 @@ export const HealthContent: React.FC<Props> = ({ character }) => {
                         <label htmlFor="hp-current">&nbsp;HP</label>
                     </form>
 
-                    <Plus className="ml-12 my-1" />
+                    <Plus className="ml-6 my-1" />
                     <form onKeyDownCapture={preventSubmission}>
                         <input
-                            className="text-color-special font-thin py-1 text-left bg-color-bg border-color-special text-lg focus:ring-color-special w-32 mt-0.5 rounded-md px-2"
+                            className="text-color-special font-thin py-1 text-left bg-color-bg border-color-special text-lg focus:ring-color-special w-20 mt-0.5 rounded-md px-2"
                             type="number"
                             value={staticHealth.hpTemp}
                             id="temp"
@@ -154,12 +156,12 @@ export const HealthContent: React.FC<Props> = ({ character }) => {
                             &nbsp;Temp
                         </label>
                     </form>
-                    <Equal className="ml-12 my-1" />
+                    <Equal className="ml-6 my-1" />
 
                     <span className="inline-flex">
                         <form onKeyDownCapture={preventSubmission}>
                             <input
-                                className="text-color-secondary py-1 text-left bg-color-bg border-color-primary text-lg font-extrabold focus:ring-color-secondary w-32 mt-0.5 rounded-md px-2"
+                                className="text-color-secondary py-1 text-left bg-color-bg border-color-primary text-lg font-extrabold focus:ring-color-secondary w-20 mt-0.5 rounded-md px-2"
                                 type="text"
                                 disabled={true}
                                 id="hp-total"
@@ -182,7 +184,7 @@ export const HealthContent: React.FC<Props> = ({ character }) => {
 
                         <form onKeyDownCapture={preventSubmission}>
                             <input
-                                className="py-1 text-left bg-color-bg border-color-primary text-lg font-bold focus:ring-color-primary w-32 mt-0.5 rounded-md px-2"
+                                className="py-1 text-left bg-color-bg border-color-primary text-lg font-bold focus:ring-color-primary w-20 mt-0.5 rounded-md px-2"
                                 type="number"
                                 value={staticHealth.hpMax}
                                 id="max"
@@ -210,7 +212,7 @@ export const HealthContent: React.FC<Props> = ({ character }) => {
                         </label>
                         <input
                             id="hit-dice"
-                            className="py-1 text-left bg-color-bg border-color-primary text-lg font-bold focus:ring-color-primary w-32 mt-0.5 rounded-md px-2"
+                            className="py-1 text-left bg-color-bg border-color-primary text-lg font-bold focus:ring-color-primary w-20 rounded-md px-2"
                             type="number"
                             value={staticHealth.hitDiceCurrent}
                             onChange={(e) => {
@@ -219,7 +221,7 @@ export const HealthContent: React.FC<Props> = ({ character }) => {
                                 );
                             }}
                         />
-                        <h2 className="text-4xl font-bold mx-3 -mt-2 text-color-secondary">
+                        <h2 className="text-4xl font-bold mx-3 text-color-secondary">
                             /
                         </h2>
                         <h2 className="text-lg font-bold text-color-text">

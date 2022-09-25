@@ -25,14 +25,10 @@ type HealthState = {
 };
 
 type AbilityScoresState = {
-    abilityScores: {
-        strength: AbilityScore;
-        dexterity: AbilityScore;
-        constitution: AbilityScore;
-        intelligence: AbilityScore;
-        wisdom: AbilityScore;
-        charisma: AbilityScore;
-    };
+    abilityScores: AbilityScore[];
+    setProficient: (score: AbilityScore) => void;
+    // setHalfProficient: (score: AbilityScore) => void;
+    // setExpertise: (score: AbilityScore) => void;
 };
 
 type FifthEditionCharacterStore = SummaryState &
@@ -42,14 +38,16 @@ type FifthEditionCharacterStore = SummaryState &
         class: string;
         level: number;
         firebaseCharacter: firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData> | null;
+        proficiencyBonus: number;
     };
 
 export const use5eCharacterStore = create<FifthEditionCharacterStore>(
     (set, get) => ({
-        firebaseCharacter: null,
         name: "",
         class: "",
         level: 1,
+        firebaseCharacter: null,
+        proficiencyBonus: 2,
 
         summary: {
             age: "",
@@ -341,37 +339,111 @@ export const use5eCharacterStore = create<FifthEditionCharacterStore>(
                 });
             }
         },
-        abilityScores: {
-            charisma: {
+        abilityScores: [
+            {
                 name: AbilityScoresEnum.CHARISMA,
-                save: false,
                 value: 9,
+                proficient: false,
             },
-            constitution: {
+            {
                 name: AbilityScoresEnum.CONSTITUTION,
-                save: false,
                 value: 9,
+                proficient: false,
             },
-            dexterity: {
+            {
                 name: AbilityScoresEnum.DEXTERITY,
-                save: false,
                 value: 9,
+                proficient: false,
             },
-            intelligence: {
+            {
                 name: AbilityScoresEnum.INTELLIGENCE,
-                save: false,
                 value: 9,
+                proficient: false,
             },
-            strength: {
+            {
                 name: AbilityScoresEnum.STRENGTH,
-                save: false,
                 value: 9,
+                proficient: false,
             },
-            wisdom: {
+            {
                 name: AbilityScoresEnum.WISDOM,
-                save: false,
                 value: 9,
+                proficient: false,
             },
+        ],
+        // setHalfProficient(score) {
+        //     const character = get().firebaseCharacter;
+        //     if (!character) {
+        //         return;
+        //     }
+
+        //     charRefSet(character, {
+        //         abilityScores: {
+        //             scores: {
+        //                 [score.name]: {
+        //                     name: score.name,
+        //                     halfProficient: !score.halfProficient,
+        //                     proficient: false,
+        //                     expertise: false,
+        //                 },
+        //             },
+        //         },
+        //     });
+        // },
+        // setProficient(score) {
+        //     const character = get().firebaseCharacter;
+        //     if (!character) {
+        //         return;
+        //     }
+
+        //     charRefSet(character, {
+        //         abilityScores: {
+        //             scores: {
+        //                 [score.name]: {
+        //                     name: score.name,
+        //                     halfProficient: false,
+        //                     proficient: !score.proficient,
+        //                     expertise: false,
+        //                 },
+        //             },
+        //         },
+        //     });
+        // },
+        // setExpertise(score) {
+        //     const character = get().firebaseCharacter;
+        //     if (!character) {
+        //         return;
+        //     }
+
+        //     charRefSet(character, {
+        //         abilityScores: {
+        //             scores: {
+        //                 [score.name]: {
+        //                     name: score.name,
+        //                     halfProficient: false,
+        //                     proficient: false,
+        //                     expertise: !score.expertise,
+        //                 },
+        //             },
+        //         },
+        //     });
+        // },
+        setProficient(score) {
+            const character = get().firebaseCharacter;
+            if (!character) {
+                return;
+            }
+
+            charRefSet(character, {
+                abilityScores: {
+                    scores: {
+                        [score.name]: {
+                            name: score.name,
+                            proficient: !score.proficient,
+                        },
+                    },
+                },
+            });
         },
     })
 );

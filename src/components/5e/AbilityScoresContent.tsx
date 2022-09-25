@@ -1,8 +1,9 @@
 import { CharacterInputValue } from "../CharacterInputValue";
 import { use5eCharacterStore } from "@/lib/stores/5eCharacterStore";
 import { charRefSet } from "@/lib/charRefSet";
-import { AbilityScoresEnum } from "@/types/character/5e-character";
 import { Loader } from "../Loader";
+import { Checkbox } from "../Checkbox";
+import { toMod } from "@/services/5e-character/toMod";
 
 export const AbilityScoresContent: React.FC = () => {
     const characterState = use5eCharacterStore();
@@ -11,126 +12,86 @@ export const AbilityScoresContent: React.FC = () => {
     if (!character) return <Loader />;
 
     return (
-        <div className="grid grid-cols-2">
-            <CharacterInputValue
-                label="Charisma:"
-                value={characterState.abilityScores.charisma.value}
-                className="w-16"
-                formClassName="justify-center"
-                type="number"
-                onChange={(e) => {
-                    charRefSet(character, {
-                        abilityScores: {
-                            scores: {
-                                Charisma: {
-                                    name: AbilityScoresEnum.CHARISMA,
-                                    value: parseInt(e.target.value),
+        <div className="grid grid-cols-3">
+            <div className="grid gap-2">
+                <h2 className="border-b text-center pb-1">Score</h2>
+                {characterState.abilityScores.map((score) => (
+                    <CharacterInputValue
+                        label={score.name}
+                        value={score.value}
+                        className="w-16"
+                        formClassName="justify-center"
+                        type="number"
+                        onChange={(e) => {
+                            const val = parseInt(e.target.value);
+                            if (val < 1 || val > 30) return;
+                            charRefSet(character, {
+                                abilityScores: {
+                                    scores: {
+                                        [score.name]: {
+                                            name: score.name,
+                                            value: val,
+                                        },
+                                    },
                                 },
-                            },
-                        },
-                    });
-                }}
-            />
+                            });
+                        }}
+                    />
+                ))}
+            </div>
+            <div>
+                <h2 className="border-b text-center pb-1">Proficient</h2>
+                <div className="flex flex-col mt-2 h-full items-center justify-evenly">
+                    {Array(...characterState.abilityScores).map((score) => (
+                        <span className="flex flex-row">
+                            {/* <Tooltip
+                                content={"Half Proficiency"}
+                                direction="top"
+                            >
+                                <Checkbox
+                                    boxClassName="bg-color-text text-color-text"
+                                    checked={score.halfProficient}
+                                    onChange={() => {
+                                        characterState.setHalfProficient(score);
+                                    }}
+                                />
+                            </Tooltip> */}
 
-            <CharacterInputValue
-                label="Constitution:"
-                value={characterState.abilityScores.constitution.value}
-                className="w-16"
-                formClassName="justify-center"
-                type="number"
-                onChange={(e) => {
-                    charRefSet(character, {
-                        abilityScores: {
-                            scores: {
-                                Constitution: {
-                                    name: AbilityScoresEnum.CONSTITUTION,
-                                    value: parseInt(e.target.value),
-                                },
-                            },
-                        },
-                    });
-                }}
-            />
+                            <Checkbox
+                                boxClassName="bg-color-primary text-color-primary"
+                                checked={score.proficient}
+                                onChange={() => {
+                                    characterState.setProficient(score);
+                                }}
+                            />
 
-            <CharacterInputValue
-                label="Dexterity:"
-                value={characterState.abilityScores.dexterity.value}
-                className="w-16"
-                formClassName="justify-center"
-                type="number"
-                onChange={(e) => {
-                    charRefSet(character, {
-                        abilityScores: {
-                            scores: {
-                                Dexterity: {
-                                    name: AbilityScoresEnum.DEXTERITY,
-                                    value: parseInt(e.target.value),
-                                },
-                            },
-                        },
-                    });
-                }}
-            />
+                            {/* <Tooltip content={"Expertise"} direction="top">
+                                <Checkbox
+                                    boxClassName="bg-color-secondary text-color-bg accent-color-primary"
+                                    checked={score.expertise}
+                                    onChange={() => {
+                                        characterState.setExpertise(score);
+                                    }}
+                                />
+                            </Tooltip> */}
+                        </span>
+                    ))}
+                </div>
+            </div>
 
-            <CharacterInputValue
-                label="Intelligence:"
-                value={characterState.abilityScores.intelligence.value}
-                className="w-16"
-                formClassName="justify-center"
-                type="number"
-                onChange={(e) => {
-                    charRefSet(character, {
-                        abilityScores: {
-                            scores: {
-                                Intelligence: {
-                                    name: AbilityScoresEnum.INTELLIGENCE,
-                                    value: parseInt(e.target.value),
-                                },
-                            },
-                        },
-                    });
-                }}
-            />
-
-            <CharacterInputValue
-                label="Strength:"
-                value={characterState.abilityScores.strength.value}
-                className="w-16"
-                formClassName="justify-center"
-                type="number"
-                onChange={(e) => {
-                    charRefSet(character, {
-                        abilityScores: {
-                            scores: {
-                                Strength: {
-                                    name: AbilityScoresEnum.STRENGTH,
-                                    value: parseInt(e.target.value),
-                                },
-                            },
-                        },
-                    });
-                }}
-            />
-
-            <CharacterInputValue
-                label="Wisdom:"
-                value={characterState.abilityScores.wisdom.value}
-                className="w-16"
-                formClassName="justify-center"
-                type="number"
-                onChange={(e) => {
-                    charRefSet(character, {
-                        abilityScores: {
-                            scores: {
-                                Wisdom: {
-                                    name: AbilityScoresEnum.WISDOM,
-                                    value: parseInt(e.target.value),
-                                },
-                            },
-                        },
-                    });
-                }}
-            />
+            <div>
+                <h2 className="border-b text-center pb-1">Save</h2>
+                <div className="flex flex-col h-full items-center justify-evenly">
+                    {Array(...characterState.abilityScores).map((score) => (
+                        <div className="flex flex-row rounded-full w-10 h-10 border-color-secondary border  items-center justify-center pr-0.5 text-color-text bg-color-bg slashed-zero">
+                            {score.proficient
+                                ? toMod(score.value) +
+                                  characterState.proficiencyBonus
+                                : toMod(score.value)}
+                        </div>
+                    ))}
+                </div>
+            </div>
         </div>
     );
 };
