@@ -23,12 +23,14 @@ export const AbilityScoresContent: React.FC = () => {
                         formClassName="justify-center"
                         type="number"
                         onChange={(e) => {
+                            const val = parseInt(e.target.value);
+                            if (val < 1 || val > 30) return;
                             charRefSet(character, {
                                 abilityScores: {
                                     scores: {
                                         [score.name]: {
                                             name: score.name,
-                                            value: parseInt(e.target.value),
+                                            value: val,
                                         },
                                     },
                                 },
