@@ -83,7 +83,7 @@ export const AbilityScoresContent: React.FC = () => {
                 <h2 className="border-b text-center pb-1">Save</h2>
                 <div className="flex flex-col h-full items-center justify-evenly">
                     {Array(...characterState.abilityScores).map((score) => (
-                        <div className="flex flex-row rounded-full w-10 h-10 border-color-secondary border  items-center justify-center pr-0.5 text-color-text bg-color-bg ">
+                        <div className="flex flex-row rounded-full w-10 h-10 border-color-secondary border  items-center justify-center pr-0.5 text-color-text bg-color-bg slashed-zero">
                             {score.proficient
                                 ? toMod(score.value) +
                                   characterState.proficiencyBonus

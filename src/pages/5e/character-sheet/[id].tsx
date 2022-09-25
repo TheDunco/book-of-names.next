@@ -49,6 +49,10 @@ const fifthEditionCharacterSheet: React.FC = () => {
     const { character, characterLoading, characterError } =
         useCharacter(characterId);
 
+    if (characterError) {
+        router.push("/");
+    }
+
     const [layoutMode, setLayoutMode] = useLocalStorage({
         key: layoutKey,
         defaultValue: layoutHorizontal,
@@ -63,6 +67,7 @@ const fifthEditionCharacterSheet: React.FC = () => {
     const characterState = use5eCharacterStore();
 
     const mapAbilityScores = () => {
+        if (!staticCharacter.abilityScores.scores) return;
         characterState.abilityScores[0] =
             staticCharacter.abilityScores.scores.Charisma;
         characterState.abilityScores[1] =

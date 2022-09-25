@@ -329,7 +329,7 @@ export const ThemeLayout: React.FC<Props> = ({ children, backgroundImage }) => {
                         />
                     </div>
                     <div>
-                        <div className="mx-3 pt-5 px-0 text-center text-sm text-color-text lg:text-base border-t border-color-special">
+                        <div className="mx-3 pt-5 px-0 text-center text-sm text-color-text lg:text-base border-t border-color-special antialiased">
                             © Copyright {new Date().getFullYear()}{" "}
                             {AppConfig.author}
                             <Bullet />v{AppConfig.version}
