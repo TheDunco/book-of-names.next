@@ -109,8 +109,6 @@ export interface AbilityScore {
     name: AbilityScoresEnum;
     value: number;
     proficient: boolean;
-    halfProficient?: boolean;
-    expertise?: boolean;
 }
 
 export interface AbilityScores {

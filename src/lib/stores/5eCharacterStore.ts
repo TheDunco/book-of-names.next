@@ -27,8 +27,8 @@ type HealthState = {
 type AbilityScoresState = {
     abilityScores: AbilityScore[];
     setProficient: (score: AbilityScore) => void;
-    setHalfProficient: (score: AbilityScore) => void;
-    setExpertise: (score: AbilityScore) => void;
+    // setHalfProficient: (score: AbilityScore) => void;
+    // setExpertise: (score: AbilityScore) => void;
 };
 
 type FifthEditionCharacterStore = SummaryState &
@@ -371,25 +371,63 @@ export const use5eCharacterStore = create<FifthEditionCharacterStore>(
                 proficient: false,
             },
         ],
-        setHalfProficient(score) {
-            const character = get().firebaseCharacter;
-            if (!character) {
-                return;
-            }
+        // setHalfProficient(score) {
+        //     const character = get().firebaseCharacter;
+        //     if (!character) {
+        //         return;
+        //     }
 
-            charRefSet(character, {
-                abilityScores: {
-                    scores: {
-                        [score.name]: {
-                            name: score.name,
-                            halfProficient: !score.halfProficient,
-                            proficient: false,
-                            expertise: false,
-                        },
-                    },
-                },
-            });
-        },
+        //     charRefSet(character, {
+        //         abilityScores: {
+        //             scores: {
+        //                 [score.name]: {
+        //                     name: score.name,
+        //                     halfProficient: !score.halfProficient,
+        //                     proficient: false,
+        //                     expertise: false,
+        //                 },
+        //             },
+        //         },
+        //     });
+        // },
+        // setProficient(score) {
+        //     const character = get().firebaseCharacter;
+        //     if (!character) {
+        //         return;
+        //     }
+
+        //     charRefSet(character, {
+        //         abilityScores: {
+        //             scores: {
+        //                 [score.name]: {
+        //                     name: score.name,
+        //                     halfProficient: false,
+        //                     proficient: !score.proficient,
+        //                     expertise: false,
+        //                 },
+        //             },
+        //         },
+        //     });
+        // },
+        // setExpertise(score) {
+        //     const character = get().firebaseCharacter;
+        //     if (!character) {
+        //         return;
+        //     }
+
+        //     charRefSet(character, {
+        //         abilityScores: {
+        //             scores: {
+        //                 [score.name]: {
+        //                     name: score.name,
+        //                     halfProficient: false,
+        //                     proficient: false,
+        //                     expertise: !score.expertise,
+        //                 },
+        //             },
+        //         },
+        //     });
+        // },
         setProficient(score) {
             const character = get().firebaseCharacter;
             if (!character) {
@@ -401,28 +439,7 @@ export const use5eCharacterStore = create<FifthEditionCharacterStore>(
                     scores: {
                         [score.name]: {
                             name: score.name,
-                            halfProficient: false,
                             proficient: !score.proficient,
-                            expertise: false,
-                        },
-                    },
-                },
-            });
-        },
-        setExpertise(score) {
-            const character = get().firebaseCharacter;
-            if (!character) {
-                return;
-            }
-
-            charRefSet(character, {
-                abilityScores: {
-                    scores: {
-                        [score.name]: {
-                            name: score.name,
-                            halfProficient: false,
-                            proficient: false,
-                            expertise: !score.expertise,
                         },
                     },
                 },

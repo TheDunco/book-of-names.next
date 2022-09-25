@@ -3,7 +3,7 @@ import { use5eCharacterStore } from "@/lib/stores/5eCharacterStore";
 import { charRefSet } from "@/lib/charRefSet";
 import { Loader } from "../Loader";
 import { Checkbox } from "../Checkbox";
-import { Tooltip } from "../Tooltip";
+import { toMod } from "@/services/5e-character/toMod";
 
 export const AbilityScoresContent: React.FC = () => {
     const characterState = use5eCharacterStore();
@@ -12,7 +12,7 @@ export const AbilityScoresContent: React.FC = () => {
     if (!character) return <Loader />;
 
     return (
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-3">
             <div className="grid gap-2">
                 <h2 className="border-b text-center pb-1">Score</h2>
                 {characterState.abilityScores.map((score) => (
@@ -42,7 +42,7 @@ export const AbilityScoresContent: React.FC = () => {
                 <div className="flex flex-col mt-2 h-full items-center justify-evenly">
                     {Array(...characterState.abilityScores).map((score) => (
                         <span className="flex flex-row">
-                            <Tooltip
+                            {/* <Tooltip
                                 content={"Half Proficiency"}
                                 direction="top"
                             >
@@ -53,19 +53,17 @@ export const AbilityScoresContent: React.FC = () => {
                                         characterState.setHalfProficient(score);
                                     }}
                                 />
-                            </Tooltip>
+                            </Tooltip> */}
 
-                            <Tooltip content={"Proficiency"} direction="top">
-                                <Checkbox
-                                    boxClassName="bg-color-primary text-color-primary"
-                                    checked={score.proficient}
-                                    onChange={() => {
-                                        characterState.setProficient(score);
-                                    }}
-                                />
-                            </Tooltip>
+                            <Checkbox
+                                boxClassName="bg-color-primary text-color-primary"
+                                checked={score.proficient}
+                                onChange={() => {
+                                    characterState.setProficient(score);
+                                }}
+                            />
 
-                            <Tooltip content={"Expertise"} direction="top">
+                            {/* <Tooltip content={"Expertise"} direction="top">
                                 <Checkbox
                                     boxClassName="bg-color-secondary text-color-bg accent-color-primary"
                                     checked={score.expertise}
@@ -73,13 +71,24 @@ export const AbilityScoresContent: React.FC = () => {
                                         characterState.setExpertise(score);
                                     }}
                                 />
-                            </Tooltip>
+                            </Tooltip> */}
                         </span>
                     ))}
                 </div>
             </div>
+
             <div>
                 <h2 className="border-b text-center pb-1">Save</h2>
+                <div className="flex flex-col h-full items-center justify-evenly">
+                    {Array(...characterState.abilityScores).map((score) => (
+                        <div className="flex flex-row rounded-full w-10 h-10 border-color-secondary border  items-center justify-center pr-0.5 text-color-text bg-color-bg ">
+                            {score.proficient
+                                ? toMod(score.value) +
+                                  characterState.proficiencyBonus
+                                : toMod(score.value)}
+                        </div>
+                    ))}
+                </div>
             </div>
         </div>
     );

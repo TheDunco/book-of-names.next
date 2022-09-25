@@ -4,14 +4,14 @@ interface Props {
     children: React.ReactNode;
     content: React.ReactNode;
     delay?: number;
-    direction: string;
+    direction?: string;
 }
 
 export const Tooltip: React.FC<Props> = ({
     children,
     content,
-    delay,
-    direction,
+    delay = 700,
+    direction = "top",
 }) => {
     let timeout: NodeJS.Timeout | undefined;
     const [active, setActive] = useState(false);
@@ -19,7 +19,7 @@ export const Tooltip: React.FC<Props> = ({
     const showTip = () => {
         timeout = setTimeout(() => {
             setActive(true);
-        }, delay || 400);
+        }, delay);
     };
 
     const hideTip = () => {
@@ -37,7 +37,7 @@ export const Tooltip: React.FC<Props> = ({
             {/* Wrapping */}
             {children}
             {active && (
-                <div className={`Tooltip-Tip ${direction || "top"} p-2 `}>
+                <div className={`Tooltip-Tip ${direction} p-2 `}>
                     {/* Content */}
                     {content}
                 </div>

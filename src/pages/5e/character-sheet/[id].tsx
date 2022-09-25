@@ -138,14 +138,14 @@ const fifthEditionCharacterSheet: React.FC = () => {
                                     <HealthContent character={character} />
                                 </SheetAccordion>
 
-                                <SheetAccordion headerContent={"Skills"}>
-                                    <SkillsContent />
-                                </SheetAccordion>
-
                                 <SheetAccordion
                                     headerContent={"Ability Scores"}
                                 >
                                     <AbilityScoresContent />
+                                </SheetAccordion>
+
+                                <SheetAccordion headerContent={"Skills"}>
+                                    <SkillsContent />
                                 </SheetAccordion>
 
                                 <SheetAccordion headerContent={"Spells"}>
