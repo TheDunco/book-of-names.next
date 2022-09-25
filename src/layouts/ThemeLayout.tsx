@@ -42,7 +42,7 @@ export const ThemeLayout: React.FC<Props> = ({ children, backgroundImage }) => {
     });
     const [fontStyles, setFontStyles] = useState("font-theme-font");
     const [showSidebar, toggleSidebar] = useToggle(false, [true, false]);
-    const [showThemes, toggleThemes] = useToggle(false, [true, false]);
+    // const [showThemes, toggleThemes] = useToggle(false, [true, false]);
     const [userDoc, loading] = useDocument(
         firebase.firestore().doc(`users/${user?.uid}`)
     );
@@ -153,19 +153,14 @@ export const ThemeLayout: React.FC<Props> = ({ children, backgroundImage }) => {
                 >
                     <TextButton
                         className={clsx(
-                            "flex text-color-bg border-color-special mt-12 text-center justify-center w-[calc(100%-1.5rem)] mx-3 hover:brightness-100 py-0",
-                            showThemes ? "border-b" : ""
+                            "flex text-color-bg border-color-special mt-12 text-center justify-center w-[calc(100%-1.5rem)] mx-3 hover:brightness-100 py-0"
                         )}
-                        onClick={() => toggleThemes()}
                     >
                         <div>Change Theme</div>
                     </TextButton>
                     <div
                         className={clsx(
-                            "p-3 transition-[visibility_0.5s,_opacity_0.1s_linear]",
-                            showThemes
-                                ? "h-fit opacity-1 "
-                                : " h-0 opacity-0 hidden"
+                            "p-3 h-fit opacity-1 transition-[visibility_0.5s,_opacity_0.1s_linear]"
                         )}
                     >
                         <ThemeButton
@@ -334,20 +329,9 @@ export const ThemeLayout: React.FC<Props> = ({ children, backgroundImage }) => {
                         />
                     </div>
                     <div>
-                        <div className="mx-3 pt-5 text-center text-sm text-color-text lg:text-base border-t border-color-special">
+                        <div className="mx-3 pt-5 px-0 text-center text-sm text-color-text lg:text-base border-t border-color-special">
                             © Copyright {new Date().getFullYear()}{" "}
-                            {AppConfig.author}. Initial template powered with{" "}
-                            <span role="img" aria-label="Love">
-                                ♥
-                            </span>{" "}
-                            by{" "}
-                            <a
-                                href="https://creativedesignsguru.com"
-                                className="text-color-text"
-                            >
-                                CreativeDesignsGuru
-                            </a>
-                            .
+                            {AppConfig.author}
                             <Bullet />v{AppConfig.version}
                             <span className="flex flex-row justify-center no-underline">
                                 <a
