@@ -17,12 +17,12 @@ import {
 import { useDocument } from "react-firebase-hooks/firestore";
 import { loaderURL } from "@/components/Loader";
 import { TextButton } from "@/components/Buttons/TextButton";
-import ReactTooltip from "react-tooltip";
 import { User, useUser } from "@/services/user-service";
 import { setDocMerge } from "@/services/firebase-helpers";
 import { twMerge } from "tailwind-merge";
 import { useSettingsStore } from "@/lib/stores/SettingsStore";
 import { layoutHorizontal } from "@/components/Dashboard/Dashboard";
+import { Tooltip } from "@/components/Tooltip";
 
 const flexSyles = "flex flex-1 grow flex-col justify-start";
 const textStyles = "text-color-text";
@@ -125,27 +125,21 @@ export const ThemeLayout: React.FC<Props> = ({ children, backgroundImage }) => {
                                 user ? "visible" : "hidden"
                             )}
                         >
-                            <ReactTooltip
-                                id="logoutTip"
-                                delayShow={400}
-                                type="light"
-                            >
-                                <span>Logout</span>
-                            </ReactTooltip>
-                            <img
-                                id="user-photo"
-                                data-tip
-                                data-for="logoutTip"
-                                alt="User"
-                                aria-label="user-photo"
-                                src={loading ? loaderURL : photoURL}
-                                height="48px"
-                                width="48px"
-                                className="rounded-full cursor-pointer select-none"
-                                onClick={() => {
-                                    firebase.auth().signOut();
-                                }}
-                            />
+                            <Tooltip content="Sign out" direction="left">
+                                <img
+                                    id="user-photo"
+                                    data-tip
+                                    alt="User"
+                                    aria-label="user-photo"
+                                    src={loading ? loaderURL : photoURL}
+                                    height="48px"
+                                    width="48px"
+                                    className="rounded-full cursor-pointer select-none"
+                                    onClick={() => {
+                                        firebase.auth().signOut();
+                                    }}
+                                />
+                            </Tooltip>
                         </div>
                     </div>
                 </header>

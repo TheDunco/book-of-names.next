@@ -63,17 +63,17 @@ const fifthEditionCharacterSheet: React.FC = () => {
     const characterState = use5eCharacterStore();
 
     const mapAbilityScores = () => {
-        characterState.abilityScores.charisma =
+        characterState.abilityScores[0] =
             staticCharacter.abilityScores.scores.Charisma;
-        characterState.abilityScores.constitution =
+        characterState.abilityScores[1] =
             staticCharacter.abilityScores.scores.Constitution;
-        characterState.abilityScores.dexterity =
+        characterState.abilityScores[2] =
             staticCharacter.abilityScores.scores.Dexterity;
-        characterState.abilityScores.intelligence =
+        characterState.abilityScores[3] =
             staticCharacter.abilityScores.scores.Intelligence;
-        characterState.abilityScores.strength =
+        characterState.abilityScores[4] =
             staticCharacter.abilityScores.scores.Strength;
-        characterState.abilityScores.wisdom =
+        characterState.abilityScores[5] =
             staticCharacter.abilityScores.scores.Wisdom;
     };
 
@@ -86,6 +86,7 @@ const fifthEditionCharacterSheet: React.FC = () => {
         characterState.health = staticCharacter.health;
         characterState.unconscious = staticCharacter.unconscious;
         characterState.dead = staticCharacter.dead;
+
         mapAbilityScores();
         charRefSet(character, {
             currentVersion: AppConfig.version,

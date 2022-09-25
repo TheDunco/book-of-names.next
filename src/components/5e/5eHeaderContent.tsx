@@ -9,13 +9,13 @@ import { use5eCharacterStore } from "@/lib/stores/5eCharacterStore";
 import clsx from "clsx";
 import router from "next/router";
 import React from "react";
-import ReactTooltip from "react-tooltip";
 import {
     ArrowLeft,
     LayoutDistributeHorizontal,
     LayoutDistributeVertical,
     LayoutGrid,
 } from "tabler-icons-react";
+import { Tooltip } from "../Tooltip";
 
 interface Props {
     layoutMode: string;
@@ -30,7 +30,7 @@ export const CharacteName: React.FC<{ className?: string }> = ({
     return (
         <h1
             className={clsx(
-                "font-bold text-color-primary w-fit text-2xl align-center",
+                "font-bold text-color-text w-fit text-2xl align-center",
                 className
             )}
         >
@@ -47,77 +47,72 @@ export const FifthEditionCharacterSheetHeader: React.FC<Props> = ({
 }) => {
     return (
         <>
-            <span className="flex justify-start gap-3 my-3">
-                <div>
-                    <ReactTooltip
-                        id="backButtonTip"
-                        type="light"
-                        delayShow={400}
-                    >
-                        Back to Dashboard
-                    </ReactTooltip>
+            <span className="fixed z-50 top-0 left-14 justify-start gap-3 my-3">
+                <div className="flex w-full justify-around">
+                    <div>
+                        <Tooltip content="Back to Dashboard" direction="right">
+                            <TextButton
+                                data-tip
+                                data-for="backButtonTip"
+                                className="h-fit w-fit py-1 text-color-bg"
+                                onClick={() => {
+                                    router.push("/");
+                                }}
+                            >
+                                <ArrowLeft />
+                            </TextButton>
+                        </Tooltip>
+                    </div>
 
-                    <TextButton
-                        data-tip
-                        data-for="backButtonTip"
-                        className="h-fit w-fit py-1"
+                    <PrimaryButton
+                        className={clsx(
+                            "h-fit w-fit mt-1 mx-1",
+                            layoutMode === layoutHorizontal
+                                ? "bg-color-special"
+                                : "bg-color-secondary"
+                        )}
                         onClick={() => {
-                            router.push("/");
+                            setLayoutMode(layoutHorizontal);
+                            syncLayout();
                         }}
                     >
-                        <ArrowLeft />
-                    </TextButton>
-                </div>
+                        <LayoutDistributeHorizontal />
+                    </PrimaryButton>
 
-                <PrimaryButton
-                    className={clsx(
-                        "h-fit w-fit py-1",
-                        layoutMode === layoutHorizontal
-                            ? "bg-color-special"
-                            : "bg-color-secondary"
-                    )}
-                    onClick={() => {
-                        setLayoutMode(layoutHorizontal);
-                        syncLayout();
-                    }}
-                >
-                    <LayoutDistributeHorizontal />
-                </PrimaryButton>
+                    <PrimaryButton
+                        className={clsx(
+                            "h-fit w-fit mt-1 mx-1",
+                            layoutMode === layoutVertical
+                                ? "bg-color-special"
+                                : "bg-color-secondary"
+                        )}
+                        onClick={() => {
+                            setLayoutMode(layoutVertical);
+                            syncLayout();
+                        }}
+                    >
+                        <LayoutDistributeVertical />
+                    </PrimaryButton>
 
-                <PrimaryButton
-                    className={clsx(
-                        "h-fit w-fit py-1",
-                        layoutMode === layoutVertical
-                            ? "bg-color-special"
-                            : "bg-color-secondary"
-                    )}
-                    onClick={() => {
-                        setLayoutMode(layoutVertical);
-                        syncLayout();
-                    }}
-                >
-                    <LayoutDistributeVertical />
-                </PrimaryButton>
+                    <PrimaryButton
+                        className={clsx(
+                            "h-fit w-fit mt-1 mx-1",
+                            layoutMode === layoutGrid
+                                ? "bg-color-special"
+                                : "bg-color-secondary"
+                        )}
+                        onClick={() => {
+                            setLayoutMode(layoutGrid);
+                            syncLayout();
+                        }}
+                    >
+                        <LayoutGrid />
+                    </PrimaryButton>
 
-                <PrimaryButton
+                    {/* TODO: Fix this enough to get it working. Default on for now */}
+                    {/* <PrimaryButton
                     className={clsx(
-                        "h-fit w-fit py-1",
-                        layoutMode === layoutGrid
-                            ? "bg-color-special"
-                            : "bg-color-secondary"
-                    )}
-                    onClick={() => {
-                        setLayoutMode(layoutGrid);
-                        syncLayout();
-                    }}
-                >
-                    <LayoutGrid />
-                </PrimaryButton>
-
-                {/* TODO: Fix this enough to get it working. Default on for now */}
-                {/* <PrimaryButton
-                    className={clsx(
-                        "h-fit w-fit py-1",
+                        "h-fit w-fit",
                         settings.settings.sheetAccordionBlur
                             ? "bg-color-special"
                             : "bg-color-secondary"
@@ -128,10 +123,9 @@ export const FifthEditionCharacterSheetHeader: React.FC<Props> = ({
                 >
                     <Blur />
                 </PrimaryButton> */}
-
-                <CharacteName className="hidden md:flex" />
+                </div>
             </span>
-            <CharacteName className="md:hidden flex -mt-3 mb-2" />
+            <CharacteName />
         </>
     );
 };

@@ -108,7 +108,9 @@ export enum AbilityScoresEnum {
 export interface AbilityScore {
     name: AbilityScoresEnum;
     value: number;
-    save: boolean;
+    proficient: boolean;
+    halfProficient?: boolean;
+    expertise?: boolean;
 }
 
 export interface AbilityScores {

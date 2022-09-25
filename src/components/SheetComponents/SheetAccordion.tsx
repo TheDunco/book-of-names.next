@@ -20,8 +20,8 @@ export const SheetAccordion: React.FC<AccordionProps> = ({
             <div
                 aria-label="accordion-border"
                 className={clsx(
-                    "flex flex-col border bg-color-bg border-color-special rounded-md p-3 transition-all duration-300 ease-in-out min-w-[200px] max-w-screen",
-                    "sm:bg-transparent sm:backdrop-blur-xl" // this eventually should be toggleable
+                    "flex flex-col border bg-color-bg border-color-special rounded-md p-3 transition-all duration-300 ease-in-out min-w-[300px] max-w-screen",
+                    "sm:bg-transparent sm:backdrop-blur-[100px] shadow-lg" // this eventually should be toggleable
                 )}
             >
                 <div
