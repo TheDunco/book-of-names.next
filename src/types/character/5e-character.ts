@@ -11,6 +11,7 @@ export interface Character {
     miscProfs: string;
     health: Health;
     abilityScores: AbilityScores;
+    skills: Skills;
     summary: Summary;
     defenses: Defense;
     initiative: number;
@@ -113,6 +114,39 @@ export interface AbilityScore {
 
 export interface AbilityScores {
     scores: Record<AbilityScoresEnum, AbilityScore>;
+}
+
+export enum SkillsEnum {
+    ACROBATICS = "Acrobatics (Dex)",
+    ANIMAL_HANDLING = "Animal Handling (Wis)",
+    ARCANA = "Arcana (Int)",
+    ATHLETICS = "Athletics (Str)",
+    DECEPTION = "Deception (Cha)",
+    HISTORY = "History (Int)",
+    INSIGHT = "Insight (Wis)",
+    INTIMIDATION = "Intimidation (Cha)",
+    INVESTIGATION = "Investigation (Int)",
+    MEDICINE = "Medicine (Wis)",
+    NATURE = "Nature (Int)",
+    PERCEPTION = "Perception (Wis)",
+    PERFORMANCE = "Performance (Cha)",
+    PERSUASION = "Persuasion (Cha)",
+    RELIGION = "Religion (Int)",
+    SLEIGHT_OF_HAND = "Sleight of Hand (Dex)",
+    STEALTH = "Stealth (Dex)",
+    SURVIVAL = "Survival (Wis)",
+}
+
+export interface Skill {
+    name: SkillsEnum;
+    value: number;
+    proficient: boolean;
+    halfProficient: boolean;
+    expertise: boolean;
+}
+
+export interface Skills {
+    scores: Record<SkillsEnum, Skill>;
 }
 
 export interface NSD {

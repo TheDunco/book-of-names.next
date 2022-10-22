@@ -20,14 +20,14 @@ export const SheetAccordion: React.FC<AccordionProps> = ({
             <div
                 aria-label="accordion-border"
                 className={clsx(
-                    "flex flex-col border bg-color-bg border-color-special rounded-md p-3 transition-all duration-300 ease-in-out min-w-[300px] max-w-screen tracking-wide",
-                    "sm:bg-transparent sm:backdrop-blur-[100px] shadow-lg" // this eventually should be toggleable
+                    "flex flex-col border bg-color-bg border-color-special rounded-md p-3 transition-all duration-300 ease-in-out min-w-[300px] max-w-screen tracking-wide"
+                    // "sm:bg-transparent sm:backdrop-blur-[100px] shadow-lg" // this eventually should be toggleable
                 )}
             >
                 <div
                     aria-label="accordion-header"
                     className={clsx(
-                        "flex flex-row justify-center items-center text-2xl text-color-text sm:text-color-bg",
+                        "flex flex-row justify-center items-center text-2xl text-color-text sm:text-color-primary",
                         expanded
                             ? "border-b border-color-special mb-2 pb-2"
                             : ""

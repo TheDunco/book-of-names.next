@@ -3,6 +3,8 @@ import {
     AbilityScoresEnum,
     AlignmentEnum,
     Health,
+    Skill,
+    SkillsEnum,
     Summary,
 } from "@/types/character/5e-character";
 import firebase from "../../../firebase/clientApp";
@@ -27,13 +29,19 @@ type HealthState = {
 type AbilityScoresState = {
     abilityScores: AbilityScore[];
     setProficient: (score: AbilityScore) => void;
-    // setHalfProficient: (score: AbilityScore) => void;
-    // setExpertise: (score: AbilityScore) => void;
+};
+
+type SkillsState = {
+    skills: Skill[];
+    setSkillProficient: (skill: Skill) => void;
+    setSkillHalfProficient: (skill: Skill) => void;
+    setSkillExpertise: (skill: Skill) => void;
 };
 
 type FifthEditionCharacterStore = SummaryState &
     HealthState &
-    AbilityScoresState & {
+    AbilityScoresState &
+    SkillsState & {
         name: string;
         class: string;
         level: number;
@@ -371,63 +379,191 @@ export const use5eCharacterStore = create<FifthEditionCharacterStore>(
                 proficient: false,
             },
         ],
-        // setHalfProficient(score) {
-        //     const character = get().firebaseCharacter;
-        //     if (!character) {
-        //         return;
-        //     }
+        skills: [
+            {
+                name: SkillsEnum.ACROBATICS,
+                value: 9,
+                halfProficient: false,
+                proficient: false,
+                expertise: false,
+            },
+            {
+                name: SkillsEnum.ANIMAL_HANDLING,
+                value: 9,
+                halfProficient: false,
+                proficient: false,
+                expertise: false,
+            },
+            {
+                name: SkillsEnum.ARCANA,
+                value: 9,
+                halfProficient: false,
+                proficient: false,
+                expertise: false,
+            },
+            {
+                name: SkillsEnum.ATHLETICS,
+                value: 9,
+                halfProficient: false,
+                proficient: false,
+                expertise: false,
+            },
+            {
+                name: SkillsEnum.DECEPTION,
+                value: 9,
+                halfProficient: false,
+                proficient: false,
+                expertise: false,
+            },
+            {
+                name: SkillsEnum.HISTORY,
+                value: 9,
+                halfProficient: false,
+                proficient: false,
+                expertise: false,
+            },
+            {
+                name: SkillsEnum.INSIGHT,
+                value: 9,
+                halfProficient: false,
+                proficient: false,
+                expertise: false,
+            },
+            {
+                name: SkillsEnum.INTIMIDATION,
+                value: 9,
+                halfProficient: false,
+                proficient: false,
+                expertise: false,
+            },
+            {
+                name: SkillsEnum.INVESTIGATION,
+                value: 9,
+                halfProficient: false,
+                proficient: false,
+                expertise: false,
+            },
+            {
+                name: SkillsEnum.MEDICINE,
+                value: 9,
+                halfProficient: false,
+                proficient: false,
+                expertise: false,
+            },
+            {
+                name: SkillsEnum.NATURE,
+                value: 9,
+                halfProficient: false,
+                proficient: false,
+                expertise: false,
+            },
+            {
+                name: SkillsEnum.PERCEPTION,
+                value: 9,
+                halfProficient: false,
+                proficient: false,
+                expertise: false,
+            },
+            {
+                name: SkillsEnum.PERFORMANCE,
+                value: 9,
+                halfProficient: false,
+                proficient: false,
+                expertise: false,
+            },
+            {
+                name: SkillsEnum.PERSUASION,
+                value: 9,
+                halfProficient: false,
+                proficient: false,
+                expertise: false,
+            },
+            {
+                name: SkillsEnum.RELIGION,
+                value: 9,
+                halfProficient: false,
+                proficient: false,
+                expertise: false,
+            },
+            {
+                name: SkillsEnum.SLEIGHT_OF_HAND,
+                value: 9,
+                halfProficient: false,
+                proficient: false,
+                expertise: false,
+            },
+            {
+                name: SkillsEnum.STEALTH,
+                value: 9,
+                halfProficient: false,
+                proficient: false,
+                expertise: false,
+            },
+            {
+                name: SkillsEnum.SURVIVAL,
+                value: 9,
+                halfProficient: false,
+                proficient: false,
+                expertise: false,
+            },
+        ],
+        setSkillHalfProficient(score) {
+            const character = get().firebaseCharacter;
+            if (!character) {
+                return;
+            }
 
-        //     charRefSet(character, {
-        //         abilityScores: {
-        //             scores: {
-        //                 [score.name]: {
-        //                     name: score.name,
-        //                     halfProficient: !score.halfProficient,
-        //                     proficient: false,
-        //                     expertise: false,
-        //                 },
-        //             },
-        //         },
-        //     });
-        // },
-        // setProficient(score) {
-        //     const character = get().firebaseCharacter;
-        //     if (!character) {
-        //         return;
-        //     }
+            charRefSet(character, {
+                skills: {
+                    scores: {
+                        [score.name]: {
+                            name: score.name,
+                            halfProficient: !score.halfProficient,
+                            proficient: false,
+                            expertise: false,
+                        },
+                    },
+                },
+            });
+        },
+        setSkillProficient(score) {
+            const character = get().firebaseCharacter;
+            if (!character) {
+                return;
+            }
 
-        //     charRefSet(character, {
-        //         abilityScores: {
-        //             scores: {
-        //                 [score.name]: {
-        //                     name: score.name,
-        //                     halfProficient: false,
-        //                     proficient: !score.proficient,
-        //                     expertise: false,
-        //                 },
-        //             },
-        //         },
-        //     });
-        // },
-        // setExpertise(score) {
-        //     const character = get().firebaseCharacter;
-        //     if (!character) {
-        //         return;
-        //     }
+            charRefSet(character, {
+                skills: {
+                    scores: {
+                        [score.name]: {
+                            name: score.name,
+                            halfProficient: false,
+                            proficient: !score.proficient,
+                            expertise: false,
+                        },
+                    },
+                },
+            });
+        },
+        setSkillExpertise(score) {
+            const character = get().firebaseCharacter;
+            if (!character) {
+                return;
+            }
 
-        //     charRefSet(character, {
-        //         abilityScores: {
-        //             scores: {
-        //                 [score.name]: {
-        //                     name: score.name,
-        //                     halfProficient: false,
-        //                     proficient: false,
-        //                     expertise: !score.expertise,
-        //                 },
-        //             },
-        //         },
-        //     });
-        // },
+            charRefSet(character, {
+                skills: {
+                    scores: {
+                        [score.name]: {
+                            name: score.name,
+                            halfProficient: false,
+                            proficient: false,
+                            expertise: !score.expertise,
+                        },
+                    },
+                },
+            });
+        },
         setProficient(score) {
             const character = get().firebaseCharacter;
             if (!character) {

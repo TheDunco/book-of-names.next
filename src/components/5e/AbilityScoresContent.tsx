@@ -19,8 +19,8 @@ export const AbilityScoresContent: React.FC = () => {
                     <CharacterInputValue
                         label={score.name}
                         value={score.value}
-                        className="w-16"
-                        formClassName="justify-center"
+                        className="w-16 font-bold"
+                        formClassName="justify-center font-semibold"
                         type="number"
                         onChange={(e) => {
                             const val = parseInt(e.target.value);
